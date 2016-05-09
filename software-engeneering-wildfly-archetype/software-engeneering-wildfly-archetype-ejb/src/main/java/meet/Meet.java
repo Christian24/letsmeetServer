@@ -1,3 +1,7 @@
+package meet;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -5,9 +9,11 @@ import java.time.LocalDateTime;
  * Created by Christian on 03.05.2016.
  * Stores a new meet
  */
-public class MeetBean implements Serializable {
+public class Meet implements Serializable {
+    @GeneratedValue(unique=) @Id
+    protected int id;
     protected LocalDateTime dateTime;
-    protected CategoryBean category;
+    protected Category category;
     protected String description;
     protected String location;
     protected int maxGuests;
@@ -43,10 +49,10 @@ public class MeetBean implements Serializable {
     public void setTitle(String newTitle) {
         title = newTitle;
     }
-    public CategoryBean getCategory() {
+    public Category getCategory() {
         return category;
     }
-    public void setCategory(CategoryBean newCategory) {
+    public void setCategory(Category newCategory) {
         category = newCategory;
     }
 
