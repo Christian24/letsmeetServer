@@ -3,7 +3,7 @@ import java.io.Serializable;
 /**
  * Created by Christian on 03.05.2016.
  */
-public class CategoryBean extends Serializable {
+public class CategoryBean implements Serializable {
     protected String title;
     public String getTitle() {
         return title;

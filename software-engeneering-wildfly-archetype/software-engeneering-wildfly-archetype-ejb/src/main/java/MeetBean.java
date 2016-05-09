@@ -1,11 +1,11 @@
 import java.io.Serializable;
-import java.time;
+import java.time.LocalDateTime;
 
 /**
  * Created by Christian on 03.05.2016.
  * Stores a new meet
  */
-public class MeetBean extends Serializable {
+public class MeetBean implements Serializable {
     protected LocalDateTime dateTime;
     protected CategoryBean category;
     protected String description;
