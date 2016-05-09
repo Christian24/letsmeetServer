@@ -1,8 +1,12 @@
 package user;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import meet.Meet;
+
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Christian on 03.05.2016.
@@ -13,6 +17,15 @@ public class User implements Serializable {
     protected String userName;
     protected String password;
     protected String description;
+    @ManyToMany(mappedBy = "visitors")
+    protected Collection<Meet> meetsToVisit;
+    @OneToMany
+    @JoinColumn(name="ADMIN_FK")
+    protected Set<Meet> meetsCreated;
+    public User()
+    {
+        meetsCreated = new HashSet<Meet>();
+    }
 
     public String getUserName() {
         return userName;

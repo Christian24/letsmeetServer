@@ -1,9 +1,15 @@
 package meet;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
+import user.User;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Christian on 03.05.2016.
@@ -18,6 +24,11 @@ public class Meet implements Serializable {
     protected String location;
     protected int maxGuests;
     protected String title;
+    public Meet() {
+        visitors = new HashSet<User>();
+    }
+    @ManyToMany
+    protected Set<User> visitors;
 
     public void setDateTime(LocalDateTime newDateTime) {
         this.dateTime = newDateTime;
