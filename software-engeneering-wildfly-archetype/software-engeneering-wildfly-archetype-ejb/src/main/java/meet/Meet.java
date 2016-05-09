@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
  * Stores a new meet
  */
 public class Meet implements Serializable {
-    @GeneratedValue(unique=) @Id
+    @GeneratedValue @Id
     protected int id;
     protected LocalDateTime dateTime;
     protected Category category;
