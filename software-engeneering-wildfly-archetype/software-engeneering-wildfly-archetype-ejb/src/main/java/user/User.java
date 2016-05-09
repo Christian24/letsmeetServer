@@ -1,9 +1,15 @@
+package user;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
  * Created by Christian on 03.05.2016.
  */
-public class UserBean implements Serializable {
+@Entity
+public class User implements Serializable {
+    @Id
     protected String userName;
     protected String password;
     protected String description;
