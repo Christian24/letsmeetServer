@@ -25,7 +25,17 @@ public class User implements Serializable {
     {
         meetsCreated = new HashSet<Meet>();
     }
-
+    public Collection<Meet> getMeetsToVisit()
+    {
+        return meetsToVisit;
+    }
+    public Set<Meet> getMeetsCreated() {
+        return meetsCreated;
+    }
+    public void setMeetsToVisit(Collection<Meet> newMeetsToVisit ) {
+        meetsToVisit = newMeetsToVisit;
+    }
+    public void setMeetsCreated(Set<Meet> newMeetsCreated) {meetsCreated = newMeetsCreated;}
     public String getUserName() {
         return userName;
     }

@@ -64,6 +64,7 @@ public class Meet implements Serializable {
     public Category getCategory() {
         return category;
     }
+
     public void setCategory(Category newCategory) {
         category = newCategory;
     }
