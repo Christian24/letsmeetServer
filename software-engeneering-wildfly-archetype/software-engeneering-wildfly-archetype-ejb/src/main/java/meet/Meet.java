@@ -3,9 +3,7 @@ package meet;
 import org.omg.CORBA.PUBLIC_MEMBER;
 import user.User;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -19,8 +17,11 @@ public class Meet implements Serializable {
     @GeneratedValue @Id
     protected int id;
     protected LocalDateTime dateTime;
+    @ManyToOne
     protected Category category;
     protected String description;
+    @ManyToOne
+    protected User admin;
     protected String location;
     protected int maxGuests;
     protected String title;

@@ -19,8 +19,7 @@ public class User implements Serializable {
     protected String description;
     @ManyToMany(mappedBy = "visitors")
     protected Collection<Meet> meetsToVisit;
-    @OneToMany
-    @JoinColumn(name="ADMIN_FK")
+    @OneToMany(mappedBy = "admin")
     protected Set<Meet> meetsCreated;
     public User()
     {
