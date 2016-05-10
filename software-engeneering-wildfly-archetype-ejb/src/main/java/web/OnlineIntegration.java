@@ -15,5 +15,8 @@ import java.io.Serializable;
 public class OnlineIntegration  {
     @EJB(beanName = "UserRegistry", beanInterface = user.UserRegistry.class)
     private UserRegistry userRegistry;
+    public String helloWorld() {
+        return "Hello World!";
+    }
 
 }
