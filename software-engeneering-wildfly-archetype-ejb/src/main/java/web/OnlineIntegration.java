@@ -5,7 +5,8 @@ import user.UserRegistry;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
-import java.io.Serializable;
+import org.jboss.logging.Logger;
+
 
 /**
  * Created by Christian on 10.05.2016.
