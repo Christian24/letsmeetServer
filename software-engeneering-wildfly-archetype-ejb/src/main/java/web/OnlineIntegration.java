@@ -7,7 +7,6 @@ import javax.ejb.Stateless;
 import javax.jws.WebService;
 import org.jboss.logging.Logger;
 
-
 /**
  * Created by Christian on 10.05.2016.
  */

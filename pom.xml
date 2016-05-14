@@ -35,9 +35,8 @@
             <dependency>
                 <groupId>org.wildfly.bom</groupId>
                 <artifactId>jboss-javaee-7.0-with-tools</artifactId>
-                <version>8.2.2.Final</version>
+                <version>8.2.1.Final</version>
                 <type>pom</type>
-                <scope>import</scope>
             </dependency>
 
             <dependency>
@@ -45,7 +44,6 @@
                 <artifactId>jboss-javaee-7.0-with-hibernate</artifactId>
                 <version>8.2.1.Final</version>
                 <type>pom</type>
-                <scope>import</scope>
             </dependency>
 
         </dependencies>
