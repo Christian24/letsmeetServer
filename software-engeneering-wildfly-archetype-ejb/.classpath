@@ -33,10 +33,5 @@
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/Sergei/.eclipse/org.eclipse.platform_4.5.2_1709980481_win32_win32_x86_64/plugins/org.jboss.tools.forge.runtime_2.0.2.Final-v20160331-1851-B95/addon-repository/org-jboss-forge-addon-javaee-spi-3-0-1-Final/javaee-api-7.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Sergei/.eclipse/org.eclipse.platform_4.5.2_1709980481_win32_win32_x86_64/plugins/org.jboss.tools.forge.runtime_2.0.2.Final-v20160331-1851-B95/addon-repository/org-jboss-forge-addon-javaee-spi-3-0-1-Final/javaee-spi-3.0.1.Final-forge-addon.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Sergei/.eclipse/org.eclipse.platform_4.5.2_1709980481_win32_win32_x86_64/plugins/org.jboss.tools.forge.runtime_2.0.2.Final-v20160331-1851-B95/addon-repository/org-jboss-forge-addon-javaee-spi-3-0-1-Final/activation-1.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Sergei/.eclipse/org.eclipse.platform_4.5.2_1709980481_win32_win32_x86_64/plugins/org.jboss.tools.forge.runtime_2.0.2.Final-v20160331-1851-B95/addon-repository/org-jboss-forge-addon-javaee-spi-3-0-1-Final/javax.mail-1.5.0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Sergei/wildfly-8.2.1.Final/bin/client/jboss-client.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

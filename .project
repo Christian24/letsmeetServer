@@ -3,6 +3,8 @@
 	<name>software-engeneering-wildfly-archetype</name>
 	<comment></comment>
 	<projects>
+		<project>RemoteSystemsTempFiles</project>
+		<project>software-engineering-examples</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
