@@ -14,7 +14,11 @@ import java.util.Set;
  * Stores a new meet
  */
 public class Meet implements Serializable {
-    @GeneratedValue @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@GeneratedValue @Id
     protected int id;
     protected LocalDateTime dateTime;
     @ManyToOne

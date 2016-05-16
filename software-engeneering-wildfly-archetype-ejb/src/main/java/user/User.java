@@ -13,7 +13,11 @@ import java.util.Set;
  */
 @Entity
 public class User implements Serializable {
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	@Id
     protected String userName;
     protected String password;
     protected String description;
