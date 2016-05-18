@@ -1,5 +1,7 @@
 package web;
 
+import dataTransfer.SessionResponse;
+import helpers.ReturnCodeHelper;
 import user.User;
 
 import javax.annotation.PostConstruct;
@@ -20,32 +22,34 @@ public class OnlineIntegration  {
     protected EntityManager entityManager;
     @PersistenceContext
     protected EntityManagerFactory entityManagerFactory;
-    public void register(String name, String password, String description) {
+    public SessionResponse register(String name, String password, String description) {
 
         User preExisting = entityManager.find(User.class,name);
         if(preExisting == null) {
             //Create user, because there is no such user
-            createUser(name,password,description);
+           return createUser(name,password,description);
             //Return a new session
-        } else  {
-            //User already exists return an error
         }
+
+        return new SessionResponse(ReturnCodeHelper.NO_ACCESS);
     }
-    private void createUser(String name, String password, String description) {
+    private SessionResponse createUser(String name, String password, String description) {
         User user = new User();
         user.setUserName(name);
         user.setDescription(description);
         user.setPassword(password);
+        return new SessionResponse(user);
     }
-    public void login(String name, String password) {
+    public SessionResponse login(String name, String password) {
         User preExisting = entityManager.find(User.class,name);
 
         if (preExisting != null && preExisting.getPassword().equals(password)) {
                 //User is authenticated
+            return new SessionResponse(preExisting);
         }
 
         //ELSE: Return not authenticated
-
+        return new SessionResponse(ReturnCodeHelper.NO_ACCESS);
     }
     @PostConstruct
     public void init() {
