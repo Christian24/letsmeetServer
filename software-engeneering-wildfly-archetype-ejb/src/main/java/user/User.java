@@ -50,7 +50,7 @@ public class User implements Serializable {
     public void setDescription(String newDescription) {
         description = newDescription;
     }
-    public String getPassword(String password) {
+    public String getPassword() {
         return password;
     }
     public void setPassword(String newPassword) {
