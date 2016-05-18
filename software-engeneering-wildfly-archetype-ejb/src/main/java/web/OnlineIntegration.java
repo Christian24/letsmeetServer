@@ -20,7 +20,7 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class OnlineIntegration  {
     protected EntityManager entityManager;
-    @PersistenceContext
+    
     protected EntityManagerFactory entityManagerFactory;
     public SessionResponse register(String name, String password, String description) {
 
