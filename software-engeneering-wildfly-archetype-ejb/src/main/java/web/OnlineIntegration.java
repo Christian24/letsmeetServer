@@ -54,13 +54,15 @@ public class OnlineIntegration  {
         return new SessionResponse(ReturnCodeHelper.NO_ACCESS);
     }
     public MeetsResponse getMeets(String sessionID, LocalDateTime start, LocalDateTime end) {
-        return null;
+        return new MeetsResponse();
     }
     public MeetResponse joinMeet(String sessionID, int meetID) {
 
+        return new MeetResponse();
     }
     public MeetResponse leaveMeet(String sessionID, int meetID) {
 
+        return new MeetResponse();
     }
     public MeetResponse getMeet(String sessionID, int meetID) {
         Meet meet = dataAccessObject.getMeetById(meetID);
