@@ -23,12 +23,13 @@ public class User implements Serializable {
     protected String password;
     protected String description;
     @ManyToMany(mappedBy = "visitors")
-    protected Collection<Meet> meetsToVisit;
+    protected Set<Meet> meetsToVisit;
     @OneToMany(mappedBy = "admin")
     protected Set<Meet> meetsCreated;
     public User()
     {
         meetsCreated = new HashSet<Meet>();
+        meetsToVisit = new HashSet<Meet>();
     }
     public Collection<Meet> getMeetsToVisit()
     {
@@ -37,7 +38,7 @@ public class User implements Serializable {
     public Set<Meet> getMeetsCreated() {
         return meetsCreated;
     }
-    public void setMeetsToVisit(Collection<Meet> newMeetsToVisit ) {
+    public void setMeetsToVisit(Set<Meet> newMeetsToVisit ) {
         meetsToVisit = newMeetsToVisit;
     }
     public void setMeetsCreated(Set<Meet> newMeetsCreated) {meetsCreated = newMeetsCreated;}

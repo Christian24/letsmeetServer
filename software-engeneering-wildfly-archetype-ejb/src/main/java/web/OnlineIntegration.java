@@ -1,16 +1,18 @@
 package web;
 
+import dataAccess.DataAccessObject;
+import dataAccess.EntityManagerDAO;
 import dataTransfer.MeetResponse;
 import dataTransfer.MeetsResponse;
 import dataTransfer.SessionResponse;
 import helpers.ReturnCodeHelper;
+import meet.Meet;
+import session.Session;
 import user.User;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import java.time.LocalDateTime;
 
 
@@ -20,12 +22,10 @@ import java.time.LocalDateTime;
 @WebService
 @Stateless
 public class OnlineIntegration  {
-    protected EntityManager entityManager;
-
-    protected EntityManagerFactory entityManagerFactory;
+    protected DataAccessObject dataAccessObject;
     public SessionResponse register(String name, String password, String description) {
 
-        User preExisting = entityManager.find(User.class,name);
+        User preExisting = dataAccessObject.findUserByName(name);
         if(preExisting == null) {
             //Create user, because there is no such user
            return createUser(name,password,description);
@@ -39,11 +39,11 @@ public class OnlineIntegration  {
         user.setUserName(name);
         user.setDescription(description);
         user.setPassword(password);
-        entityManager.persist(user);
+        dataAccessObject.persist(user);
         return new SessionResponse(user);
     }
     public SessionResponse login(String name, String password) {
-        User preExisting = entityManager.find(User.class,name);
+        User preExisting = dataAccessObject.findUserByName(name);
 
         if (preExisting != null && preExisting.getPassword().equals(password)) {
                 //User is authenticated
@@ -63,16 +63,31 @@ public class OnlineIntegration  {
 
     }
     public MeetResponse getMeet(String sessionID, int meetID) {
-        return null;
+        Meet meet = dataAccessObject.getMeetById(meetID);
+        Session session = dataAccessObject.findSessionById(sessionID);
+        if(session != null && meet != null) {
+            return new MeetResponse(session,meet);
+        }
+        if(session != null){
+            return new MeetResponse(session);
+        }
+        return new MeetResponse();
     }
     public MeetsResponse getMeetsByUser(String sessionID) {
+        Session session = dataAccessObject.findSessionById(sessionID);
+if(session != null) {
+    Meet[] meets = new Meet[session.getUser().getMeetsCreated().size()];
+    session.getUser().getMeetsCreated().toArray(meets);
+  return new MeetsResponse(session, meets );
 
+}
+        return new MeetsResponse();
     }
 
     @PostConstruct
     public void init() {
         //Create our EntityManager
-    entityManager =entityManagerFactory.createEntityManager();
+        dataAccessObject = new EntityManagerDAO();
     }
 
 }
