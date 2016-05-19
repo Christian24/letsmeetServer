@@ -38,6 +38,7 @@ public class OnlineIntegration  {
         user.setUserName(name);
         user.setDescription(description);
         user.setPassword(password);
+        entityManager.persist(user);
         return new SessionResponse(user);
     }
     public SessionResponse login(String name, String password) {
