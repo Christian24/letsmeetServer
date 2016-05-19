@@ -1,16 +1,17 @@
 package web;
 
+import dataTransfer.MeetResponse;
+import dataTransfer.MeetsResponse;
 import dataTransfer.SessionResponse;
 import helpers.ReturnCodeHelper;
 import user.User;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceContext;
+import java.time.LocalDateTime;
 
 
 /**
@@ -20,7 +21,7 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class OnlineIntegration  {
     protected EntityManager entityManager;
-    
+
     protected EntityManagerFactory entityManagerFactory;
     public SessionResponse register(String name, String password, String description) {
 
@@ -51,6 +52,22 @@ public class OnlineIntegration  {
         //ELSE: Return not authenticated
         return new SessionResponse(ReturnCodeHelper.NO_ACCESS);
     }
+    public MeetsResponse getMeets(String sessionID, LocalDateTime start, LocalDateTime end) {
+        return null;
+    }
+    public MeetResponse joinMeet(String sessionID, int meetID) {
+
+    }
+    public MeetResponse leaveMeet(String sessionID, int meetID) {
+
+    }
+    public MeetResponse getMeet(String sessionID, int meetID) {
+        return null;
+    }
+    public MeetsResponse getMeetsByUser(String sessionID) {
+
+    }
+
     @PostConstruct
     public void init() {
         //Create our EntityManager

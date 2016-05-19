@@ -1,39 +1,36 @@
-package meet;
+package dataTransfer;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
+import meet.Category;
+import meet.Meet;
 import user.User;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
+
 /**
- * Created by Christian on 03.05.2016.
- * Stores a new meet
+ * Created by Christian on 19.05.2016.
  */
-public class Meet implements Serializable {
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	@GeneratedValue @Id
+public class MeetData implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     protected int id;
     protected LocalDateTime dateTime;
-    @ManyToOne
+
     protected Category category;
     protected String description;
-    @ManyToOne
-    protected User admin;
+
+    protected UserData admin;
     protected String location;
     protected int maxGuests;
     protected String title;
-    public Meet() {
-        visitors = new HashSet<User>();
+    public MeetData() {
+        visitors = new HashSet<UserData>();
     }
-    @ManyToMany
-    protected Set<User> visitors;
+
+    protected Set<UserData> visitors;
 
     public void setDateTime(LocalDateTime newDateTime) {
         this.dateTime = newDateTime;
@@ -72,15 +69,29 @@ public class Meet implements Serializable {
     public void setCategory(Category newCategory) {
         category = newCategory;
     }
-    public void setVisitors(Set<User> users) {
+    public void setVisitors(Set<UserData> users) {
         visitors = users;
     }
-    public Set<User> getVisitors() {return visitors;}
-    public void setAdmin(User admin) {
+    public Set<UserData> getVisitors() {return visitors;}
+    public void setAdmin(UserData admin) {
         this.admin = admin;
     }
-    public User getAdmin() {return admin;}
+    public UserData getAdmin() {return admin;}
 
+    public MeetData(Meet meet) {
+        this.category = meet.getCategory();
+        this.title = meet.getTitle();
+        this.location = meet.getLocation();
+        this.description = meet.getDescription();
+        this.maxGuests = meet.getMaxGuests();
+        this.dateTime = meet.getDateTime();
 
+        visitors = new HashSet<UserData>();
+        for(User user : meet.getVisitors()) {
+            UserData userData = new UserData(user);
+            visitors.add(userData);
+        }
+        this.admin = new UserData(meet.getAdmin());
 
+    }
 }

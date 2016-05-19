@@ -10,6 +10,7 @@ import java.util.Set;
 
 /**
  * Created by Christian on 03.05.2016.
+ * User object for our database
  */
 @Entity
 public class User implements Serializable {

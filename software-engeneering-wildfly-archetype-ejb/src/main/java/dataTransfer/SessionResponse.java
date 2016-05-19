@@ -10,10 +10,10 @@ import javax.jws.soap.SOAPBinding;
  * Created by Christian on 18.05.2016.
  */
 public class SessionResponse extends ReturnCodeResponse {
-    protected Session session;
+    protected SessionData session;
     public boolean isEmpty() {return session == null;}
-    public Session getSession() {return session;}
-    public void setSession(Session newSession) {
+    public SessionData getSession() {return session;}
+    public void setSession(SessionData newSession) {
         session = newSession;
     }
     public SessionResponse(int returnCode) {
@@ -21,7 +21,15 @@ public class SessionResponse extends ReturnCodeResponse {
     }
     public SessionResponse(User user) {
         super(ReturnCodeHelper.OK);
-        session = new Session();
-        session.setUser(user);
+        session = new SessionData();
+        session.setUser(new UserData(user));
+    }
+    public SessionResponse() {
+        super(ReturnCodeHelper.NO_ACCESS);
+    }
+    public SessionResponse(Session session) {
+        super(ReturnCodeHelper.OK);
+        this.setSession(new SessionData(session));
+
     }
 }
