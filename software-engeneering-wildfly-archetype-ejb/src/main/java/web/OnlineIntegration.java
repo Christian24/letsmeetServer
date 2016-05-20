@@ -13,7 +13,7 @@ import user.User;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 
 /**
@@ -53,7 +53,7 @@ public class OnlineIntegration  {
         //ELSE: Return not authenticated
         return new SessionResponse(ReturnCodeHelper.NO_ACCESS);
     }
-    public MeetsResponse getMeets(String sessionID, LocalDateTime start, LocalDateTime end) {
+    public MeetsResponse getMeets(String sessionID, Date start, Date end) {
         return new MeetsResponse();
     }
     public MeetResponse joinMeet(String sessionID, int meetID) {

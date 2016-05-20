@@ -5,7 +5,7 @@ import user.User;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,7 +20,7 @@ public class Meet implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@GeneratedValue @Id
     protected int id;
-    protected LocalDateTime dateTime;
+    protected Date dateTime;
     @ManyToOne
     protected Category category;
     protected String description;
@@ -35,10 +35,10 @@ public class Meet implements Serializable {
     @ManyToMany
     protected Set<User> visitors;
 
-    public void setDateTime(LocalDateTime newDateTime) {
+    public void setDateTime(Date newDateTime) {
         this.dateTime = newDateTime;
     }
-    public LocalDateTime getDateTime() {
+    public Date getDateTime() {
         return this.dateTime;
     }
     public String getDescription() {

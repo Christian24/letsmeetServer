@@ -5,7 +5,7 @@ import meet.Meet;
 import user.User;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,7 +17,7 @@ public class MeetData implements Serializable {
     private static final long serialVersionUID = 1L;
 
     protected int id;
-    protected LocalDateTime dateTime;
+    protected Date dateTime;
 
     protected Category category;
     protected String description;
@@ -32,10 +32,10 @@ public class MeetData implements Serializable {
 
     protected Set<UserData> visitors;
 
-    public void setDateTime(LocalDateTime newDateTime) {
+    public void setDateTime(Date newDateTime) {
         this.dateTime = newDateTime;
     }
-    public LocalDateTime getDateTime() {
+    public Date getDateTime() {
         return this.dateTime;
     }
     public String getDescription() {
