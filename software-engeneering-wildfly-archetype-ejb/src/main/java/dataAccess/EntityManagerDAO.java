@@ -83,7 +83,7 @@ public class EntityManagerDAO implements DataAccessObject {
      * @return
      */
     @Override
-    public Category findCategoryById(int categoryId) {
+    public Category findCategoryById(String categoryId) {
         return entityManager.find(Category.class,categoryId);
     }
 }

@@ -2,10 +2,12 @@ package web;
 
 import dataAccess.DataAccessObject;
 import dataAccess.EntityManagerDAO;
+import dataTransfer.CategoriesResponse;
 import dataTransfer.MeetResponse;
 import dataTransfer.MeetsResponse;
 import dataTransfer.SessionResponse;
 import helpers.ReturnCodeHelper;
+import meet.Category;
 import meet.Meet;
 import session.Session;
 import user.User;
@@ -84,6 +86,14 @@ if(session != null) {
 
 }
         return new MeetsResponse();
+    }
+    public CategoriesResponse getCategories(String sessionId) {
+        Session session = dataAccessObject.findSessionById(sessionId);
+        Category[] categories = dataAccessObject.getCategories();
+        if(session != null && categories != null) {
+            return new CategoriesResponse(session,categories);
+        }
+        return new CategoriesResponse();
     }
 
     @PostConstruct

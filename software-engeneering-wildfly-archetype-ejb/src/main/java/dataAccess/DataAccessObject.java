@@ -16,5 +16,5 @@ public interface DataAccessObject {
     public Session findSessionByIdSimple(String id);
     public Session findSessionById(String id);
     public Category[] getCategories();
-    public Category findCategoryById(int categoryId);
+    public Category findCategoryById(String categoryId);
 }
