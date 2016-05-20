@@ -19,7 +19,7 @@ public class MeetData implements Serializable {
     protected int id;
     protected Date dateTime;
 
-    protected Category category;
+    protected String category;
     protected String description;
 
     protected UserData admin;
@@ -62,11 +62,11 @@ public class MeetData implements Serializable {
     public void setTitle(String newTitle) {
         title = newTitle;
     }
-    public Category getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(Category newCategory) {
+    public void setCategory(String newCategory) {
         category = newCategory;
     }
     public void setVisitors(Set<UserData> users) {
@@ -79,7 +79,7 @@ public class MeetData implements Serializable {
     public UserData getAdmin() {return admin;}
 
     public MeetData(Meet meet) {
-        this.category = meet.getCategory();
+        this.category = meet.getCategory().getTitle();
         this.title = meet.getTitle();
         this.location = meet.getLocation();
         this.description = meet.getDescription();
