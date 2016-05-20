@@ -1,5 +1,6 @@
 package dataAccess;
 
+import meet.Category;
 import meet.Meet;
 import session.Session;
 import user.User;
@@ -14,4 +15,6 @@ public interface DataAccessObject {
     public Meet getMeetById(int id);
     public Session findSessionByIdSimple(String id);
     public Session findSessionById(String id);
+    public Category[] getCategories();
+    public Category findCategoryById(int categoryId);
 }

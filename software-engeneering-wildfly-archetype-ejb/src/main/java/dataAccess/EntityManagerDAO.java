@@ -1,11 +1,14 @@
 package dataAccess;
 
+import meet.Category;
 import meet.Meet;
 import session.Session;
 import user.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
+import java.util.List;
 
 /**
  * Created by Christian on 19.05.2016.
@@ -56,5 +59,31 @@ public class EntityManagerDAO implements DataAccessObject {
             return session;
         else
             return null;
+    }
+
+    /**
+     * Returns a list of all categories
+     * @return
+     */
+    @Override
+    public Category[] getCategories() {
+        Query query = entityManager.createQuery("SELECT e FROM Category e");
+       List categoriesResult = query.getResultList();
+        Category[] categories = new Category[categoriesResult.size()];
+        for(Object categoryObj : categoriesResult) {
+            Category category = (Category)categoryObj;
+
+        }
+        return categories;
+    }
+
+    /**
+     * Returns a category based on a categoryId
+     * @param categoryId
+     * @return
+     */
+    @Override
+    public Category findCategoryById(int categoryId) {
+        return entityManager.find(Category.class,categoryId);
     }
 }
