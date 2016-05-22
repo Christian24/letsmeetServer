@@ -3,6 +3,7 @@ package web;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -16,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;extension base="{http://web/}returnCodeResponse"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="session" type="{http://web/}session" minOccurs="0"/&gt;
+ *         &lt;element name="session" type="{http://web/}sessionData" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/extension&gt;
  *   &lt;/complexContent&gt;
@@ -29,21 +30,26 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "sessionResponse", propOrder = {
     "session"
 })
+@XmlSeeAlso({
+    MeetResponse.class,
+    MeetsResponse.class,
+    CategoriesResponse.class
+})
 public class SessionResponse
     extends ReturnCodeResponse
 {
 
-    protected Session session;
+    protected SessionData session;
 
     /**
      * Ruft den Wert der session-Eigenschaft ab.
      * 
      * @return
      *     possible object is
-     *     {@link Session }
+     *     {@link SessionData }
      *     
      */
-    public Session getSession() {
+    public SessionData getSession() {
         return session;
     }
 
@@ -52,10 +58,10 @@ public class SessionResponse
      * 
      * @param value
      *     allowed object is
-     *     {@link Session }
+     *     {@link SessionData }
      *     
      */
-    public void setSession(Session value) {
+    public void setSession(SessionData value) {
         this.session = value;
     }
 

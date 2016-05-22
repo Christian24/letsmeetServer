@@ -24,8 +24,20 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _GetCategories_QNAME = new QName("http://web/", "getCategories");
+    private final static QName _GetCategoriesResponse_QNAME = new QName("http://web/", "getCategoriesResponse");
+    private final static QName _GetMeet_QNAME = new QName("http://web/", "getMeet");
+    private final static QName _GetMeetResponse_QNAME = new QName("http://web/", "getMeetResponse");
+    private final static QName _GetMeets_QNAME = new QName("http://web/", "getMeets");
+    private final static QName _GetMeetsByUser_QNAME = new QName("http://web/", "getMeetsByUser");
+    private final static QName _GetMeetsByUserResponse_QNAME = new QName("http://web/", "getMeetsByUserResponse");
+    private final static QName _GetMeetsResponse_QNAME = new QName("http://web/", "getMeetsResponse");
     private final static QName _Init_QNAME = new QName("http://web/", "init");
     private final static QName _InitResponse_QNAME = new QName("http://web/", "initResponse");
+    private final static QName _JoinMeet_QNAME = new QName("http://web/", "joinMeet");
+    private final static QName _JoinMeetResponse_QNAME = new QName("http://web/", "joinMeetResponse");
+    private final static QName _LeaveMeet_QNAME = new QName("http://web/", "leaveMeet");
+    private final static QName _LeaveMeetResponse_QNAME = new QName("http://web/", "leaveMeetResponse");
     private final static QName _Login_QNAME = new QName("http://web/", "login");
     private final static QName _LoginResponse_QNAME = new QName("http://web/", "loginResponse");
     private final static QName _Register_QNAME = new QName("http://web/", "register");
@@ -36,6 +48,70 @@ public class ObjectFactory {
      * 
      */
     public ObjectFactory() {
+    }
+
+    /**
+     * Create an instance of {@link GetCategories }
+     * 
+     */
+    public GetCategories createGetCategories() {
+        return new GetCategories();
+    }
+
+    /**
+     * Create an instance of {@link GetCategoriesResponse }
+     * 
+     */
+    public GetCategoriesResponse createGetCategoriesResponse() {
+        return new GetCategoriesResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetMeet }
+     * 
+     */
+    public GetMeet createGetMeet() {
+        return new GetMeet();
+    }
+
+    /**
+     * Create an instance of {@link GetMeetResponse }
+     * 
+     */
+    public GetMeetResponse createGetMeetResponse() {
+        return new GetMeetResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetMeets }
+     * 
+     */
+    public GetMeets createGetMeets() {
+        return new GetMeets();
+    }
+
+    /**
+     * Create an instance of {@link GetMeetsByUser }
+     * 
+     */
+    public GetMeetsByUser createGetMeetsByUser() {
+        return new GetMeetsByUser();
+    }
+
+    /**
+     * Create an instance of {@link GetMeetsByUserResponse }
+     * 
+     */
+    public GetMeetsByUserResponse createGetMeetsByUserResponse() {
+        return new GetMeetsByUserResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetMeetsResponse }
+     * 
+     */
+    public GetMeetsResponse createGetMeetsResponse() {
+        return new GetMeetsResponse();
     }
 
     /**
@@ -52,6 +128,38 @@ public class ObjectFactory {
      */
     public InitResponse createInitResponse() {
         return new InitResponse();
+    }
+
+    /**
+     * Create an instance of {@link JoinMeet }
+     * 
+     */
+    public JoinMeet createJoinMeet() {
+        return new JoinMeet();
+    }
+
+    /**
+     * Create an instance of {@link JoinMeetResponse }
+     * 
+     */
+    public JoinMeetResponse createJoinMeetResponse() {
+        return new JoinMeetResponse();
+    }
+
+    /**
+     * Create an instance of {@link LeaveMeet }
+     * 
+     */
+    public LeaveMeet createLeaveMeet() {
+        return new LeaveMeet();
+    }
+
+    /**
+     * Create an instance of {@link LeaveMeetResponse }
+     * 
+     */
+    public LeaveMeetResponse createLeaveMeetResponse() {
+        return new LeaveMeetResponse();
     }
 
     /**
@@ -103,19 +211,35 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Session }
+     * Create an instance of {@link SessionData }
      * 
      */
-    public Session createSession() {
-        return new Session();
+    public SessionData createSessionData() {
+        return new SessionData();
     }
 
     /**
-     * Create an instance of {@link User }
+     * Create an instance of {@link UserData }
      * 
      */
-    public User createUser() {
-        return new User();
+    public UserData createUserData() {
+        return new UserData();
+    }
+
+    /**
+     * Create an instance of {@link MeetResponse }
+     * 
+     */
+    public MeetResponse createMeetResponse() {
+        return new MeetResponse();
+    }
+
+    /**
+     * Create an instance of {@link MeetsResponse }
+     * 
+     */
+    public MeetsResponse createMeetsResponse() {
+        return new MeetsResponse();
     }
 
     /**
@@ -127,6 +251,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link User }
+     * 
+     */
+    public User createUser() {
+        return new User();
+    }
+
+    /**
      * Create an instance of {@link Category }
      * 
      */
@@ -135,11 +267,83 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link LocalDateTime }
+     * Create an instance of {@link CategoriesResponse }
      * 
      */
-    public LocalDateTime createLocalDateTime() {
-        return new LocalDateTime();
+    public CategoriesResponse createCategoriesResponse() {
+        return new CategoriesResponse();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetCategories }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://web/", name = "getCategories")
+    public JAXBElement<GetCategories> createGetCategories(GetCategories value) {
+        return new JAXBElement<GetCategories>(_GetCategories_QNAME, GetCategories.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetCategoriesResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://web/", name = "getCategoriesResponse")
+    public JAXBElement<GetCategoriesResponse> createGetCategoriesResponse(GetCategoriesResponse value) {
+        return new JAXBElement<GetCategoriesResponse>(_GetCategoriesResponse_QNAME, GetCategoriesResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetMeet }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://web/", name = "getMeet")
+    public JAXBElement<GetMeet> createGetMeet(GetMeet value) {
+        return new JAXBElement<GetMeet>(_GetMeet_QNAME, GetMeet.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetMeetResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://web/", name = "getMeetResponse")
+    public JAXBElement<GetMeetResponse> createGetMeetResponse(GetMeetResponse value) {
+        return new JAXBElement<GetMeetResponse>(_GetMeetResponse_QNAME, GetMeetResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetMeets }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://web/", name = "getMeets")
+    public JAXBElement<GetMeets> createGetMeets(GetMeets value) {
+        return new JAXBElement<GetMeets>(_GetMeets_QNAME, GetMeets.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetMeetsByUser }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://web/", name = "getMeetsByUser")
+    public JAXBElement<GetMeetsByUser> createGetMeetsByUser(GetMeetsByUser value) {
+        return new JAXBElement<GetMeetsByUser>(_GetMeetsByUser_QNAME, GetMeetsByUser.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetMeetsByUserResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://web/", name = "getMeetsByUserResponse")
+    public JAXBElement<GetMeetsByUserResponse> createGetMeetsByUserResponse(GetMeetsByUserResponse value) {
+        return new JAXBElement<GetMeetsByUserResponse>(_GetMeetsByUserResponse_QNAME, GetMeetsByUserResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetMeetsResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://web/", name = "getMeetsResponse")
+    public JAXBElement<GetMeetsResponse> createGetMeetsResponse(GetMeetsResponse value) {
+        return new JAXBElement<GetMeetsResponse>(_GetMeetsResponse_QNAME, GetMeetsResponse.class, null, value);
     }
 
     /**
@@ -158,6 +362,42 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://web/", name = "initResponse")
     public JAXBElement<InitResponse> createInitResponse(InitResponse value) {
         return new JAXBElement<InitResponse>(_InitResponse_QNAME, InitResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link JoinMeet }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://web/", name = "joinMeet")
+    public JAXBElement<JoinMeet> createJoinMeet(JoinMeet value) {
+        return new JAXBElement<JoinMeet>(_JoinMeet_QNAME, JoinMeet.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link JoinMeetResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://web/", name = "joinMeetResponse")
+    public JAXBElement<JoinMeetResponse> createJoinMeetResponse(JoinMeetResponse value) {
+        return new JAXBElement<JoinMeetResponse>(_JoinMeetResponse_QNAME, JoinMeetResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link LeaveMeet }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://web/", name = "leaveMeet")
+    public JAXBElement<LeaveMeet> createLeaveMeet(LeaveMeet value) {
+        return new JAXBElement<LeaveMeet>(_LeaveMeet_QNAME, LeaveMeet.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link LeaveMeetResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://web/", name = "leaveMeetResponse")
+    public JAXBElement<LeaveMeetResponse> createLeaveMeetResponse(LeaveMeetResponse value) {
+        return new JAXBElement<LeaveMeetResponse>(_LeaveMeetResponse_QNAME, LeaveMeetResponse.class, null, value);
     }
 
     /**

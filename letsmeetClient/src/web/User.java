@@ -21,7 +21,6 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence&gt;
  *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="meetsCreated" type="{http://web/}meet" maxOccurs="unbounded" minOccurs="0"/&gt;
- *         &lt;element name="meetsToVisit" type="{http://web/}meet" maxOccurs="unbounded" minOccurs="0"/&gt;
  *         &lt;element name="password" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="userName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
@@ -36,7 +35,6 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "user", propOrder = {
     "description",
     "meetsCreated",
-    "meetsToVisit",
     "password",
     "userName"
 })
@@ -45,8 +43,6 @@ public class User {
     protected String description;
     @XmlElement(nillable = true)
     protected List<Meet> meetsCreated;
-    @XmlElement(nillable = true)
-    protected List<Meet> meetsToVisit;
     protected String password;
     protected String userName;
 
@@ -101,35 +97,6 @@ public class User {
             meetsCreated = new ArrayList<Meet>();
         }
         return this.meetsCreated;
-    }
-
-    /**
-     * Gets the value of the meetsToVisit property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the meetsToVisit property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getMeetsToVisit().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Meet }
-     * 
-     * 
-     */
-    public List<Meet> getMeetsToVisit() {
-        if (meetsToVisit == null) {
-            meetsToVisit = new ArrayList<Meet>();
-        }
-        return this.meetsToVisit;
     }
 
     /**

@@ -1,9 +1,14 @@
 
 package web;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
@@ -16,12 +21,14 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
+ *         &lt;element name="admin" type="{http://web/}user" minOccurs="0"/&gt;
  *         &lt;element name="category" type="{http://web/}category" minOccurs="0"/&gt;
- *         &lt;element name="dateTime" type="{http://web/}localDateTime" minOccurs="0"/&gt;
+ *         &lt;element name="dateTime" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
  *         &lt;element name="description" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="location" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *         &lt;element name="maxGuests" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
  *         &lt;element name="title" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="visitors" type="{http://web/}user" maxOccurs="unbounded" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -32,21 +39,51 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "meet", propOrder = {
+    "admin",
     "category",
     "dateTime",
     "description",
     "location",
     "maxGuests",
-    "title"
+    "title",
+    "visitors"
 })
 public class Meet {
 
+    protected User admin;
     protected Category category;
-    protected LocalDateTime dateTime;
+    @XmlSchemaType(name = "dateTime")
+    protected XMLGregorianCalendar dateTime;
     protected String description;
     protected String location;
     protected int maxGuests;
     protected String title;
+    @XmlElement(nillable = true)
+    protected List<User> visitors;
+
+    /**
+     * Ruft den Wert der admin-Eigenschaft ab.
+     * 
+     * @return
+     *     possible object is
+     *     {@link User }
+     *     
+     */
+    public User getAdmin() {
+        return admin;
+    }
+
+    /**
+     * Legt den Wert der admin-Eigenschaft fest.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link User }
+     *     
+     */
+    public void setAdmin(User value) {
+        this.admin = value;
+    }
 
     /**
      * Ruft den Wert der category-Eigenschaft ab.
@@ -77,10 +114,10 @@ public class Meet {
      * 
      * @return
      *     possible object is
-     *     {@link LocalDateTime }
+     *     {@link XMLGregorianCalendar }
      *     
      */
-    public LocalDateTime getDateTime() {
+    public XMLGregorianCalendar getDateTime() {
         return dateTime;
     }
 
@@ -89,10 +126,10 @@ public class Meet {
      * 
      * @param value
      *     allowed object is
-     *     {@link LocalDateTime }
+     *     {@link XMLGregorianCalendar }
      *     
      */
-    public void setDateTime(LocalDateTime value) {
+    public void setDateTime(XMLGregorianCalendar value) {
         this.dateTime = value;
     }
 
@@ -182,6 +219,35 @@ public class Meet {
      */
     public void setTitle(String value) {
         this.title = value;
+    }
+
+    /**
+     * Gets the value of the visitors property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the visitors property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getVisitors().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link User }
+     * 
+     * 
+     */
+    public List<User> getVisitors() {
+        if (visitors == null) {
+            visitors = new ArrayList<User>();
+        }
+        return this.visitors;
     }
 
 }
