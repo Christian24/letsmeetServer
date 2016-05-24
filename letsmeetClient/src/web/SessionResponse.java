@@ -31,8 +31,8 @@ import javax.xml.bind.annotation.XmlType;
     "session"
 })
 @XmlSeeAlso({
-    MeetResponse.class,
     MeetsResponse.class,
+    MeetResponse.class,
     CategoriesResponse.class
 })
 public class SessionResponse

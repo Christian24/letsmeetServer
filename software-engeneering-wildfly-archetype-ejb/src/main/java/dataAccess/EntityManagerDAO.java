@@ -9,6 +9,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ParameterExpression;
+import javax.persistence.criteria.Root;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -61,7 +66,16 @@ public class EntityManagerDAO implements DataAccessObject {
         else
             return null;
     }
+    @Override
+    public Meet[] findMeets(Date start, Date end) {
+        TypedQuery<Meet> query = entityManager.createQuery("SELECT m FROM Meet m WHERE c.datetime BETWEEN :startdate AND :enddate",Meet.class);
+      List<Meet> results = query.setParameter("startdate",start).setParameter("enddate",end).getResultList();
+        Meet[] output = new Meet[results.size()];
+        results.toArray(output);
+        return output;
 
+
+    }
     /**
      * Returns a list of all categories
      * @return

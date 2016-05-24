@@ -94,4 +94,15 @@ public class MeetData implements Serializable {
         this.admin = new UserData(meet.getAdmin());
 
     }
+    /**
+     * Checks if a user is already visitor or admin for a meet
+     * @param check
+     * @return
+     */
+    public boolean alreadyIn(UserData check) {
+        if(getAdmin().equals(check) || visitors.contains(check))
+            return true;
+
+        return false;
+    }
 }

@@ -5,6 +5,8 @@ import meet.Meet;
 import session.Session;
 import user.User;
 
+import java.util.Date;
+
 /**
  * Created by Christian on 19.05.2016.
  * DataAccessObject interface which tells us what an implementation needs to be able to do
@@ -17,4 +19,5 @@ public interface DataAccessObject {
     public Session findSessionById(String id);
     public Category[] getCategories();
     public Category findCategoryById(String categoryId);
+    public Meet[] findMeets(Date start, Date end);
 }

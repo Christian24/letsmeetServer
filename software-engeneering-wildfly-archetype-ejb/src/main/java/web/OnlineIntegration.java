@@ -61,6 +61,12 @@ public class OnlineIntegration  {
         return new ReturnCodeResponse(ReturnCodeHelper.NOT_FOUND);
     }
     public MeetsResponse getMeets(String sessionID, Date start, Date end) {
+
+        Session session = dataAccessObject.findSessionById(sessionID);
+        if(session != null) {
+            Meet[] meets = dataAccessObject.findMeets(start,end);
+            return new MeetsResponse(session,meets);
+        }
         return new MeetsResponse();
     }
     public MeetResponse joinMeet(String sessionID, int meetID) {
@@ -126,13 +132,41 @@ if(session != null) {
      * @param categoryId
      * @return
      */
-    public  MeetsResponse getMeets(String sessionId, String categoryId) {
+    public  MeetsResponse getMeetsByCategory(String sessionId, String categoryId) {
         Session session = dataAccessObject.findSessionById(sessionId);
         Category category = dataAccessObject.findCategoryById(categoryId);
         if(session != null && category != null) {
             return new MeetsResponse(session,category.getMeets());
         }
         return  new MeetsResponse();
+    }
+
+    /**
+     * Creates a new meet
+     * @param sessionId
+     * @param categoryId
+     * @param description
+     * @param title
+     * @param location
+     * @param date
+     * @return
+     */
+    public MeetResponse createMeet(String sessionId,String categoryId, String description, String title, String location,
+                                   Date date, int maxUsers) {
+        Session session = dataAccessObject.findSessionById(sessionId);
+        Category category = dataAccessObject.findCategoryById(categoryId);
+        if(session != null && category != null) {
+            Meet meet = new Meet();
+            meet.setCategory(category);
+            meet.setDescription(description);
+            meet.setTitle(title);
+            meet.setLocation(location);
+            meet.setDateTime(date);
+            meet.setMaxGuests(maxUsers);
+            dataAccessObject.persist(meet);
+            return new MeetResponse(session,meet);
+        }
+        return new MeetResponse();
     }
 
     @PostConstruct

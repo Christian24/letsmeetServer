@@ -24,11 +24,15 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _CreateMeet_QNAME = new QName("http://web/", "createMeet");
+    private final static QName _CreateMeetResponse_QNAME = new QName("http://web/", "createMeetResponse");
     private final static QName _GetCategories_QNAME = new QName("http://web/", "getCategories");
     private final static QName _GetCategoriesResponse_QNAME = new QName("http://web/", "getCategoriesResponse");
     private final static QName _GetMeet_QNAME = new QName("http://web/", "getMeet");
     private final static QName _GetMeetResponse_QNAME = new QName("http://web/", "getMeetResponse");
     private final static QName _GetMeets_QNAME = new QName("http://web/", "getMeets");
+    private final static QName _GetMeetsByCategory_QNAME = new QName("http://web/", "getMeetsByCategory");
+    private final static QName _GetMeetsByCategoryResponse_QNAME = new QName("http://web/", "getMeetsByCategoryResponse");
     private final static QName _GetMeetsByUser_QNAME = new QName("http://web/", "getMeetsByUser");
     private final static QName _GetMeetsByUserResponse_QNAME = new QName("http://web/", "getMeetsByUserResponse");
     private final static QName _GetMeetsResponse_QNAME = new QName("http://web/", "getMeetsResponse");
@@ -40,6 +44,8 @@ public class ObjectFactory {
     private final static QName _LeaveMeetResponse_QNAME = new QName("http://web/", "leaveMeetResponse");
     private final static QName _Login_QNAME = new QName("http://web/", "login");
     private final static QName _LoginResponse_QNAME = new QName("http://web/", "loginResponse");
+    private final static QName _Logout_QNAME = new QName("http://web/", "logout");
+    private final static QName _LogoutResponse_QNAME = new QName("http://web/", "logoutResponse");
     private final static QName _Register_QNAME = new QName("http://web/", "register");
     private final static QName _RegisterResponse_QNAME = new QName("http://web/", "registerResponse");
 
@@ -48,6 +54,22 @@ public class ObjectFactory {
      * 
      */
     public ObjectFactory() {
+    }
+
+    /**
+     * Create an instance of {@link CreateMeet }
+     * 
+     */
+    public CreateMeet createCreateMeet() {
+        return new CreateMeet();
+    }
+
+    /**
+     * Create an instance of {@link CreateMeetResponse }
+     * 
+     */
+    public CreateMeetResponse createCreateMeetResponse() {
+        return new CreateMeetResponse();
     }
 
     /**
@@ -88,6 +110,22 @@ public class ObjectFactory {
      */
     public GetMeets createGetMeets() {
         return new GetMeets();
+    }
+
+    /**
+     * Create an instance of {@link GetMeetsByCategory }
+     * 
+     */
+    public GetMeetsByCategory createGetMeetsByCategory() {
+        return new GetMeetsByCategory();
+    }
+
+    /**
+     * Create an instance of {@link GetMeetsByCategoryResponse }
+     * 
+     */
+    public GetMeetsByCategoryResponse createGetMeetsByCategoryResponse() {
+        return new GetMeetsByCategoryResponse();
     }
 
     /**
@@ -179,6 +217,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Logout }
+     * 
+     */
+    public Logout createLogout() {
+        return new Logout();
+    }
+
+    /**
+     * Create an instance of {@link LogoutResponse }
+     * 
+     */
+    public LogoutResponse createLogoutResponse() {
+        return new LogoutResponse();
+    }
+
+    /**
      * Create an instance of {@link Register }
      * 
      */
@@ -227,14 +281,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link MeetResponse }
-     * 
-     */
-    public MeetResponse createMeetResponse() {
-        return new MeetResponse();
-    }
-
-    /**
      * Create an instance of {@link MeetsResponse }
      * 
      */
@@ -267,11 +313,37 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link MeetResponse }
+     * 
+     */
+    public MeetResponse createMeetResponse() {
+        return new MeetResponse();
+    }
+
+    /**
      * Create an instance of {@link CategoriesResponse }
      * 
      */
     public CategoriesResponse createCategoriesResponse() {
         return new CategoriesResponse();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateMeet }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://web/", name = "createMeet")
+    public JAXBElement<CreateMeet> createCreateMeet(CreateMeet value) {
+        return new JAXBElement<CreateMeet>(_CreateMeet_QNAME, CreateMeet.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link CreateMeetResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://web/", name = "createMeetResponse")
+    public JAXBElement<CreateMeetResponse> createCreateMeetResponse(CreateMeetResponse value) {
+        return new JAXBElement<CreateMeetResponse>(_CreateMeetResponse_QNAME, CreateMeetResponse.class, null, value);
     }
 
     /**
@@ -317,6 +389,24 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://web/", name = "getMeets")
     public JAXBElement<GetMeets> createGetMeets(GetMeets value) {
         return new JAXBElement<GetMeets>(_GetMeets_QNAME, GetMeets.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetMeetsByCategory }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://web/", name = "getMeetsByCategory")
+    public JAXBElement<GetMeetsByCategory> createGetMeetsByCategory(GetMeetsByCategory value) {
+        return new JAXBElement<GetMeetsByCategory>(_GetMeetsByCategory_QNAME, GetMeetsByCategory.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetMeetsByCategoryResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://web/", name = "getMeetsByCategoryResponse")
+    public JAXBElement<GetMeetsByCategoryResponse> createGetMeetsByCategoryResponse(GetMeetsByCategoryResponse value) {
+        return new JAXBElement<GetMeetsByCategoryResponse>(_GetMeetsByCategoryResponse_QNAME, GetMeetsByCategoryResponse.class, null, value);
     }
 
     /**
@@ -416,6 +506,24 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://web/", name = "loginResponse")
     public JAXBElement<LoginResponse> createLoginResponse(LoginResponse value) {
         return new JAXBElement<LoginResponse>(_LoginResponse_QNAME, LoginResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link Logout }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://web/", name = "logout")
+    public JAXBElement<Logout> createLogout(Logout value) {
+        return new JAXBElement<Logout>(_Logout_QNAME, Logout.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link LogoutResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://web/", name = "logoutResponse")
+    public JAXBElement<LogoutResponse> createLogoutResponse(LogoutResponse value) {
+        return new JAXBElement<LogoutResponse>(_LogoutResponse_QNAME, LogoutResponse.class, null, value);
     }
 
     /**
