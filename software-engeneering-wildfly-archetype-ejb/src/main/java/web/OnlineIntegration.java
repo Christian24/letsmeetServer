@@ -21,6 +21,7 @@ import java.util.Date;
 @WebService
 @Stateless
 public class OnlineIntegration  {
+    protected final String[] categories = {"Sport", "Kultur", "Essen & Trinken", "Feiern", "Kennenlernen"};
     protected DataAccessObject dataAccessObject;
     public SessionResponse register(String name, String password, String description) {
 
@@ -173,6 +174,24 @@ if(session != null) {
     public void init() {
         //Create our EntityManager
         dataAccessObject = new EntityManagerDAO();
+        createCategories();
+    }
+
+    /**
+     * Creates our categories
+     */
+    private void createCategories() {
+        for(String category : categories) {
+            createCategory(category);
+        }
+    }
+    private void createCategory(String name) {
+        Category category = dataAccessObject.findCategoryById(name);
+        if(category != null) {
+        Category newCategory = new Category();
+            category.setTitle(name);
+            dataAccessObject.persist(category);
+        }
     }
 
 }
