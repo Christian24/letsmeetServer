@@ -8,6 +8,7 @@ import user.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
@@ -67,13 +68,12 @@ public class EntityManagerDAO implements DataAccessObject {
      */
     @Override
     public Category[] getCategories() {
-        Query query = entityManager.createQuery("SELECT e FROM Category e");
-       List categoriesResult = query.getResultList();
-        Category[] categories = new Category[categoriesResult.size()];
-        for(Object categoryObj : categoriesResult) {
-            Category category = (Category)categoryObj;
+       TypedQuery<Category> query =  entityManager.createQuery("SELECT c FROM Category c", Category.class);
 
-        }
+       List<Category> categoriesResult = query.getResultList();
+
+        Category[] categories = new Category[categoriesResult.size()];
+       categoriesResult.toArray(categories);
         return categories;
     }
 

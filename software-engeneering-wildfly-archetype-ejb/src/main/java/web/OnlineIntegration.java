@@ -59,10 +59,17 @@ public class OnlineIntegration  {
         return new MeetsResponse();
     }
     public MeetResponse joinMeet(String sessionID, int meetID) {
-
+        
         return new MeetResponse();
     }
     public MeetResponse leaveMeet(String sessionID, int meetID) {
+        Session session = dataAccessObject.findSessionById(sessionID);
+        Meet meet = dataAccessObject.getMeetById(meetID);
+
+        if(session != null && meet != null ) {
+            meet.leave(session.getUser());
+            return new MeetResponse(session,meet);
+        }
 
         return new MeetResponse();
     }
@@ -94,6 +101,21 @@ if(session != null) {
             return new CategoriesResponse(session,categories);
         }
         return new CategoriesResponse();
+    }
+
+    /**
+     * Gets all meets for a given category
+     * @param sessionId
+     * @param categoryId
+     * @return
+     */
+    public  MeetsResponse getMeets(String sessionId, String categoryId) {
+        Session session = dataAccessObject.findSessionById(sessionId);
+        Category category = dataAccessObject.findCategoryById(categoryId);
+        if(session != null && category != null) {
+            return new MeetsResponse(session,category.getMeets());
+        }
+        return  new MeetsResponse();
     }
 
     @PostConstruct

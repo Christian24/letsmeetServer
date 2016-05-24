@@ -81,6 +81,46 @@ public class Meet implements Serializable {
     }
     public User getAdmin() {return admin;}
 
+    /**
+     * Makes a new user join
+     * @param newUser
+     * @return returns true if maxVisitors is not reached and newUser is not part of meet already
+     */
+    public boolean join(User newUser) {
+
+        if(visitors.size() < getMaxGuests() || !alreadyIn(newUser)) {
+            visitors.add(newUser);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks if a user is already visitor or admin for a meet
+     * @param check
+     * @return
+     */
+    public boolean alreadyIn(User check) {
+        if(getAdmin().equals(check) || visitors.contains(check))
+            return true;
+
+        return false;
+    }
+
+    /**
+     * Makes a user leave
+     * @param wantsToLeave
+     * @return returns true if user is not admin
+     */
+    public boolean leave(User wantsToLeave) {
+
+        if(wantsToLeave.equals(getAdmin()))
+        return false;
+        else {
+           return visitors.remove(wantsToLeave);
+        }
+    }
+
 
 
 }
