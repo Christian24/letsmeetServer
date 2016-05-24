@@ -59,7 +59,19 @@ public class OnlineIntegration  {
         return new MeetsResponse();
     }
     public MeetResponse joinMeet(String sessionID, int meetID) {
-        
+        Session session = dataAccessObject.findSessionById(sessionID);
+        Meet meet = dataAccessObject.getMeetById(meetID);
+
+        if(session != null && meet != null ) {
+            boolean result =meet.join(session.getUser());
+            int returnCode = ReturnCodeHelper.OK;
+            if(result) {
+                //We were not able to join the meet, tell our client
+                returnCode = ReturnCodeHelper.NO_ACCESS;
+            }
+            return new MeetResponse(session,meet,returnCode);
+        }
+
         return new MeetResponse();
     }
     public MeetResponse leaveMeet(String sessionID, int meetID) {

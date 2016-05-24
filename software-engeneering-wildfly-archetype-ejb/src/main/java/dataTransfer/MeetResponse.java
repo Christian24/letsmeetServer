@@ -14,6 +14,11 @@ public class MeetResponse extends SessionResponse {
         super(session);
         this.meet = new MeetData( meet);
     }
+    public MeetResponse(Session session, Meet meet, int returnCode) {
+        super(session);
+        this.meet = new MeetData(meet);
+        this.setReturnCode(returnCode);
+    }
     /**
       *   Dummy constructor when we could not find a meet or session
      *   Return code is NO_ACCESS, because there is no valid session
