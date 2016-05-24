@@ -2,10 +2,7 @@ package web;
 
 import dataAccess.DataAccessObject;
 import dataAccess.EntityManagerDAO;
-import dataTransfer.CategoriesResponse;
-import dataTransfer.MeetResponse;
-import dataTransfer.MeetsResponse;
-import dataTransfer.SessionResponse;
+import dataTransfer.*;
 import helpers.ReturnCodeHelper;
 import meet.Category;
 import meet.Meet;
@@ -54,6 +51,14 @@ public class OnlineIntegration  {
 
         //ELSE: Return not authenticated
         return new SessionResponse(ReturnCodeHelper.NO_ACCESS);
+    }
+    public ReturnCodeResponse logout(String sessionID) {
+        Session session = dataAccessObject.findSessionById(sessionID);
+        if(session != null) {
+            session.setHasEnded(true);
+            return new ReturnCodeResponse(ReturnCodeHelper.OK);
+        }
+        return new ReturnCodeResponse(ReturnCodeHelper.NOT_FOUND);
     }
     public MeetsResponse getMeets(String sessionID, Date start, Date end) {
         return new MeetsResponse();
