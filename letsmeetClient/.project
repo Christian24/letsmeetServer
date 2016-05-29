@@ -3,6 +3,8 @@
 	<name>letsmeetClient</name>
 	<comment></comment>
 	<projects>
+		<project>RemoteSystemsTempFiles</project>
+		<project>software-engeneering-wildfly-archetype-web</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

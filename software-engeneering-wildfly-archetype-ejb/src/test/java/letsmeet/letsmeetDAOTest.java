@@ -10,7 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 // Not ready yet! - Sergei 25.05
-@RunWith (Aquillian.class)
+@RunWith (Arquillian.class)
 public class letsmeetDAOTest {
 
 }
