@@ -13,6 +13,7 @@ import java.util.Set;
  * Created by Christian on 03.05.2016.
  * Stores a new meet
  */
+@Entity
 public class Meet implements Serializable {
     /**
 	 * 

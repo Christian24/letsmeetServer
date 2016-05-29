@@ -2,7 +2,9 @@ package session;
 
 import user.User;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.UUID;
@@ -10,9 +12,10 @@ import java.util.UUID;
 /**
  * Created by Christian on 18.05.2016.
  */
+@Entity
 public class Session implements Serializable {
     private static final long serialVersionUID = 1L;
-    @OneToMany
+    @ManyToOne
     protected User user;
     protected boolean hasEnded;
     @Id

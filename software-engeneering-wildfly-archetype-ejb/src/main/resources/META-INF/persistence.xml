@@ -2,8 +2,7 @@
     <persistence-unit name="webwemser">
         <jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
         <properties>
-            <property name="javax.persistence.schema-generation.database.action"
-                      value="drop-create"/>
+           
         </properties>
     </persistence-unit>
 </persistence>

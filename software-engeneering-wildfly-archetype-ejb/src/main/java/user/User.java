@@ -26,6 +26,7 @@ public class User implements Serializable {
     protected Set<Meet> meetsToVisit;
     @OneToMany(mappedBy = "admin")
     protected Set<Meet> meetsCreated;
+
     public User()
     {
         meetsCreated = new HashSet<Meet>();
