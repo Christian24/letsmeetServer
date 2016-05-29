@@ -7,6 +7,7 @@ import helpers.ReturnCodeHelper;
 import meet.Category;
 import meet.Meet;
 import session.Session;
+import sun.rmi.runtime.Log;
 import user.User;
 
 import javax.annotation.PostConstruct;
@@ -14,7 +15,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
 import java.util.Date;
-
+import java.util.logging.Logger;
 
 /**
  * Created by Christian on 10.05.2016.
@@ -23,19 +24,20 @@ import java.util.Date;
 @Stateless
 public class OnlineIntegration  {
     protected final String[] categories = {"Sport", "Kultur", "Essen & Trinken", "Feiern", "Kennenlernen"};
+    private static final Logger log = Logger.getLogger( OnlineIntegration.class.getName() );
     @EJB
-    protected DataAccessObject dataAccessObject;
+    protected DataAccessObject dataAccessObject = new EntityManagerDAO();
     public SessionResponse register(String name, String password, String description) {
-
+        log.info("Register a new user: Name: "+name + " Password: " + password + " Descr.: " +description);
         User preExisting = dataAccessObject.findUserByName(name);
         if(preExisting == null) {
             //Create user, because there is no such user
            return createUser(name,password,description);
             //Return a new session
         }
-
         return new SessionResponse(ReturnCodeHelper.NO_ACCESS);
     }
+
     private SessionResponse createUser(String name, String password, String description) {
         User user = new User();
         user.setUserName(name);
@@ -46,13 +48,15 @@ public class OnlineIntegration  {
     }
     public SessionResponse login(String name, String password) {
         User preExisting = dataAccessObject.findUserByName(name);
+        log.info("User logs in");
 
         if (preExisting != null && preExisting.getPassword().equals(password)) {
                 //User is authenticated
+            log.info("User ist vorhanden");
             return new SessionResponse(preExisting);
         }
-
         //ELSE: Return not authenticated
+        log.info("User ist nicht vorhanden");
         return new SessionResponse(ReturnCodeHelper.NO_ACCESS);
     }
     public ReturnCodeResponse logout(String sessionID) {
