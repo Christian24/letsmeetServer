@@ -10,6 +10,7 @@ import session.Session;
 import user.User;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
 import java.util.Date;
@@ -22,6 +23,7 @@ import java.util.Date;
 @Stateless
 public class OnlineIntegration  {
     protected final String[] categories = {"Sport", "Kultur", "Essen & Trinken", "Feiern", "Kennenlernen"};
+    @EJB
     protected DataAccessObject dataAccessObject;
     public SessionResponse register(String name, String password, String description) {
 
@@ -173,7 +175,7 @@ if(session != null) {
     @PostConstruct
     public void init() {
         //Create our EntityManager
-        dataAccessObject = new EntityManagerDAO();
+
         createCategories();
     }
 

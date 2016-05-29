@@ -5,12 +5,14 @@ import meet.Meet;
 import session.Session;
 import user.User;
 
+import javax.ejb.Local;
 import java.util.Date;
 
 /**
  * Created by Christian on 19.05.2016.
  * DataAccessObject interface which tells us what an implementation needs to be able to do
  */
+@Local
 public interface DataAccessObject {
     public User findUserByName(String name);
     public void persist(Object obj);

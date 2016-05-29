@@ -5,10 +5,8 @@ import meet.Meet;
 import session.Session;
 import user.User;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
+import javax.ejb.Stateless;
+import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.ParameterExpression;
@@ -20,13 +18,15 @@ import java.util.List;
  * Created by Christian on 19.05.2016.
  * Our implementation of the DataAccessObject
  */
+@Stateless
 public class EntityManagerDAO implements DataAccessObject {
+    @PersistenceContext
     protected EntityManager entityManager;
 
     protected EntityManagerFactory entityManagerFactory;
-    public EntityManagerDAO() {
-      entityManager =  entityManagerFactory.createEntityManager();
-    }
+//    public EntityManagerDAO() {
+//entityManager = entityManagerFactory.createEntityManager();
+//    }
     @Override
     public User findUserByName(String name) {
     return entityManager.find(User.class,name);
