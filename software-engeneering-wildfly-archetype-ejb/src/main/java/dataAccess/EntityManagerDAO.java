@@ -96,7 +96,7 @@ public class EntityManagerDAO implements DataAccessObject {
     public Category[] getCategories() {
        TypedQuery<Category> query =  entityManager.createQuery("SELECT c FROM Category c", Category.class);
 
-       List<Category> categoriesResult = query.getResultList();
+       List<Category> categoriesResult = entityManager.createQuery("SELECT c FROM Category c").getResultList();
 
         Category[] categories = new Category[categoriesResult.size()];
        categoriesResult.toArray(categories);

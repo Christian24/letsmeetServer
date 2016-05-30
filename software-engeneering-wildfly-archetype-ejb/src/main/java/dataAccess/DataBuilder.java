@@ -32,7 +32,7 @@ public class DataBuilder {
         Category category = dataAccessObject.findCategoryById(name);
         if(category != null) {
             Category newCategory = new Category();
-            category.setTitle(name);
+            newCategory.setTitle(name);
             dataAccessObject.persist(newCategory);
         }
     }
