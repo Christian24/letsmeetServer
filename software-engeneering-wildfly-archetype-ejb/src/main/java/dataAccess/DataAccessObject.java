@@ -22,4 +22,5 @@ public interface DataAccessObject {
     public Category[] getCategories();
     public Category findCategoryById(String categoryId);
     public Meet[] findMeets(Date start, Date end);
+    public void delete(Object obj);
 }

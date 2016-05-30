@@ -38,6 +38,11 @@ public class EntityManagerDAO implements DataAccessObject {
     }
 
     @Override
+    public void delete(Object obj) {
+        entityManager.remove(obj);
+    }
+
+    @Override
     public Meet getMeetById(int id) {
         return entityManager.find(Meet.class,id);
     }

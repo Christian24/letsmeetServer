@@ -93,6 +93,7 @@ public class OnlineIntegration  {
         return new MeetResponse();
     }
     public MeetResponse leaveMeet(String sessionID, int meetID) {
+        log.info("Session ID: " + sessionID );
         Session session = dataAccessObject.findSessionById(sessionID);
         Meet meet = dataAccessObject.getMeetById(meetID);
 
@@ -102,6 +103,15 @@ public class OnlineIntegration  {
         }
 
         return new MeetResponse();
+    }
+    public ReturnCodeResponse deleteUser(String sessionID) {
+        Session session = dataAccessObject.findSessionById(sessionID);
+        if(session != null) {
+            dataAccessObject.delete(session.getUser());
+            session.setHasEnded(true);
+            return new ReturnCodeResponse(ReturnCodeHelper.OK);
+        }
+        return new ReturnCodeResponse();
     }
     public MeetResponse getMeet(String sessionID, int meetID) {
         Meet meet = dataAccessObject.getMeetById(meetID);
