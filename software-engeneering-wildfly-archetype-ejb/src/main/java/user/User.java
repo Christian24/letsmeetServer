@@ -22,9 +22,9 @@ public class User implements Serializable {
     protected String userName;
     protected String password;
     protected String description;
-    @ManyToMany(mappedBy = "visitors")
+    @ManyToMany(mappedBy = "visitors",cascade = CascadeType.ALL)
     protected Set<Meet> meetsToVisit;
-    @OneToMany(mappedBy = "admin")
+    @OneToMany(mappedBy = "admin",cascade = CascadeType.ALL)
     protected Set<Meet> meetsCreated;
 
     public User()
