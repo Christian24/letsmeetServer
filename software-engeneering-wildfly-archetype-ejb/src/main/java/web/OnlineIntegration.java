@@ -113,6 +113,28 @@ public class OnlineIntegration  {
         }
         return new ReturnCodeResponse();
     }
+
+    /**
+     * Updates a user's password and description
+     * @param sessionID
+     * @param password the new password
+     * @param description the new description
+     * @return
+     */
+    public SessionResponse updateUser(String sessionID,String password, String description) {
+        Session session = dataAccessObject.findSessionById(sessionID);
+        if(session != null) {
+            User user = session.getUser();
+            if(user != null) {
+                user.setPassword(password);
+                user.setDescription(description);
+                return new SessionResponse(user);
+            }
+            return new SessionResponse(ReturnCodeHelper.NOT_FOUND);
+
+        }
+        return new SessionResponse();
+    }
     public MeetResponse getMeet(String sessionID, int meetID) {
         Meet meet = dataAccessObject.getMeetById(meetID);
         Session session = dataAccessObject.findSessionById(sessionID);
