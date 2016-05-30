@@ -92,6 +92,27 @@ public class OnlineIntegration  {
 
         return new MeetResponse();
     }
+    public MeetResponse updateMeet(String sessionID, int meetID, String categoryId, String description, String title, String location,
+                                   Date date, int maxUsers) {
+        Session session = dataAccessObject.findSessionById(sessionID);
+        Meet meet = dataAccessObject.getMeetById(meetID);
+        Category category = dataAccessObject.findCategoryById(categoryId);
+
+        if(session != null && meet != null  && category != null) {
+            if(meet.getVisitors().size() > maxUsers) {
+                return new MeetResponse(session,meet,ReturnCodeHelper.NO_ACCESS);
+            } else {
+                meet.setMaxGuests(maxUsers);
+                meet.setDescription(description);
+                meet.setTitle(title);
+                meet.setLocation(location);
+                meet.setDateTime(date);
+                meet.setCategory(category);
+
+            }
+        }
+        return new MeetResponse();
+    }
     public MeetResponse leaveMeet(String sessionID, int meetID) {
         log.info("Session ID: " + sessionID );
         Session session = dataAccessObject.findSessionById(sessionID);
