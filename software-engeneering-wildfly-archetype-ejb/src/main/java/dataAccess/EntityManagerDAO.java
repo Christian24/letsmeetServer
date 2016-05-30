@@ -72,6 +72,13 @@ public class EntityManagerDAO implements DataAccessObject {
             return null;
     }
     @Override
+    public Session createSession(User user) {
+        Session session = new Session();
+        session.setUser(user);
+        persist(session);
+        return session;
+    }
+    @Override
     public Meet[] findMeets(Date start, Date end) {
         TypedQuery<Meet> query = entityManager.createQuery("SELECT m FROM Meet m WHERE c.datetime BETWEEN :startdate AND :enddate",Meet.class);
       List<Meet> results = query.setParameter("startdate",start).setParameter("enddate",end).getResultList();

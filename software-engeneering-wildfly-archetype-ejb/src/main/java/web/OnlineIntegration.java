@@ -44,7 +44,8 @@ public class OnlineIntegration  {
         user.setDescription(description);
         user.setPassword(password);
         dataAccessObject.persist(user);
-        return new SessionResponse(user);
+        Session session = createSession(user);
+        return new SessionResponse(session);
     }
     public SessionResponse login(String name, String password) {
         User preExisting = dataAccessObject.findUserByName(name);
@@ -53,7 +54,8 @@ public class OnlineIntegration  {
         if (preExisting != null && preExisting.getPassword().equals(password)) {
                 //User is authenticated
             log.info("User ist vorhanden");
-            return new SessionResponse(preExisting);
+            Session session = createSession(preExisting);
+            return new SessionResponse(session);
         }
         //ELSE: Return not authenticated
         log.info("User ist nicht vorhanden");
@@ -149,7 +151,8 @@ public class OnlineIntegration  {
             if(user != null) {
                 user.setPassword(password);
                 user.setDescription(description);
-                return new SessionResponse(user);
+
+                return new SessionResponse(session);
             }
             return new SessionResponse(ReturnCodeHelper.NOT_FOUND);
 
@@ -251,6 +254,15 @@ if(session != null) {
             category.setTitle(name);
             dataAccessObject.persist(category);
         }
+    }
+
+    /**
+     * Instructs the DataAccessObject to create a new session
+     * @param user
+     * @return
+     */
+    private Session createSession(User user) {
+       return dataAccessObject.createSession(user);
     }
 
 }

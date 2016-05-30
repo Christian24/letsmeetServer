@@ -19,11 +19,7 @@ public class SessionResponse extends ReturnCodeResponse {
     public SessionResponse(int returnCode) {
         super(returnCode);
     }
-    public SessionResponse(User user) {
-        super(ReturnCodeHelper.OK);
-        session = new SessionData();
-        session.setUser(new UserData(user));
-    }
+
     public SessionResponse() {
         super(ReturnCodeHelper.NO_ACCESS);
     }

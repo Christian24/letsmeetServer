@@ -6,6 +6,7 @@ import session.Session;
 import user.User;
 
 import javax.ejb.Local;
+import javax.jws.soap.SOAPBinding;
 import java.util.Date;
 
 /**
@@ -19,6 +20,7 @@ public interface DataAccessObject {
     public Meet getMeetById(int id);
     public Session findSessionByIdSimple(String id);
     public Session findSessionById(String id);
+    public Session createSession(User user);
     public Category[] getCategories();
     public Category findCategoryById(String categoryId);
     public Meet[] findMeets(Date start, Date end);
