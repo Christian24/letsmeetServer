@@ -138,19 +138,41 @@ public class OnlineIntegration  {
     }
 
     /**
-     * Updates a user's password and description
+     * Updates a user's password
      * @param sessionID
      * @param password the new password
-     * @param description the new description
+     *
      * @return
      */
-    public SessionResponse updateUser(String sessionID,String password, String description) {
+    public SessionResponse updateUserPassword(String sessionID,String password) {
         Session session = dataAccessObject.findSessionById(sessionID);
         if(session != null) {
             User user = session.getUser();
             if(user != null) {
                 user.setPassword(password);
+
+
+                return new SessionResponse(session);
+            }
+            return new SessionResponse(ReturnCodeHelper.NOT_FOUND);
+
+        }
+        return new SessionResponse();
+    }
+    /**
+     * Updates a user's description
+     * @param sessionID
+     * @param description the new description
+     *
+     * @return
+     */
+    public SessionResponse updateUserDescription(String sessionID,String description) {
+        Session session = dataAccessObject.findSessionById(sessionID);
+        if(session != null) {
+            User user = session.getUser();
+            if(user != null) {
                 user.setDescription(description);
+
 
                 return new SessionResponse(session);
             }
