@@ -9,19 +9,16 @@ package webService;
 //
 //---------------------------------------------------
 
-
 import java.util.Hashtable;
 import org.ksoap2.serialization.*;
 import java.util.ArrayList;
 import org.ksoap2.serialization.PropertyInfo;
 
 public class PGEcategoriesResponse extends PGEsessionResponse implements KvmSerializable
-{
-
-    
+{   
     public ArrayList< String> categories =new ArrayList<String >();
 
-    public PGEcategoriesResponse ()
+    public PGEcategoriesResponse () 
     {
     }
 
@@ -31,7 +28,6 @@ public class PGEcategoriesResponse extends PGEsessionResponse implements KvmSeri
 	    if (paramObj == null)
             return;
         AttributeContainer inObj=(AttributeContainer)paramObj;
-
 
         if(inObj instanceof SoapObject)
         {
@@ -45,28 +41,19 @@ public class PGEcategoriesResponse extends PGEsessionResponse implements KvmSeri
                 if (info.name.equals("categories"))
                 {
                     if(obj!=null)
-                    {
-        
-                    
+                    {                
                         if(this.categories==null)
                         {
                             this.categories = new ArrayList<String>();
                         }
                         java.lang.Object j =obj;
                         String j1= j.toString();
-                        this.categories.add(j1);
-                   
-        
+                        this.categories.add(j1);                        
                     }
                     continue;
                 }
-
             }
-
         }
-
-
-
     }
 
     @Override
