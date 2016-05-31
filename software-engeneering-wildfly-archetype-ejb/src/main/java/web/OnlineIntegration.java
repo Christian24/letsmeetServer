@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 @WebService
 @Stateless
 public class OnlineIntegration  {
-    protected final String[] categories = {"Sport", "Kultur", "Essen & Trinken", "Feiern", "Kennenlernen"};
+
     private static final Logger log = Logger.getLogger( OnlineIntegration.class.getName() );
     @EJB
     protected DataAccessObject dataAccessObject = new EntityManagerDAO();
@@ -232,29 +232,10 @@ if(session != null) {
         return new MeetResponse();
     }
 
-    @PostConstruct
-    public void init() {
-        //Create our EntityManager
 
-        createCategories();
-    }
 
-    /**
-     * Creates our categories
-     */
-    private void createCategories() {
-        for(String category : categories) {
-            createCategory(category);
-        }
-    }
-    private void createCategory(String name) {
-        Category category = dataAccessObject.findCategoryById(name);
-        if(category != null) {
-        Category newCategory = new Category();
-            category.setTitle(name);
-            dataAccessObject.persist(category);
-        }
-    }
+
+
 
     /**
      * Instructs the DataAccessObject to create a new session
