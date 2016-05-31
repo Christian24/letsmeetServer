@@ -10,6 +10,7 @@ import java.util.UUID;
 
 /**
  * Created by Christian on 19.05.2016.
+ * DataTransferObject for Session
  */
 public class SessionData implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -18,11 +19,24 @@ public class SessionData implements Serializable {
     protected boolean hasEnded;
 
     protected String identifier;
+
+    /**
+     * Creates a new SessionData given the session
+     * @param session the Session a SessionData is based on
+     */
     public SessionData(Session session) {
         super();
         hasEnded = session.getHasEnded();
         identifier = session.getIdentifier();
+        if(session.getUser() != null) {
+            UserData userData = new UserData(session.getUser());
+            setUser(userData);
+        }
     }
+
+    /**
+     * Dummy constructor
+     */
     public SessionData() {
 
     }
@@ -39,7 +53,4 @@ public class SessionData implements Serializable {
         user = newUser;
     }
 
-    public void end() {
-        hasEnded = true;
-    }
 }

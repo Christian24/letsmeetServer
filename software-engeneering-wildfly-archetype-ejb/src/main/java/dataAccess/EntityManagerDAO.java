@@ -27,21 +27,40 @@ public class EntityManagerDAO implements DataAccessObject {
 //    public EntityManagerDAO() {
 //entityManager = entityManagerFactory.createEntityManager();
 //    }
+
+    /**
+     * Finds a user by name
+     * @param name
+     * @return
+     */
     @Override
     public User findUserByName(String name) {
     return entityManager.find(User.class,name);
     }
 
+    /**
+     * Persists the given object to the database.
+     * @param obj
+     */
     @Override
     public void persist(Object obj) {
     entityManager.persist(obj);
     }
 
+    /**
+     * Deletes the given object from the database
+     * @param obj
+     */
     @Override
     public void delete(Object obj) {
         entityManager.remove(obj);
     }
 
+    /**
+     * Finds a session by id
+     * @param id
+     * @return
+     */
     @Override
     public Meet getMeetById(int id) {
         return entityManager.find(Meet.class,id);
@@ -71,6 +90,12 @@ public class EntityManagerDAO implements DataAccessObject {
         else
             return null;
     }
+
+    /**
+     * Creates a new session for a given user
+     * @param user
+     * @return
+     */
     @Override
     public Session createSession(User user) {
         Session session = new Session();
