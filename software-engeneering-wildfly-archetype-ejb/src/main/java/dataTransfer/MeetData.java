@@ -1,11 +1,10 @@
 package dataTransfer;
 
-import meet.Category;
+import helpers.ServerHelper;
 import meet.Meet;
 import user.User;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,7 +16,7 @@ public class MeetData implements Serializable {
     private static final long serialVersionUID = 1L;
 
     protected int id;
-    protected Date dateTime;
+    protected long dateTime;
 
     protected String category;
     protected String description;
@@ -32,10 +31,10 @@ public class MeetData implements Serializable {
 
     protected Set<UserData> visitors;
 
-    public void setDateTime(Date newDateTime) {
+    public void setDateTime(long newDateTime) {
         this.dateTime = newDateTime;
     }
-    public Date getDateTime() {
+    public long getDateTime() {
         return this.dateTime;
     }
     public String getDescription() {
@@ -84,7 +83,7 @@ public class MeetData implements Serializable {
         this.location = meet.getLocation();
         this.description = meet.getDescription();
         this.maxGuests = meet.getMaxGuests();
-        this.dateTime = meet.getDateTime();
+        this.dateTime = ServerHelper.getUnixTimestamp(meet.getDateTime());
 
         visitors = new HashSet<UserData>();
         for(User user : meet.getVisitors()) {

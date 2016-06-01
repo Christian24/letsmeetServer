@@ -4,20 +4,21 @@ import dataAccess.DataAccessObject;
 import dataAccess.EntityManagerDAO;
 import dataTransfer.*;
 import helpers.ReturnCodeHelper;
+import helpers.ServerHelper;
 import meet.Category;
 import meet.Meet;
 import session.Session;
-import sun.rmi.runtime.Log;
+
 import user.User;
 
-import javax.annotation.PostConstruct;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
-import java.util.Date;
 import java.util.logging.Logger;
 
 /**
+ * The Webservice that will be consumed by the Android Client
  * Created by Christian on 10.05.2016.
  */
 @WebService
@@ -27,6 +28,14 @@ public class OnlineIntegration  {
     private static final Logger log = Logger.getLogger( OnlineIntegration.class.getName() );
     @EJB
     protected DataAccessObject dataAccessObject = new EntityManagerDAO();
+
+    /**
+     * Registers a new user
+     * @param name
+     * @param password
+     * @param description
+     * @return
+     */
     public SessionResponse register(String name, String password, String description) {
         log.info("Register a new user: Name: "+name + " Password: " + password + " Descr.: " +description);
         User preExisting = dataAccessObject.findUserByName(name);
@@ -38,6 +47,13 @@ public class OnlineIntegration  {
         return new SessionResponse(ReturnCodeHelper.NO_ACCESS);
     }
 
+    /**
+     * Helper for creation of user
+     * @param name
+     * @param password
+     * @param description
+     * @return the SessionResponse
+     */
     private SessionResponse createUser(String name, String password, String description) {
         User user = new User();
         user.setUserName(name);
@@ -47,6 +63,13 @@ public class OnlineIntegration  {
         Session session = createSession(user);
         return new SessionResponse(session);
     }
+
+    /**
+     * Logs a user in
+     * @param name
+     * @param password
+     * @return
+     */
     public SessionResponse login(String name, String password) {
         User preExisting = dataAccessObject.findUserByName(name);
         log.info("User logs in");
@@ -61,6 +84,12 @@ public class OnlineIntegration  {
         log.info("User ist nicht vorhanden");
         return new SessionResponse(ReturnCodeHelper.NO_ACCESS);
     }
+
+    /**
+     * Logs a user out
+     * @param sessionID
+     * @return
+     */
     public ReturnCodeResponse logout(String sessionID) {
         Session session = dataAccessObject.findSessionById(sessionID);
         if(session != null) {
@@ -69,15 +98,31 @@ public class OnlineIntegration  {
         }
         return new ReturnCodeResponse(ReturnCodeHelper.NOT_FOUND);
     }
-    public MeetsResponse getMeets(String sessionID, Date start, Date end) {
+
+    /**
+     * Gets meets for start and end time
+     * @param sessionID
+     * @param start unix timestamp
+     * @param end unix timestamp
+     * @return
+     */
+    public MeetsResponse getMeets(String sessionID, long start, long end) {
 
         Session session = dataAccessObject.findSessionById(sessionID);
         if(session != null) {
-            Meet[] meets = dataAccessObject.findMeets(start,end);
+            Meet[] meets = dataAccessObject.findMeets(ServerHelper.getDateFromUnixTimestamp(start),
+                    ServerHelper.getDateFromUnixTimestamp(end));
             return new MeetsResponse(session,meets);
         }
         return new MeetsResponse();
     }
+
+    /**
+     * Makes a user associated with the given session join the given Meet
+     * @param sessionID
+     * @param meetID
+     * @return
+     */
     public MeetResponse joinMeet(String sessionID, int meetID) {
         Session session = dataAccessObject.findSessionById(sessionID);
         Meet meet = dataAccessObject.getMeetById(meetID);
@@ -94,8 +139,21 @@ public class OnlineIntegration  {
 
         return new MeetResponse();
     }
+
+    /**
+     * Updates a Meet
+     * @param sessionID
+     * @param meetID
+     * @param categoryId
+     * @param description
+     * @param title
+     * @param location
+     * @param date a unix timestamp
+     * @param maxUsers
+     * @return
+     */
     public MeetResponse updateMeet(String sessionID, int meetID, String categoryId, String description, String title, String location,
-                                   Date date, int maxUsers) {
+                                   long date, int maxUsers) {
         Session session = dataAccessObject.findSessionById(sessionID);
         Meet meet = dataAccessObject.getMeetById(meetID);
         Category category = dataAccessObject.findCategoryById(categoryId);
@@ -108,13 +166,20 @@ public class OnlineIntegration  {
                 meet.setDescription(description);
                 meet.setTitle(title);
                 meet.setLocation(location);
-                meet.setDateTime(date);
+                meet.setDateTime(ServerHelper.getDateFromUnixTimestamp(date));
                 meet.setCategory(category);
 
             }
         }
         return new MeetResponse();
     }
+
+    /**
+     * Makes the user associated with the session leave the specified Meet
+     * @param sessionID
+     * @param meetID
+     * @return
+     */
     public MeetResponse leaveMeet(String sessionID, int meetID) {
         log.info("Session ID: " + sessionID );
         Session session = dataAccessObject.findSessionById(sessionID);
@@ -127,6 +192,12 @@ public class OnlineIntegration  {
 
         return new MeetResponse();
     }
+
+    /**
+     * Deletes a user
+     * @param sessionID
+     * @return
+     */
     public ReturnCodeResponse deleteUser(String sessionID) {
         Session session = dataAccessObject.findSessionById(sessionID);
         if(session != null) {
@@ -181,6 +252,13 @@ public class OnlineIntegration  {
         }
         return new SessionResponse();
     }
+
+    /**
+     * Gets a specific meet
+     * @param sessionID
+     * @param meetID
+     * @return
+     */
     public MeetResponse getMeet(String sessionID, int meetID) {
         Meet meet = dataAccessObject.getMeetById(meetID);
         Session session = dataAccessObject.findSessionById(sessionID);
@@ -192,6 +270,12 @@ public class OnlineIntegration  {
         }
         return new MeetResponse();
     }
+
+    /**
+     * Gets all meets by the user who is associated with the session
+     * @param sessionID
+     * @return
+     */
     public MeetsResponse getMeetsByUser(String sessionID) {
         Session session = dataAccessObject.findSessionById(sessionID);
 if(session != null) {
@@ -202,6 +286,14 @@ if(session != null) {
 }
         return new MeetsResponse();
     }
+
+    /**
+     * Should return all the categories available on the server
+     * TODO: Broken at the moment
+     * TODO: Second: Add function returning only categories with meets
+     * @param sessionId
+     * @return
+     */
     public CategoriesResponse getCategories(String sessionId) {
         Session session = dataAccessObject.findSessionById(sessionId);
         Category[] categories = dataAccessObject.getCategories();
@@ -233,11 +325,11 @@ if(session != null) {
      * @param description
      * @param title
      * @param location
-     * @param date
+     * @param date a unix timestamp
      * @return
      */
     public MeetResponse createMeet(String sessionId,String categoryId, String description, String title, String location,
-                                   Date date, int maxUsers) {
+                                   long date, int maxUsers) {
         Session session = dataAccessObject.findSessionById(sessionId);
         Category category = dataAccessObject.findCategoryById(categoryId);
         if(session != null && category != null) {
@@ -246,7 +338,7 @@ if(session != null) {
             meet.setDescription(description);
             meet.setTitle(title);
             meet.setLocation(location);
-            meet.setDateTime(date);
+            meet.setDateTime(ServerHelper.getDateFromUnixTimestamp(date));
             meet.setMaxGuests(maxUsers);
             dataAccessObject.persist(meet);
             return new MeetResponse(session,meet);

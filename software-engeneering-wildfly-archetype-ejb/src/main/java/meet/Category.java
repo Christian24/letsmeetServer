@@ -10,6 +10,7 @@ import java.util.Set;
 
 /**
  * Created by Christian on 03.05.2016.
+ * A category used to filter meets
  */
 @Entity
 public class Category implements Serializable {
