@@ -1,6 +1,9 @@
 package dataAccess;
 
 import meet.Category;
+import web.OnlineIntegration;
+
+import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -14,10 +17,11 @@ import javax.ejb.Startup;
 @Startup
 public class DataBuilder {
     protected final String[] categories = {"Sport", "Kultur", "Essen & Trinken", "Feiern", "Kennenlernen"};
+    private static final Logger log = Logger.getLogger( OnlineIntegration.class.getName() );
     @EJB
     protected DataAccessObject dataAccessObject;
     @PostConstruct
-    private void createTestData() {
+   public void createTestData() {
     createCategories();
 }
     /**
@@ -30,10 +34,11 @@ public class DataBuilder {
     }
     private void createCategory(String name) {
         Category category = dataAccessObject.findCategoryById(name);
-        if(category != null) {
+        if(category == null) {
             Category newCategory = new Category();
             newCategory.setTitle(name);
             dataAccessObject.persist(newCategory);
+            log.info("Category: " + name );
         }
     }
 
