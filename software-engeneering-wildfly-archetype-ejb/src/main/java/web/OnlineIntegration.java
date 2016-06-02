@@ -9,12 +9,16 @@ import meet.Category;
 import meet.Meet;
 import session.Session;
 
+
 import user.User;
 
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
+
+import org.jboss.ws.api.annotation.WebContext;
+
 import java.util.logging.Logger;
 
 /**
@@ -23,6 +27,7 @@ import java.util.logging.Logger;
  */
 @WebService
 @Stateless
+@WebContext(contextRoot="/letsmeet")
 public class OnlineIntegration  {
 
     private static final Logger log = Logger.getLogger( OnlineIntegration.class.getName() );

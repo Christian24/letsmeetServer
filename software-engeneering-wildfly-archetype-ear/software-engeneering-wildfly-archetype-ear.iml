@@ -20,5 +20,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="software-engeneering-wildfly-archetype-web" />
     <orderEntry type="module" module-name="software-engeneering-wildfly-archetype-ejb" />
+    <orderEntry type="library" name="Maven: org.jboss.ws:jbossws-api:1.0.3.Final" level="project" />
   </component>
 </module>
