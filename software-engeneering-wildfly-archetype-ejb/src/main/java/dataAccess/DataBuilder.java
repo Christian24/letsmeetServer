@@ -15,7 +15,7 @@ import javax.ejb.Startup;
 public class DataBuilder {
     protected final String[] categories = {"Sport", "Kultur", "Essen & Trinken", "Feiern", "Kennenlernen"};
     @EJB
-    protected DataAccessObject dataAccessObject = new EntityManagerDAO();
+    protected DataAccessObject dataAccessObject;
     @PostConstruct
     private void createTestData() {
     createCategories();
