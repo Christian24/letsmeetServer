@@ -20,7 +20,7 @@ import javax.jws.WebService;
 import org.jboss.ws.api.annotation.WebContext;
 
 import java.util.ArrayList;
-import java.util.List;
+
 import java.util.logging.Logger;
 
 /**
@@ -295,8 +295,7 @@ if(session != null) {
     }
 
     /**
-     * Should return all the categories available on the server
-     * TODO: Second: Add function returning only categories with meets
+     * Returns all the categories available on the server
      * @param sessionId
      * @return
      */
