@@ -1,6 +1,6 @@
 package meet;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
+
 import user.User;
 
 import javax.persistence.*;
