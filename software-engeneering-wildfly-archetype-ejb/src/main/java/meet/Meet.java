@@ -4,6 +4,7 @@ package meet;
 import user.User;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
@@ -21,17 +22,21 @@ public class Meet implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@GeneratedValue @Id
     protected int id;
+    @NotNull
     protected Date dateTime;
-    @ManyToOne
+    @ManyToOne @NotNull
     protected Category category;
     protected String description;
-    @ManyToOne
+    @ManyToOne @NotNull
     protected User admin;
+    @NotNull
     protected String location;
     protected int maxGuests;
+    @NotNull
     protected String title;
     public Meet() {
         visitors = new HashSet<User>();
+        maxGuests = 10;
     }
     @ManyToMany
     protected Set<User> visitors;

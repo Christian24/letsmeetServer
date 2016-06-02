@@ -19,6 +19,8 @@ import javax.jws.WebService;
 
 import org.jboss.ws.api.annotation.WebContext;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -32,7 +34,7 @@ public class OnlineIntegration  {
 
     private static final Logger log = Logger.getLogger( OnlineIntegration.class.getName() );
     @EJB
-    protected DataAccessObject dataAccessObject = new EntityManagerDAO();
+    protected DataAccessObject dataAccessObject;
 
     /**
      * Registers a new user
@@ -294,7 +296,6 @@ if(session != null) {
 
     /**
      * Should return all the categories available on the server
-     * TODO: Broken at the moment
      * TODO: Second: Add function returning only categories with meets
      * @param sessionId
      * @return
@@ -303,6 +304,29 @@ if(session != null) {
         Session session = dataAccessObject.findSessionById(sessionId);
         Category[] categories = dataAccessObject.getCategories();
         if(session != null && categories != null) {
+            return new CategoriesResponse(session,categories);
+        }
+        return new CategoriesResponse();
+    }
+
+    /**
+     * Returns only categories which have at least one Meet in them
+     * @param sessionId
+     * @return
+     */
+    public CategoriesResponse getCategoriesWithMeets(String sessionId) {
+    	Session session = dataAccessObject.findSessionById(sessionId);
+        Category[] categories = dataAccessObject.getCategories();
+        if(session != null && categories != null) {
+        	ArrayList<Category> categoryList = new ArrayList<Category>();
+        for(Category category : categories) {
+            if(category.getMeets().length > 0) {
+                categoryList.add(category);
+            }
+        }
+            categories = new Category[categoryList.size()];
+            categoryList.toArray(categories);
+
             return new CategoriesResponse(session,categories);
         }
         return new CategoriesResponse();

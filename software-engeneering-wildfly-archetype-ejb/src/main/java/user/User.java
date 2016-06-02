@@ -3,6 +3,7 @@ package user;
 import meet.Meet;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
@@ -20,7 +21,9 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
     protected String userName;
+    @NotNull
     protected String password;
+    @NotNull
     protected String description;
     @ManyToMany(mappedBy = "visitors",cascade = CascadeType.ALL)
     protected Set<Meet> meetsToVisit;
