@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import dataAccess.DataAccessObject;
+import user.User;
 
 /**
  * Created by Sergei
@@ -23,9 +24,20 @@ public class letsmeetDAOTest {
 	@Deployment
 	public static WebArchive createDeployment() {
 		return ShrinkWrap.create(WebArchive.class, "test.war")
-				.addPackages(true, "de/xbank")
+				.addPackages(true, "letsmeet")
 				.addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
 				.addAsWebInfResource("META-INF/ejb-jar.xml", "ejb-jar.xml");
+	}
+	@Test
+	public void shouldCreateUserWithNamePasswordAndDescription() {
+		User user = new User();
+		user.setDescription("Ich bin ein Wemser.");
+		user.setPassword("123");
+		user.setUserName("Peterchen");
+
+		letsmeetDAO.persist(user);
+		User peterchen = letsmeetDAO.findUserByName("Peterchen");
+		assert( peterchen != null);
 	}
 
 }
