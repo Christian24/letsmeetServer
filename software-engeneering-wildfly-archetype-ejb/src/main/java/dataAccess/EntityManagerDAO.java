@@ -105,8 +105,8 @@ public class EntityManagerDAO implements DataAccessObject {
     }
     @Override
     public Meet[] findMeets(Date start, Date end) {
-        TypedQuery<Meet> query = entityManager.createQuery("SELECT m FROM Meet m WHERE c.datetime BETWEEN :startdate AND :enddate",Meet.class);
-      List<Meet> results = query.setParameter("startdate",start).setParameter("enddate",end).getResultList();
+        TypedQuery<Meet> query = entityManager.createQuery("SELECT m FROM Meet m WHERE m.dateTime BETWEEN :startdate AND :enddate",Meet.class);
+        List<Meet> results = query.setParameter("startdate",start).setParameter("enddate",end).getResultList();
         Meet[] output = new Meet[results.size()];
         results.toArray(output);
         return output;
