@@ -364,6 +364,7 @@ if(session != null) {
             Meet meet = new Meet();
             meet.setCategory(category);
             meet.setDescription(description);
+            meet.setAdmin(session.getUser());
             meet.setTitle(title);
             meet.setLocation(location);
             meet.setDateTime(ServerHelper.getDateFromUnixTimestamp(date));
