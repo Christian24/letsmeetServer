@@ -25,9 +25,9 @@ public class User implements Serializable {
     protected String password;
     @NotNull
     protected String description;
-    @ManyToMany(mappedBy = "visitors",cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "visitors")
     protected Set<Meet> meetsToVisit;
-    @OneToMany(mappedBy = "admin",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "admin")
     protected Set<Meet> meetsCreated;
 
     public User()
