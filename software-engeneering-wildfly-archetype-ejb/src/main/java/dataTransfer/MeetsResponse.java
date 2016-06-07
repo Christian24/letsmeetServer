@@ -9,10 +9,13 @@ import session.Session;
  * A response stream in the server of meets
  */
 public class MeetsResponse extends SessionResponse {
-    protected Meet[] meets;
+    protected MeetData[] meets;
     public MeetsResponse(Session session, Meet[] meets) {
         super(session);
-        this.meets = meets;
+       this.meets = new MeetData[meets.length];
+        for(int i = 0; i<meets.length;i++) {
+            this.meets[i]= new MeetData(meets[i]);
+        }
     }
 
     /**
@@ -30,10 +33,10 @@ public class MeetsResponse extends SessionResponse {
         super(session);
         setReturnCode(ReturnCodeHelper.NOT_FOUND);
     }*/
-    public void setMeets(Meet[] newMeets) {
+    public void setMeets(MeetData[] newMeets) {
         meets = newMeets;
     }
-    public Meet[] getMeets() {
+    public MeetData[] getMeets() {
         return meets;
     }
 }

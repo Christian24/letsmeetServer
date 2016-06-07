@@ -208,8 +208,10 @@ public class OnlineIntegration  {
     public ReturnCodeResponse deleteUser(String sessionID) {
         Session session = dataAccessObject.findSessionById(sessionID);
         if(session != null) {
-            dataAccessObject.delete(session.getUser());
+
             session.setHasEnded(true);
+            dataAccessObject.delete(session.getUser());
+
             return new ReturnCodeResponse(ReturnCodeHelper.OK);
         }
         return new ReturnCodeResponse();

@@ -1,6 +1,7 @@
 package user;
 
 import meet.Meet;
+import session.Session;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -27,13 +28,16 @@ public class User implements Serializable {
     protected String description;
     @ManyToMany(mappedBy = "visitors")
     protected Set<Meet> meetsToVisit;
-    @OneToMany(mappedBy = "admin")
+    @OneToMany(mappedBy = "admin",cascade = CascadeType.ALL)
     protected Set<Meet> meetsCreated;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    protected Set<Session> sessions;
 
     public User()
     {
         meetsCreated = new HashSet<Meet>();
         meetsToVisit = new HashSet<Meet>();
+        sessions = new HashSet<Session>();
     }
     public Collection<Meet> getMeetsToVisit()
     {
