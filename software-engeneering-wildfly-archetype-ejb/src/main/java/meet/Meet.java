@@ -127,6 +127,14 @@ public class Meet implements Serializable {
         }
     }
 
+    /**
+     * The id that identifies the Meet
+     * @return
+     */
+    public int getId() {
+        return id;
+    }
+
 
 
 }

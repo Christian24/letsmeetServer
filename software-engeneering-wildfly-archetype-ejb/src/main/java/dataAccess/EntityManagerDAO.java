@@ -129,6 +129,14 @@ public class EntityManagerDAO implements DataAccessObject {
     }
 
     /**
+     * Flushes the entity manager
+     */
+    @Override
+    public void flush(){
+    entityManager.flush();
+    }
+
+    /**
      * Returns a category based on a categoryId
      * @param categoryId
      * @return
