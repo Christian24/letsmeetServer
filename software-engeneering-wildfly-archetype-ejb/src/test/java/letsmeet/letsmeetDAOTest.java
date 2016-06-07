@@ -12,6 +12,9 @@ import org.junit.runner.RunWith;
 import dataAccess.DataAccessObject;
 import user.User;
 
+import static junit.framework.TestCase.assertNotNull;
+import static junit.framework.TestCase.assertNull;
+
 /**
  * Created by Sergei
  */
@@ -37,7 +40,18 @@ public class letsmeetDAOTest {
 
 		letsmeetDAO.persist(user);
 		User peterchen = letsmeetDAO.findUserByName("Peterchen");
-		assert( peterchen != null);
+		assertNotNull("Der User wurde nicht angelt", peterchen);
+	}
+	@Test
+	public void shouldNotCreateUserWithoutPassword(){
+		User user = new User();
+		user.setDescription("Ich bin ein Wemser.");
+
+		user.setUserName("Charlotte");
+
+		letsmeetDAO.persist(user);
+		User charlotte = letsmeetDAO.findUserByName("Charlotte");
+		assertNull( charlotte);
 	}
 
 }
