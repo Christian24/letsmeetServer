@@ -31,8 +31,15 @@ public class Category implements Serializable {
     public void setTitle(String newTitle) {
         title = newTitle;
     }
+
+    /**
+     * Gets all Meets for this category
+     * @return
+     */
     public Meet[] getMeets() {
-        return (Meet[]) meets.toArray();
+        Meet[] meetsOutput = new Meet[meets.size()];
+        meets.toArray(meetsOutput);
+        return  meetsOutput;
     }
 
 }
