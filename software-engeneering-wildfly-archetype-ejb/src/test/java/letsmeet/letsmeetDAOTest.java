@@ -23,7 +23,7 @@ import static junit.framework.TestCase.assertNull;
 /**
  * Created by Sergei
  */
-@RunWith (Arquillian.class)
+@RunWith(Arquillian.class)
 public class letsmeetDAOTest {
 
     @EJB
