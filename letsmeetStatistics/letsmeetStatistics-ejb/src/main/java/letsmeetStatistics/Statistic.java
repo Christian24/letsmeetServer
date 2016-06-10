@@ -15,7 +15,7 @@ import org.jboss.logging.Logger;
 	@MessageDriven (
 			activationConfig = {
 					@ActivationConfigProperty(
-							propertyName = "destination", propertyValue = "java:/jms/queue/ExpiryQueue"),
+							propertyName = "destination", propertyValue = "java:/jms/queue/letsmeetStatistics"),
 					@ActivationConfigProperty(
 							propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
 					@ActivationConfigProperty(

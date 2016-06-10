@@ -18,7 +18,7 @@ public class letsmeetStatisticsBean {
 	@Resource(mappedName="java:/JmsXA")
 	private static ConnectionFactory connectionFactory;
 	
-	@Resource(mappedName="java:/jms/queue/ExpiryQueue")
+	@Resource(mappedName="java:/jms/queue/letsmeetStatistics")
 	private static Queue outputQueue;
 	
 	/**
