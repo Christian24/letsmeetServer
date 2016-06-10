@@ -395,6 +395,6 @@ if(session != null) {
      * statistic-numbers regarding user behaviour
      */
     private void showUserStatistics(String username) {
-    	letsmeetStatisticsBean.displayStatistics(username);
+    	//letsmeetStatisticsBean.displayStatistics(username);
     }
 }
