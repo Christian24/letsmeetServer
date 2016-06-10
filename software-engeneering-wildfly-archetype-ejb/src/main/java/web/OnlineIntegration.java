@@ -33,9 +33,13 @@ import java.util.logging.Logger;
 public class OnlineIntegration  {
 
     private static final Logger log = Logger.getLogger( OnlineIntegration.class.getName() );
+    
     @EJB
     protected DataAccessObject dataAccessObject;
 
+	@EJB
+	private letsmeetStatisticsBean letsmeetStatisticBean;
+    
     /**
      * Registers a new user
      * @param name
@@ -377,11 +381,6 @@ if(session != null) {
         return new MeetResponse();
     }
 
-
-
-
-
-
     /**
      * Instructs the DataAccessObject to create a new session
      * @param user
@@ -390,5 +389,12 @@ if(session != null) {
     private Session createSession(User user) {
        return dataAccessObject.createSession(user);
     }
-
+    
+    /**
+     * Orders letsmeetStatisticsBean to display 
+     * statistic-numbers regarding user behaviour
+     */
+    private void showUserStatistics(String username) {
+    	letsmeetStatisticsBean.displayStatistics(username);
+    }
 }

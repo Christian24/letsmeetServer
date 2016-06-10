@@ -55,10 +55,17 @@
             <artifactId>arquillian-protocol-servlet</artifactId>
             <scope>test</scope>
         </dependency>
+        
          <dependency>
 			<groupId>org.jboss.ws</groupId>
 			<artifactId>jbossws-api</artifactId>
 			<version>1.0.3.Final</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.jboss.spec.javax.jms</groupId>
+			<artifactId>jboss-jms-api_2.0_spec</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
     </dependencies>
