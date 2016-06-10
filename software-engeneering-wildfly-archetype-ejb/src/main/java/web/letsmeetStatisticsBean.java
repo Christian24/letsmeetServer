@@ -16,17 +16,17 @@ import javax.ejb.Stateless;
 public class letsmeetStatisticsBean {
 	
 	@Resource(mappedName="java:/JmsXA")
-	private static ConnectionFactory connectionFactory;
+	private ConnectionFactory connectionFactory;
 	
 	@Resource(mappedName="java:/jms/queue/ExpiryQueue")
-	private static Queue outputQueue;
+	private Queue outputQueue;
 	
 	/**
 	 * Sends an Message via JMS with user-name to the output queue, in 
 	 * order to display statistic-numbers regarding user behaviour.
 	 * @param name
 	 */
-	public static void displayStatistics(String name) {
+	public void displayStatistics(String name) {
 		try (JMSContext context = connectionFactory.createContext(JMSContext.AUTO_ACKNOWLEDGE)){
 			TextMessage message = context.createTextMessage();
 			message.setStringProperty("DocType", "Name");
