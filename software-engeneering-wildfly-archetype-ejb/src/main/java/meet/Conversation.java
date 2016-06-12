@@ -40,5 +40,11 @@ public class Conversation extends UserContent {
     public Meet getOrigin() {
        return origin;
     }
+    public Set<Reply> getReplies(){
+        return replies;
+    }
+    public void setReplies(Set<Reply> newReplies) {
+        replies = newReplies;
+    }
 
 }

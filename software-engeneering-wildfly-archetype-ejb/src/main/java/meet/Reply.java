@@ -35,6 +35,12 @@ public int getId(){
     public void setId(int newId){
         id = newId;
     }
+    public void setParent(Conversation newParent){
+        parent = newParent;
+    }
+    public Conversation getParent(){
+        return parent;
+    }
 
 
     /**
