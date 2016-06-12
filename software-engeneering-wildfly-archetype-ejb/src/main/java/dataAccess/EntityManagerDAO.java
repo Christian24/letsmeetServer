@@ -1,8 +1,10 @@
 package dataAccess;
 
+import com.sun.org.apache.regexp.internal.RE;
 import meet.Category;
 import meet.Conversation;
 import meet.Meet;
+import meet.Reply;
 import session.Session;
 import user.User;
 
@@ -117,6 +119,10 @@ public class EntityManagerDAO implements DataAccessObject {
     @Override
     public Conversation findConversationById(int id){
         return entityManager.find(Conversation.class,id);
+    }
+    @Override
+    public Reply findReplyById(int id){
+        return entityManager.find(Reply.class,id);
     }
     /**
      * Returns a list of all categories

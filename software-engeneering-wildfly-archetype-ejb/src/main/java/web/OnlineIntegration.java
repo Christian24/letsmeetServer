@@ -404,6 +404,27 @@ if(session != null) {
         }
         return new MeetResponse();
     }
+    public MeetResponse deleteReply(String sessionId, int replyId) {
+        Session session = dataAccessObject.findSessionById(sessionId);
+        Reply reply = dataAccessObject.findReplyById(replyId);
+        if(session != null && reply != null){
+            reply.delete();
+            return new MeetResponse(session,reply.getParent().getOrigin());
+        }
+        return new MeetResponse();
+    }
+    public  MeetResponse deleteConversation(String sessionId, int conversationId){
+        Session session = dataAccessObject.findSessionById(sessionId);
+        Conversation conversation = dataAccessObject.findConversationById(conversationId);
+        if(session != null && conversation != null) {
+            Meet meet = conversation.getOrigin();
+        dataAccessObject.delete(conversation);
+            return new MeetResponse(session,meet);
+        }
+        return new MeetResponse();
+
+        }
+    }
 
     /**
      * Instructs the DataAccessObject to create a new session
