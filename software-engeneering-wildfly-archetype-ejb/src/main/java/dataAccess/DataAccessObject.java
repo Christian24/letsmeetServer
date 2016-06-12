@@ -1,6 +1,7 @@
 package dataAccess;
 
 import meet.Category;
+import meet.Conversation;
 import meet.Meet;
 import session.Session;
 import user.User;
@@ -23,6 +24,7 @@ public interface DataAccessObject {
     public Session createSession(User user);
     public Category[] getCategories();
     public Category findCategoryById(String categoryId);
+    public Conversation findConversationById(int id);
     public Meet[] findMeets(Date start, Date end);
     public void delete(Object obj);
     public void flush();

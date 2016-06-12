@@ -1,6 +1,7 @@
 package dataAccess;
 
 import meet.Category;
+import meet.Conversation;
 import meet.Meet;
 import session.Session;
 import user.User;
@@ -112,6 +113,10 @@ public class EntityManagerDAO implements DataAccessObject {
         return output;
 
 
+    }
+    @Override
+    public Conversation findConversationById(int id){
+        return entityManager.find(Conversation.class,id);
     }
     /**
      * Returns a list of all categories

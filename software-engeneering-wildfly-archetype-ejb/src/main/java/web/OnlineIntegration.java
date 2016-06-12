@@ -6,7 +6,9 @@ import dataTransfer.*;
 import helpers.ReturnCodeHelper;
 import helpers.ServerHelper;
 import meet.Category;
+import meet.Conversation;
 import meet.Meet;
+import meet.Reply;
 import session.Session;
 
 
@@ -377,6 +379,28 @@ if(session != null) {
             meet.setMaxGuests(maxUsers);
             dataAccessObject.persist(meet);
             return new MeetResponse(session,meet);
+        }
+        return new MeetResponse();
+    }
+    public MeetResponse createNewConversation(String sessionId, int meetId, String text){
+        Session session = dataAccessObject.findSessionById(sessionId);
+        Meet meet = dataAccessObject.getMeetById(meetId);
+        if(session != null && meet != null) {
+            Conversation conversation = new Conversation(session.getUser(),text,meet);
+            dataAccessObject.persist(conversation);
+            //Get again to the database
+            meet = dataAccessObject.getMeetById(meetId);
+            return new MeetResponse(session,meet);
+        }
+        return new MeetResponse();
+    }
+    public MeetResponse replyToConversation(String sessionId, int conversationId, String text){
+        Session session = dataAccessObject.findSessionById(sessionId);
+        Conversation conversation = dataAccessObject.findConversationById(conversationId);
+        if(session != null && conversation != null){
+            Reply reply = new Reply(conversation,session.getUser(),text);
+            dataAccessObject.persist(reply);
+            return new MeetResponse(session,conversation.getOrigin());
         }
         return new MeetResponse();
     }
