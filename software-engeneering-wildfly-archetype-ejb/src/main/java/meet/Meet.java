@@ -27,6 +27,8 @@ public class Meet implements Serializable {
     @ManyToOne @NotNull
     protected Category category;
     protected String description;
+    @OneToMany
+    protected Set<Conversation> conversations;
     @ManyToOne @NotNull
     protected User admin;
     @NotNull
@@ -86,6 +88,13 @@ public class Meet implements Serializable {
         this.admin = admin;
     }
     public User getAdmin() {return admin;}
+
+    public void setConversations(Set<Conversation> conversations) {
+        this.conversations = conversations;
+    }
+    public Set<Conversation> getConversations() {
+        return conversations;
+    }
 
     /**
      * Makes a new user join

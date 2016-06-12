@@ -1,6 +1,7 @@
 package dataTransfer;
 
 import helpers.ServerHelper;
+import meet.Conversation;
 import meet.Meet;
 import user.User;
 
@@ -21,12 +22,15 @@ public class MeetData implements Serializable {
     protected String category;
     protected String description;
 
+    protected Set<ConversationData> conversations;
+
     protected UserData admin;
     protected String location;
     protected int maxGuests;
     protected String title;
     public MeetData() {
         visitors = new HashSet<UserData>();
+        conversations = new HashSet<ConversationData>();
     }
 
     protected Set<UserData> visitors;
@@ -86,9 +90,13 @@ public class MeetData implements Serializable {
         this.dateTime = ServerHelper.getUnixTimestamp(meet.getDateTime());
 
         visitors = new HashSet<UserData>();
+        conversations  = new HashSet<ConversationData>();
         for(User user : meet.getVisitors()) {
             UserData userData = new UserData(user);
             visitors.add(userData);
+        }
+        for(Conversation conversation : meet.getConversations()){
+            conversations.add(new ConversationData(conversation));
         }
         this.admin = new UserData(meet.getAdmin());
 
