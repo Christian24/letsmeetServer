@@ -2,42 +2,48 @@ package meet;
 
 import user.UserPersist;
 
+
+import javax.persistence.ManyToOne;
 import java.util.Date;
 
 /**
  * Created by Christian on 12.06.2016.
  */
-public interface UserContent {
-   UserPersist getPostedBy();
+public class UserContent {
 
-    /**
-     * Sets who posted this
-     * @param name
-     */
-  void setPostedBy(UserPersist name);
+    @ManyToOne
+    protected UserPersist poster;
+    protected Date postedAt;
+    protected String content;
 
-    /**
-     * Gets the date this was posted
-     * @return
-     */
-    Date getTimestamp();
+    public UserPersist getPostedBy() {
+        return poster;
+    }
 
-    /**
-     * Sets the time this was posted
-     * @param date
-     */
-   void setTimestamp(Date date);
 
-    /**
-     * Gets the content
-     * @return
-     */
-    String getText();
+    public void setPostedBy(UserPersist name) {
+        poster = name;
+    }
 
-    /**
-     * Sets the content
-     * @param text
-     */
-    void setText(String text);
+
+    public Date getTimestamp() {
+        return postedAt;
+    }
+
+
+    public void setTimestamp(Date date) {
+        postedAt = date;
+    }
+
+
+    public String getText() {
+        return content;
+    }
+
+
+    public void setText(String text) {
+        content = text;
+    }
+
 
 }
