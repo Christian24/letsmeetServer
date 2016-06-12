@@ -29,7 +29,12 @@ public class Reply extends UserContent {
         content = text;
         postedAt = new Date();
     }
-
+public int getId(){
+    return id;
+}
+    public void setId(int newId){
+        id = newId;
+    }
 
 
     /**

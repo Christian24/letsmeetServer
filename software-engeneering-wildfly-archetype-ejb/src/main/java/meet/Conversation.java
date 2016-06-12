@@ -30,5 +30,15 @@ public class Conversation extends UserContent {
         this.origin = meet;
         this.setTimestamp(new Date());
     }
+    public int getId(){return id;}
+    public void setId(int newID) {
+        newID = id;
+    }
+    public void setOrigin(Meet meet) {
+        origin = meet;
+    }
+    public Meet getOrigin() {
+       return origin;
+    }
 
 }
