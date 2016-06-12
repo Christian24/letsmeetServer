@@ -32,12 +32,18 @@ public class User implements Serializable {
     protected Set<Meet> meetsCreated;
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     protected Set<Session> sessions;
-
+    @OneToOne
+    protected UserPersist userPersist;
+    public UserPersist getUserPersist()
+    {
+        return userPersist;
+    }
     public User()
     {
         meetsCreated = new HashSet<Meet>();
         meetsToVisit = new HashSet<Meet>();
         sessions = new HashSet<Session>();
+        userPersist = new UserPersist();
     }
     public Collection<Meet> getMeetsToVisit()
     {
@@ -55,6 +61,7 @@ public class User implements Serializable {
     }
     public void setUserName(String newUserName) {
         userName = newUserName;
+        userPersist.setUser(this);
     }
     public String getDescription() {return description;}
     public void setDescription(String newDescription) {
