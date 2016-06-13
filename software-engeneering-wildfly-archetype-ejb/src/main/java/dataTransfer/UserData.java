@@ -8,8 +8,9 @@ import java.io.Serializable;
 
 
 /**
- * Created by Christian on 19.05.2016.
  * User object send to the client (without password)
+ * Created by Christian on 19.05.2016.
+ *
  */
 public class UserData extends DataTransferObject {
 

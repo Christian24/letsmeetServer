@@ -5,6 +5,7 @@ import user.UserPersist;
 import java.io.Serializable;
 
 /**
+ * A dto for UserPersist
  * Created by Christian on 12.06.2016.
  */
 public class UserPersistenceData implements Serializable {

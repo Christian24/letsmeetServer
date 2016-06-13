@@ -82,6 +82,10 @@ public class MeetData extends DataTransferObject {
     }
     public UserData getAdmin() {return admin;}
 
+    /**
+     * Creates a instance based on an actual Meet
+     * @param meet
+     */
     public MeetData(Meet meet) {
         this.category = meet.getCategory().getTitle();
         this.title = meet.getTitle();

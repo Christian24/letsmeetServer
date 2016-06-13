@@ -9,8 +9,9 @@ import java.io.Serializable;
 import java.util.UUID;
 
 /**
- * Created by Christian on 19.05.2016.
  * DataTransferObject for Session
+ * Created by Christian on 19.05.2016.
+ *
  */
 public class SessionData extends DataTransferObject {
 

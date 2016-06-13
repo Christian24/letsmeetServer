@@ -3,6 +3,7 @@ package dataTransfer;
 import meet.Reply;
 
 /**
+ * DTO for Reply class
  * Created by Christian on 12.06.2016.
  */
 public class ReplyData extends UserContentData {

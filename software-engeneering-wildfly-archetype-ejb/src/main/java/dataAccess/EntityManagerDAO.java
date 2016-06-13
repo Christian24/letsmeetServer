@@ -1,6 +1,6 @@
 package dataAccess;
 
-import com.sun.org.apache.regexp.internal.RE;
+
 import meet.Category;
 import meet.Conversation;
 import meet.Meet;
@@ -10,26 +10,19 @@ import user.User;
 
 import javax.ejb.Stateless;
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.ParameterExpression;
-import javax.persistence.criteria.Root;
 import java.util.Date;
 import java.util.List;
 
 /**
- * Created by Christian on 19.05.2016.
  * Our implementation of the DataAccessObject
+ * Created by Christian on 19.05.2016.
+ *
  */
 @Stateless
 public class EntityManagerDAO implements DataAccessObject {
     @PersistenceContext
     protected EntityManager entityManager;
 
-    protected EntityManagerFactory entityManagerFactory;
-//    public EntityManagerDAO() {
-//entityManager = entityManagerFactory.createEntityManager();
-//    }
 
     /**
      * Finds a user by name
@@ -106,6 +99,13 @@ public class EntityManagerDAO implements DataAccessObject {
         persist(session);
         return session;
     }
+
+    /**
+     * Finds all Meets in the given timeframe
+     * @param start
+     * @param end
+     * @return
+     */
     @Override
     public Meet[] findMeets(Date start, Date end) {
         TypedQuery<Meet> query = entityManager.createQuery("SELECT m FROM Meet m WHERE m.dateTime BETWEEN :startdate AND :enddate",Meet.class);
@@ -116,10 +116,22 @@ public class EntityManagerDAO implements DataAccessObject {
 
 
     }
+
+    /**
+     * Finds a conversation by the given id
+     * @param id
+     * @return
+     */
     @Override
     public Conversation findConversationById(int id){
         return entityManager.find(Conversation.class,id);
     }
+
+    /**
+     * Finds a Reply by the given id
+     * @param id
+     * @return
+     */
     @Override
     public Reply findReplyById(int id){
         return entityManager.find(Reply.class,id);
