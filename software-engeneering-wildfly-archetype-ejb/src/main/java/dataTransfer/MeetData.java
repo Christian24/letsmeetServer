@@ -68,7 +68,7 @@ public class MeetData implements Serializable {
     public String getCategory() {
         return category;
     }
-
+    public int getId(){return id;}
     public void setCategory(String newCategory) {
         category = newCategory;
     }
@@ -88,7 +88,7 @@ public class MeetData implements Serializable {
         this.description = meet.getDescription();
         this.maxGuests = meet.getMaxGuests();
         this.dateTime = ServerHelper.getUnixTimestamp(meet.getDateTime());
-
+        this.id = meet.getId();
         visitors = new HashSet<UserData>();
         conversations  = new HashSet<ConversationData>();
         for(User user : meet.getVisitors()) {
