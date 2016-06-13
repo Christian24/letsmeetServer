@@ -22,7 +22,14 @@ import org.jboss.logging.Logger;
 							propertyName = "messageSelector", propertyValue = "DocType LIKE 'Name'")
 			})
 	
-public class Statistic {
-		//do something
+public class Statistic implements MessageListener{
+
+	@Override
+	public void onMessage(Message message) {
+		// TODO Auto-generated method stub
+		
+	}
+		
+		
 }
 	

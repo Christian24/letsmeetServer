@@ -424,7 +424,7 @@ if(session != null) {
         return new MeetResponse();
 
         }
-    }
+    
 
     /**
      * Instructs the DataAccessObject to create a new session
