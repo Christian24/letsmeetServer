@@ -11,14 +11,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by Christian on 03.05.2016.
  * User object for our database
+ * Created by Christian on 03.05.2016.
+ *
  */
 @Entity
 public class User implements Serializable {
-    /**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	@Id
     protected String userName;
@@ -34,10 +33,19 @@ public class User implements Serializable {
     protected Set<Session> sessions;
     @OneToOne(cascade = {CascadeType.ALL})
     protected UserPersist userPersist;
+
+    /**
+     * Get the UserPersist that comes with this
+     * @return
+     */
     public UserPersist getUserPersist()
     {
         return userPersist;
     }
+
+    /**
+     * Dummy constructor
+     */
     public User()
     {
         meetsCreated = new HashSet<Meet>();
@@ -45,31 +53,81 @@ public class User implements Serializable {
         sessions = new HashSet<Session>();
         userPersist = new UserPersist();
     }
+
+    /**
+     * Get all the Meet instances this User needs to visit
+     * @return
+     */
     public Collection<Meet> getMeetsToVisit()
     {
         return meetsToVisit;
     }
+
+    /**
+     * Get all the Meets this User is admin for
+     * @return
+     */
     public Set<Meet> getMeetsCreated() {
         return meetsCreated;
     }
+
+    /**
+     * Set the value
+     * @param newMeetsToVisit
+     */
     public void setMeetsToVisit(Set<Meet> newMeetsToVisit ) {
         meetsToVisit = newMeetsToVisit;
     }
+
+    /**
+     * Set the value
+     * @param newMeetsCreated
+     */
     public void setMeetsCreated(Set<Meet> newMeetsCreated) {meetsCreated = newMeetsCreated;}
+
+    /**
+     * Get the username
+     * @return
+     */
     public String getUserName() {
         return userName;
     }
+
+    /**
+     * Set the Username
+     * @param newUserName
+     */
     public void setUserName(String newUserName) {
         userName = newUserName;
         userPersist.setUser(this);
     }
+
+    /**
+     * Get the description
+     * @return
+     */
     public String getDescription() {return description;}
+
+    /**
+     * Set the description
+     * @param newDescription
+     */
     public void setDescription(String newDescription) {
         description = newDescription;
     }
+
+    /**
+     * Get the password
+     * @return
+     */
     public String getPassword() {
         return password;
     }
+
+    /**
+     * Set the password
+     * @param newPassword
+     */
     public void setPassword(String newPassword) {
         password = newPassword;
     }
