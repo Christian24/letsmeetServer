@@ -11,10 +11,11 @@ import java.util.Set;
 
 
 /**
+ * The DataTransferObject for Meet
  * Created by Christian on 19.05.2016.
  */
-public class MeetData implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class MeetData extends DataTransferObject {
+
 
     protected int id;
     protected long dateTime;

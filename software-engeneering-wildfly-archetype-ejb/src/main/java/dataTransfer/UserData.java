@@ -11,8 +11,8 @@ import java.io.Serializable;
  * Created by Christian on 19.05.2016.
  * User object send to the client (without password)
  */
-public class UserData implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class UserData extends DataTransferObject {
+
 
     protected String userName;
 
