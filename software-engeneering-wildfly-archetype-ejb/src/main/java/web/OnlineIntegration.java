@@ -40,7 +40,7 @@ public class OnlineIntegration  {
     protected DataAccessObject dataAccessObject;
 
 	@EJB
-	private letsmeetStatisticsBean letsmeetStatisticBean;
+	private LetsmeetStatisticsBean letsmeetStatisticsBean;
     
     /**
      * Registers a new user
@@ -424,7 +424,7 @@ if(session != null) {
         return new MeetResponse();
 
         }
-    }
+    
 
     /**
      * Instructs the DataAccessObject to create a new session
@@ -440,6 +440,6 @@ if(session != null) {
      * statistic-numbers regarding user behaviour
      */
     private void showUserStatistics(String username) {
-    	letsmeetStatisticsBean.displayStatistics(username);
+    	// letsmeetStatisticsBean.displayStatistics(username);
     }
 }

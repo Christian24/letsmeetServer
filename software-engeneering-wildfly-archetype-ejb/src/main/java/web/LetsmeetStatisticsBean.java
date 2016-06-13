@@ -13,27 +13,28 @@ import javax.ejb.Stateless;
 
 @Stateless
 @LocalBean
-public class letsmeetStatisticsBean {
+public class LetsmeetStatisticsBean {
 	
 	@Resource(mappedName="java:/JmsXA")
-	private static ConnectionFactory connectionFactory;
+	private ConnectionFactory connectionFactory;
 	
 	@Resource(mappedName="java:/jms/queue/letsmeetStatistics")
-	private static Queue outputQueue;
+	private Queue outputQueue;
 	
 	/**
 	 * Sends an Message via JMS with user-name to the output queue, in 
 	 * order to display statistic-numbers regarding user behaviour.
 	 * @param name
 	 */
-	public static void displayStatistics(String name) {
-		/**try (JMSContext context = connectionFactory.createContext(JMSContext.AUTO_ACKNOWLEDGE)){
+	public void displayStatistics(String name) {
+
+		try (JMSContext context = connectionFactory.createContext(JMSContext.AUTO_ACKNOWLEDGE)){
 			TextMessage message = context.createTextMessage();
 			message.setStringProperty("DocType", "Name");
 			message.setText(name);
 			context.createProducer().send(outputQueue, message);
 		} catch (JMSException e) {
 			throw new EJBException(e);
-		}**/
+		}
 	}
 }

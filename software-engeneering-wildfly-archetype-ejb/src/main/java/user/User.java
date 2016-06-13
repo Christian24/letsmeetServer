@@ -32,7 +32,7 @@ public class User implements Serializable {
     protected Set<Meet> meetsCreated;
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     protected Set<Session> sessions;
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     protected UserPersist userPersist;
     public UserPersist getUserPersist()
     {
