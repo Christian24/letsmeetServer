@@ -1,5 +1,6 @@
 package user;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
@@ -13,7 +14,7 @@ public class UserPersist {
     private static final long serialVersionUID = 1L;
     @Id
     protected String name;
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.ALL})
     protected User user;
 
     /**

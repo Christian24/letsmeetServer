@@ -40,7 +40,7 @@ public class OnlineIntegration  {
     protected DataAccessObject dataAccessObject;
 
 	@EJB
-	private letsmeetStatisticsBean letsmeetStatisticBean;
+	private LetsmeetStatisticsBean letsmeetStatisticsBean;
     
     /**
      * Registers a new user
