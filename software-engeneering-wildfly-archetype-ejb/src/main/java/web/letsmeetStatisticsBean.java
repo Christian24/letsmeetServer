@@ -27,13 +27,13 @@ public class letsmeetStatisticsBean {
 	 * @param name
 	 */
 	public void displayStatistics(String name) {
-		/**try (JMSContext context = connectionFactory.createContext(JMSContext.AUTO_ACKNOWLEDGE)){
+		try (JMSContext context = connectionFactory.createContext(JMSContext.AUTO_ACKNOWLEDGE)){
 			TextMessage message = context.createTextMessage();
 			message.setStringProperty("DocType", "Name");
 			message.setText(name);
 			context.createProducer().send(outputQueue, message);
 		} catch (JMSException e) {
 			throw new EJBException(e);
-		}**/
+		}
 	}
 }
