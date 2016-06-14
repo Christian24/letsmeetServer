@@ -69,7 +69,12 @@ public class MeetData extends DataTransferObject {
     public String getCategory() {
         return category;
     }
+    public Set<ConversationData> getConversations() {return conversations;}
+    public void setConversations(Set<ConversationData> newConversations) {
+        conversations = newConversations;
+    }
     public int getId(){return id;}
+    public void setId(int newId){id = newId;}
     public void setCategory(String newCategory) {
         category = newCategory;
     }
