@@ -436,10 +436,10 @@ if(session != null) {
     }
     
     /**
-     * Orders letsmeetStatisticsBean to display 
-     * statistic-numbers regarding user behaviour
+     * Delivers the meet to the statistics component so it can be stored for further use.
+     * @param user
      */
-    private void showUserStatistics(String username) {
-    	// letsmeetStatisticsBean.displayStatistics(username);
+    private void newMeetStatistics(Meet meet) {
+    	letsmeetStatisticsBean.newMeetStatistics(meet);
     }
 }

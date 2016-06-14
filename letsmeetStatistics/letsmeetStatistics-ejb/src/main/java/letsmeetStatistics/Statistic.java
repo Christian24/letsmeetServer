@@ -6,8 +6,9 @@ import javax.ejb.MessageDriven;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
-import javax.jms.TextMessage;
-import org.jboss.logging.Logger;
+import javax.jms.ObjectMessage;
+import meet.Meet;
+
 
 /**
  * Created by Sergei Fladung
@@ -21,14 +22,19 @@ import org.jboss.logging.Logger;
 					@ActivationConfigProperty(
 							propertyName = "messageSelector", propertyValue = "DocType LIKE 'Name'")
 			})
-	
 public class Statistic implements MessageListener{
-
-	@Override
+		@Override
 	public void onMessage(Message message) {
-		// TODO Auto-generated method stub
-		
+		try{
+			ObjectMessage msg = (ObjectMessage) message;
+			Meet meet = (Meet) msg.getObject();
+			
+			
+		}catch(JMSException ex){
+			throw new EJBException(ex);
+		}
 	}
+	
 		
 		
 }

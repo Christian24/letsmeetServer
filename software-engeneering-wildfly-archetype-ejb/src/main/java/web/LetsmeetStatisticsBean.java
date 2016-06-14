@@ -1,6 +1,10 @@
 package web;
 
 import javax.jms.*;
+
+import meet.Meet;
+import user.User;
+
 import javax.annotation.Resource;
 import javax.ejb.EJBException;
 import javax.ejb.LocalBean;
@@ -26,12 +30,11 @@ public class LetsmeetStatisticsBean {
 	 * order to display statistic-numbers regarding user behaviour.
 	 * @param name
 	 */
-	public void displayStatistics(String name) {
+	public void newMeetStatistics(Meet meet) {
 
 		try (JMSContext context = connectionFactory.createContext(JMSContext.AUTO_ACKNOWLEDGE)){
-			TextMessage message = context.createTextMessage();
-			message.setStringProperty("DocType", "Name");
-			message.setText(name);
+			ObjectMessage message = context.createObjectMessage();
+			message.setObject(meet);
 			context.createProducer().send(outputQueue, message);
 		} catch (JMSException e) {
 			throw new EJBException(e);
