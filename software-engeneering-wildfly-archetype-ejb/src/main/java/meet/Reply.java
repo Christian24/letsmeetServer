@@ -22,22 +22,52 @@ public class Reply extends UserContent {
     @ManyToOne
     protected Conversation parent;
 
+    /**
+     * Dummy constructor
+     */
     public Reply(){}
+
+    /**
+     * Constructs a new Reply
+     * @param conversation
+     * @param user
+     * @param text
+     */
     public Reply(Conversation conversation, User user, String text){
         parent = conversation;
         poster = user.getUserPersist();
         content = text;
         postedAt = new Date();
     }
-public int getId(){
+
+    /**
+     * Gets the id
+     * @return
+     */
+    public int getId(){
     return id;
 }
+
+    /**
+     * Sets the id
+     * @param newId
+     */
     public void setId(int newId){
         id = newId;
     }
+
+    /**
+     * Sets the Conversation this belongs to
+     * @param newParent
+     */
     public void setParent(Conversation newParent){
         parent = newParent;
     }
+
+    /**
+     * Gets the conversation this belongs to
+     * @return
+     */
     public Conversation getParent(){
         return parent;
     }

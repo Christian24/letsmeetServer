@@ -5,6 +5,7 @@ import meet.UserContent;
 
 
 /**
+ * Abstract dto for comments/conversations
  * Created by Christian on 12.06.2016.
  */
 public abstract class UserContentData extends DataTransferObject {

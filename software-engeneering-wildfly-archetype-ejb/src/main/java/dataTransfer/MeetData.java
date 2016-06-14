@@ -11,10 +11,11 @@ import java.util.Set;
 
 
 /**
+ * The DataTransferObject for Meet
  * Created by Christian on 19.05.2016.
  */
-public class MeetData implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class MeetData extends DataTransferObject {
+
 
     protected int id;
     protected long dateTime;
@@ -68,7 +69,12 @@ public class MeetData implements Serializable {
     public String getCategory() {
         return category;
     }
-
+    public Set<ConversationData> getConversations() {return conversations;}
+    public void setConversations(Set<ConversationData> newConversations) {
+        conversations = newConversations;
+    }
+    public int getId(){return id;}
+    public void setId(int newId){id = newId;}
     public void setCategory(String newCategory) {
         category = newCategory;
     }
@@ -81,6 +87,10 @@ public class MeetData implements Serializable {
     }
     public UserData getAdmin() {return admin;}
 
+    /**
+     * Creates a instance based on an actual Meet
+     * @param meet
+     */
     public MeetData(Meet meet) {
         this.category = meet.getCategory().getTitle();
         this.title = meet.getTitle();
@@ -88,7 +98,7 @@ public class MeetData implements Serializable {
         this.description = meet.getDescription();
         this.maxGuests = meet.getMaxGuests();
         this.dateTime = ServerHelper.getUnixTimestamp(meet.getDateTime());
-
+        this.id = meet.getId();
         visitors = new HashSet<UserData>();
         conversations  = new HashSet<ConversationData>();
         for(User user : meet.getVisitors()) {

@@ -1,12 +1,13 @@
 package dataTransfer;
 
-import helpers.ReturnCodeHelper;
+
 import meet.Meet;
 import session.Session;
 
 /**
+ * A response stream serving an array of Meet
  * Created by Christian on 19.05.2016.
- * A response stream in the server of meets
+ *
  */
 public class MeetsResponse extends SessionResponse {
     protected MeetData[] meets;

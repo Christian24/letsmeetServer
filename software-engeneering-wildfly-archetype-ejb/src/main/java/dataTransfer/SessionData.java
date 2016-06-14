@@ -9,11 +9,12 @@ import java.io.Serializable;
 import java.util.UUID;
 
 /**
- * Created by Christian on 19.05.2016.
  * DataTransferObject for Session
+ * Created by Christian on 19.05.2016.
+ *
  */
-public class SessionData implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class SessionData extends DataTransferObject {
+
 
     protected UserData user;
     protected boolean hasEnded;

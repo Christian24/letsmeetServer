@@ -9,8 +9,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by Christian on 03.05.2016.
  * A category used to filter meets
+ * Created by Christian on 03.05.2016.
+ *
  */
 @Entity
 public class Category implements Serializable {
@@ -22,12 +23,34 @@ public class Category implements Serializable {
     protected String title;
     @OneToMany(mappedBy = "category")
     protected Set<Meet> meets;
+
+    /**
+     * Dummy constructor
+     */
     public Category() {
         meets = new HashSet<Meet>();
     }
+
+    /**
+     * Short to create a new instance under the given name
+     * @param name
+     */
+    public Category(String name){
+        meets = new HashSet<>();
+        setTitle(name);
+    }
+    /**
+     * Gets the title of the category
+     * @return
+     */
     public String getTitle() {
         return title;
     }
+
+    /**
+     * Sets the new title
+     * @param newTitle
+     */
     public void setTitle(String newTitle) {
         title = newTitle;
     }

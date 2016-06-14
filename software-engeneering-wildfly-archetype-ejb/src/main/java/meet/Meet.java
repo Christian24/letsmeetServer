@@ -11,8 +11,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created by Christian on 03.05.2016.
  * Stores a new meet
+ * Created by Christian on 03.05.2016.
+ *
  */
 @Entity
 public class Meet implements Serializable {
@@ -43,52 +44,134 @@ public class Meet implements Serializable {
     @ManyToMany
     protected Set<User> visitors;
 
+    /**
+     * Sets the datetime
+     * @param newDateTime
+     */
     public void setDateTime(Date newDateTime) {
         this.dateTime = newDateTime;
     }
+
+    /**
+     * Gets the datetime
+     * @return
+     */
     public Date getDateTime() {
         return this.dateTime;
     }
+
+    /**
+     * Gets the description
+     * @return
+     */
     public String getDescription() {
         return description;
     }
+
+    /**
+     * Sets a description
+     * @param newDescription
+     */
     public void setDescription(String newDescription) {
         description = newDescription;
     }
+
+    /**
+     * Gets the number of allowed guests
+     * @return
+     */
     public int getMaxGuests() {
         return maxGuests;
     }
+
+    /**
+     * Sets the max number of guests allowed for this Meet
+     * @param newMaxGuests
+     */
     public void setMaxGuests(int newMaxGuests) {
         maxGuests = newMaxGuests;
     }
+
+    /**
+     * Gets the location
+     * @return
+     */
     public String getLocation() {
         return location;
     }
+
+    /**
+     * Sets the location
+     * @param newLocation
+     */
     public void setLocation(String newLocation) {
         location = newLocation;
     }
+
+    /**
+     * Gets the title
+     * @return
+     */
     public String getTitle() {
         return title;
     }
+
+    /**
+     * Sets the title
+     * @param newTitle
+     */
     public void setTitle(String newTitle) {
         title = newTitle;
     }
+
+    /**
+     * Gets the Category this belongs to
+     * @return
+     */
     public Category getCategory() {
         return category;
     }
 
+    /**
+     * Sets the Category
+     * @param newCategory
+     */
     public void setCategory(Category newCategory) {
         category = newCategory;
     }
+
+    /**
+     * Sets the visitors
+     * @param users
+     */
     public void setVisitors(Set<User> users) {
         visitors = users;
     }
+
+    /**
+     * Gets all Visitors
+     * @return
+     */
     public Set<User> getVisitors() {return visitors;}
+
+    /**
+     * Sets the User responsible for this Meet
+     * @param admin
+     */
     public void setAdmin(User admin) {
         this.admin = admin;
     }
+
+    /**
+     * Gets the User responsible for this Meet
+     * @return
+     */
     public User getAdmin() {return admin;}
 
+    /**
+     * Sets the conversations
+     * @param conversations
+     */
     public void setConversations(Set<Conversation> conversations) {
         this.conversations = conversations;
     }

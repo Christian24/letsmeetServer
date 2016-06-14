@@ -6,6 +6,7 @@ import meet.Reply;
 import java.util.ArrayList;
 
 /**
+ * DTO for Conversation
  * Created by Christian on 12.06.2016.
  */
 public class ConversationData extends UserContentData {
