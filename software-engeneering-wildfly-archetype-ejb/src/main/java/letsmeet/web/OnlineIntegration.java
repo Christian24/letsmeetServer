@@ -381,7 +381,7 @@ if(session != null) {
      * @return
      */
     public MeetResponse createMeet(String sessionId,String categoryId, String description, String title, String location,
-                                   long date, int maxUsers) {
+                                   Date date, int maxUsers) {
         Session session = dataAccessObject.findSessionById(sessionId);
         Category category = dataAccessObject.findCategoryById(categoryId);
         if(session != null && category != null) {
@@ -391,7 +391,7 @@ if(session != null) {
             meet.setAdmin(session.getUser());
             meet.setTitle(title);
             meet.setLocation(location);
-            meet.setDateTime(ServerHelper.getDateFromUnixTimestamp(date));
+            meet.setDateTime(date);
             meet.setMaxGuests(maxUsers);
             dataAccessObject.persist(meet);
             return new MeetResponse(session,meet);
