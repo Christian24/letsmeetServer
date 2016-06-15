@@ -40,6 +40,7 @@ public class Meet implements Serializable {
     protected String title;
     public Meet() {
         visitors = new HashSet<User>();
+        conversations = new HashSet<Conversation>();
         maxGuests = 10;
     }
     @ManyToMany
