@@ -21,7 +21,7 @@
 
     <parent>
         <artifactId>letsmeetStatistics</artifactId>
-        <groupId>letsmeet</groupId>
+        <groupId>com.github.fhms-wi</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 

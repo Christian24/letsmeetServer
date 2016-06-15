@@ -22,7 +22,7 @@ public class LetsmeetStatisticsBean {
 	@Resource(mappedName="java:/JmsXA")
 	private ConnectionFactory connectionFactory;
 	
-	@Resource(mappedName="java:/jms/queue/letsmeetStatistics")
+	@Resource(mappedName="java:/jms/queue/Queue1")
 	private Queue outputQueue;
 	
 	/**

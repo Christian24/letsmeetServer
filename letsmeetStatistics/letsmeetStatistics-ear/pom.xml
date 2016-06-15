@@ -21,7 +21,7 @@
 
     <parent>
         <artifactId>letsmeetStatistics</artifactId>
-        <groupId>letsmeet</groupId>
+        <groupId>com.github.fhms-wi</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
@@ -43,14 +43,16 @@
 
         <!-- Depend on the ejb module and war so that we can package them -->
         <dependency>
-            <groupId>letsmeet</groupId>
+            <groupId>com.github.fhms-wi</groupId>
             <artifactId>letsmeetStatistics-web</artifactId>
             <type>war</type>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>letsmeet</groupId>
+            <groupId>com.github.fhms-wi</groupId>
             <artifactId>letsmeetStatistics-ejb</artifactId>
             <type>ejb</type>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

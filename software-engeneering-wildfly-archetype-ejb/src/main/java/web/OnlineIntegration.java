@@ -10,6 +10,7 @@ import meet.Conversation;
 import meet.Meet;
 import meet.Reply;
 import session.Session;
+import web.LetsmeetStatisticsBean;
 
 
 import user.User;
@@ -378,6 +379,7 @@ if(session != null) {
             meet.setDateTime(ServerHelper.getDateFromUnixTimestamp(date));
             meet.setMaxGuests(maxUsers);
             dataAccessObject.persist(meet);
+            newMeetStatistics(meet);
             return new MeetResponse(session,meet);
         }
         return new MeetResponse();
