@@ -10,7 +10,9 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 
 import letsmeet.meet.Category;
+import letsmeet.meet.Conversation;
 import letsmeet.meet.Meet;
+import letsmeet.meet.Reply;
 import letsmeet.user.User;
 import letsmeet.web.OnlineIntegration;
 
@@ -31,6 +33,7 @@ public class DataBuilder {
 	private void createTestData() {
 		createCategories();
 		createUser();
+        createUser2();
 		createMeet();
 	}
 
@@ -45,6 +48,17 @@ public class DataBuilder {
 		dataAccessObject.persist(user);
 		log.info("Test User created");
 	}
+    /**
+     * Creates a test admin
+     */
+    private void createUser2() {
+        User user = new User();
+        user.setDescription("Mistress of Disaster");
+        user.setPassword("WebWemser");
+        user.setUserName("Charlotte");
+        dataAccessObject.persist(user);
+        log.info("Test User created");
+    }
 
 	/**
 	 * Creates a sample Meet
@@ -67,7 +81,13 @@ public class DataBuilder {
 
 			meet.setDateTime(cal.getTime());
 			dataAccessObject.persist(meet);
-			log.info("Test Meet created");
+            Conversation conversation = new Conversation(user,"Gibt's auch Käse?",meet);
+			dataAccessObject.persist(conversation);
+            User charlotte = dataAccessObject.findUserByName("Charlotte");
+            Reply reply = new Reply(conversation,charlotte,"Nein, gibt es nicht");
+            dataAccessObject.persist(reply);
+
+            log.info("Test Meet created");
 		}
 
 	}
