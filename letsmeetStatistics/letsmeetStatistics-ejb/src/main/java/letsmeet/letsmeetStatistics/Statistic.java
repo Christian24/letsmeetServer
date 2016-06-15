@@ -1,4 +1,4 @@
-package letsmeetStatistics;
+package letsmeet.letsmeetStatistics;
 
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.EJBException;
