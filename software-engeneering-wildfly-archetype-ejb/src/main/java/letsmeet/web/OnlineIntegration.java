@@ -1,20 +1,16 @@
+package letsmeet.web;
 
-package web;
-
-import dataAccess.DataAccessObject;
-import dataAccess.EntityManagerDAO;
-import dataTransfer.*;
-import helpers.ReturnCodeHelper;
-import helpers.ServerHelper;
-import meet.Category;
-import meet.Conversation;
-import meet.Meet;
-import meet.Reply;
-import session.Session;
-import web.LetsmeetStatisticsBean;
-
-
-import user.User;
+import letsmeet.dataAccess.DataAccessObject;
+import letsmeet.dataAccess.EntityManagerDAO;
+import letsmeet.dataTransfer.*;
+import letsmeet.helpers.ReturnCodeHelper;
+import letsmeet.helpers.ServerHelper;
+import letsmeet.meet.Category;
+import letsmeet.meet.Conversation;
+import letsmeet.meet.Meet;
+import letsmeet.meet.Reply;
+import letsmeet.session.Session;
+import letsmeet.user.User;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -379,7 +375,6 @@ if(session != null) {
             meet.setDateTime(ServerHelper.getDateFromUnixTimestamp(date));
             meet.setMaxGuests(maxUsers);
             dataAccessObject.persist(meet);
-            newMeetStatistics(meet);
             return new MeetResponse(session,meet);
         }
         return new MeetResponse();

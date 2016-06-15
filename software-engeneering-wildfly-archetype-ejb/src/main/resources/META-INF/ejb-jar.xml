@@ -3,7 +3,7 @@
   <enterprise-beans>
     <session>
       <ejb-name>DataBuilder</ejb-name>
-      <ejb-class>dataAccess.DataBuilder</ejb-class>
+      <ejb-class>letsmeet.dataAccess.DataBuilder</ejb-class>
     </session>
   </enterprise-beans>
 </ejb-jar>
