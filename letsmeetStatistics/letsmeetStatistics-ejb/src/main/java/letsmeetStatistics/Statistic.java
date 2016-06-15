@@ -17,7 +17,7 @@ import letsmeet.meet.Meet;
 	@MessageDriven (
 			activationConfig = {
 					@ActivationConfigProperty(
-							propertyName = "destination", propertyValue = "java:/jms/queue/letsmeetStatistics"),
+							propertyName = "destination", propertyValue = "java:/jms/queue/Queue3"),
 					@ActivationConfigProperty(
 							propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
 					@ActivationConfigProperty(
