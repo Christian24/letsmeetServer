@@ -165,7 +165,7 @@ public class OnlineIntegration  {
      * @return
      */
     public MeetResponse updateMeet(String sessionID, int meetID, String categoryId, String description, String title, String location,
-                                   long date, int maxUsers) {
+                                   Date date, int maxUsers) {
         Session session = dataAccessObject.findSessionById(sessionID);
         Meet meet = dataAccessObject.getMeetById(meetID);
         Category category = dataAccessObject.findCategoryById(categoryId);
@@ -178,7 +178,7 @@ public class OnlineIntegration  {
                 meet.setDescription(description);
                 meet.setTitle(title);
                 meet.setLocation(location);
-                meet.setDateTime(ServerHelper.getDateFromUnixTimestamp(date));
+                meet.setDateTime(date);
                 meet.setCategory(category);
 
             }
