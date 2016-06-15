@@ -1,11 +1,12 @@
 package letsmeet.dataTransfer;
 
-import letsmeet.helpers.ServerHelper;
+
 import letsmeet.meet.Conversation;
 import letsmeet.meet.Meet;
 import letsmeet.user.User;
 
-import java.io.Serializable;
+
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,7 +19,7 @@ public class MeetData extends DataTransferObject {
 
 
     protected int id;
-    protected long dateTime;
+    protected Date dateTime;
 
     protected String category;
     protected String description;
@@ -36,10 +37,10 @@ public class MeetData extends DataTransferObject {
 
     protected Set<UserData> visitors;
 
-    public void setDateTime(long newDateTime) {
+    public void setDateTime(Date newDateTime) {
         this.dateTime = newDateTime;
     }
-    public long getDateTime() {
+    public Date getDateTime() {
         return this.dateTime;
     }
     public String getDescription() {
@@ -97,7 +98,7 @@ public class MeetData extends DataTransferObject {
         this.location = meet.getLocation();
         this.description = meet.getDescription();
         this.maxGuests = meet.getMaxGuests();
-        this.dateTime = ServerHelper.getUnixTimestamp(meet.getDateTime());
+        this.dateTime = meet.getDateTime();
         this.id = meet.getId();
         visitors = new HashSet<UserData>();
         conversations  = new HashSet<ConversationData>();

@@ -20,6 +20,7 @@ import org.jboss.ws.api.annotation.WebContext;
 
 import java.util.ArrayList;
 
+import java.util.Date;
 import java.util.logging.Logger;
 
 /**
@@ -81,6 +82,7 @@ public class OnlineIntegration  {
      * @return
      */
     public SessionResponse login(String name, String password) {
+
         User preExisting = dataAccessObject.findUserByName(name);
         log.info("User logs in");
 
@@ -116,12 +118,12 @@ public class OnlineIntegration  {
      * @param end unix timestamp
      * @return
      */
-    public MeetsResponse getMeets(String sessionID, long start, long end) {
+    public MeetsResponse getMeets(String sessionID, Date start, Date end) {
 
         Session session = dataAccessObject.findSessionById(sessionID);
         if(session != null) {
-            Meet[] meets = dataAccessObject.findMeets(ServerHelper.getDateFromUnixTimestamp(start),
-                    ServerHelper.getDateFromUnixTimestamp(end));
+            Meet[] meets = dataAccessObject.findMeets(start,
+                    end);
             return new MeetsResponse(session,meets);
         }
         return new MeetsResponse();
