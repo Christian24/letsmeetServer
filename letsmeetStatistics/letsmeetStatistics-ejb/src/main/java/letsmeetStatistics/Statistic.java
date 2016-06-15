@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 			activationConfig = {
 					@ActivationConfigProperty(
 							propertyName = "destination", propertyValue = "java:/jms/queue/Queue1"),
+
 					@ActivationConfigProperty(
 							propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
 					@ActivationConfigProperty(
