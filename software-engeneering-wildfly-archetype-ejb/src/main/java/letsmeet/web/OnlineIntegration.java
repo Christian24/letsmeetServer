@@ -204,6 +204,23 @@ public class OnlineIntegration  {
     }
 
     /**
+     * Deletes a Meet
+     * @param sessionID
+     * @param meetID
+     * @return
+     */
+    public SessionResponse deleteMeet(String sessionID, int meetID){
+        Session session = dataAccessObject.findSessionById(sessionID);
+        Meet meet = dataAccessObject.getMeetById(meetID);
+
+        if(session != null && meet != null && session.getUser().equals(meet.getAdmin()) ) {
+           dataAccessObject.delete(meet);
+            return new SessionResponse(session);
+        }
+        return new SessionResponse();
+    }
+
+    /**
      * Deletes a user
      * @param sessionID
      * @return
