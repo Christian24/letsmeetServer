@@ -32,17 +32,9 @@ public class User implements Serializable {
     protected Set<Meet> meetsCreated;
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     protected Set<Session> sessions;
-    @OneToOne(cascade = {CascadeType.ALL})
-    protected UserPersist userPersist;
 
-    /**
-     * Get the UserPersist that comes with this
-     * @return
-     */
-    public UserPersist getUserPersist()
-    {
-        return userPersist;
-    }
+
+
 
     /**
      * Dummy constructor
@@ -52,7 +44,7 @@ public class User implements Serializable {
         meetsCreated = new HashSet<Meet>();
         meetsToVisit = new HashSet<Meet>();
         sessions = new HashSet<Session>();
-        userPersist = new UserPersist();
+
     }
 
     /**
@@ -100,7 +92,7 @@ public class User implements Serializable {
      */
     public void setUserName(String newUserName) {
         userName = newUserName;
-        userPersist.setUser(this);
+
     }
 
     /**

@@ -1,27 +1,39 @@
 package letsmeet.meet;
 
-import javax.persistence.ManyToOne;
+import letsmeet.user.User;
 
-import letsmeet.user.UserPersist;
-
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * The baseclass for Conversation and Reply
  * Created by Christian on 12.06.2016.
  */
-public abstract class UserContent {
-
-    @ManyToOne
-    protected UserPersist poster;
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class UserContent implements Serializable {
+    private static final long serialVersionUID = 1L;
+    protected String poster;
     protected Date postedAt;
     protected String content;
+   @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    protected int id;
+
+    public UserContent() {
+
+    }
+    public UserContent(User user,String text) {
+        setPoster(user.getUserName());
+        setContent(text);
+        setPostedAt(new Date());
+    }
 
     /**
      * Who posted this
      * @return
      */
-    public UserPersist getPostedBy() {
+    public String getPoster() {
         return poster;
     }
 
@@ -29,7 +41,7 @@ public abstract class UserContent {
      * Set who posted this
      * @param name
      */
-    public void setPostedBy(UserPersist name) {
+    public void setPoster(String name) {
         poster = name;
     }
 
@@ -37,7 +49,7 @@ public abstract class UserContent {
      * Get when this was posted
      * @return
      */
-    public Date getTimestamp() {
+    public Date getPostedAt() {
         return postedAt;
     }
 
@@ -45,7 +57,7 @@ public abstract class UserContent {
      * Set when it was posted
      * @param date
      */
-    public void setTimestamp(Date date) {
+    public void setPostedAt(Date date) {
         postedAt = date;
     }
 
@@ -53,7 +65,7 @@ public abstract class UserContent {
      * Get the actual text content
      * @return
      */
-    public String getText() {
+    public String getContent() {
         return content;
     }
 
@@ -61,8 +73,23 @@ public abstract class UserContent {
      * Set the actual text content
      * @param text
      */
-    public void setText(String text) {
+    public void setContent(String text) {
         content = text;
+    }
+    /**
+     * Gets the id
+     * @return
+     */
+    public int getId(){
+        return id;
+    }
+
+    /**
+     * Sets the id
+     * @param newId
+     */
+    public void setId(int newId){
+        id = newId;
     }
 
 

@@ -8,7 +8,7 @@ import letsmeet.meet.Reply;
  */
 public class ReplyData extends UserContentData {
     protected int parent;
-    protected int id;
+
  public int getParent() {
         return parent;
     }
@@ -21,14 +21,8 @@ public class ReplyData extends UserContentData {
     }
     public ReplyData(Reply original) {
         super(original);
-        setId(original.getId());
         setParent((original.getParent().getId()));
     }
-    public int getId(){
-        return id;
-    }
-    public void setId(int newId){
-        id= newId;
-    }
+
 
 }

@@ -3,25 +3,28 @@ package letsmeet.dataTransfer;
 import letsmeet.helpers.ServerHelper;
 import letsmeet.meet.UserContent;
 
+import java.util.Date;
+
 
 /**
  * Abstract dto for comments/conversations
  * Created by Christian on 12.06.2016.
  */
 public abstract class UserContentData extends DataTransferObject {
-protected  UserPersistenceData poster;
+protected int id;
+protected  String poster;
     protected String text;
-    protected long timestamp;
-    public void setTimestamp(long timestamp) {
+    protected Date timestamp;
+    public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
-    public long getTimestamp() {
+    public Date getTimestamp() {
         return timestamp;
     }
-    public void setPoster(UserPersistenceData userData) {
+    public void setPoster(String userData) {
         poster = userData;
     }
-    public UserPersistenceData getPoster(){
+    public String getPoster(){
         return poster;
     }
     public void setText(String content) {
@@ -34,8 +37,15 @@ protected  UserPersistenceData poster;
 
     }
     public UserContentData(UserContent original ){
-        setText(original.getText());
-        setPoster( new UserPersistenceData(original.getPostedBy()));
-        setTimestamp(ServerHelper.getUnixTimestamp(original.getTimestamp()));
+        setId(original.getId());
+        setText(original.getContent());
+        setPoster( original.getPoster());
+        setTimestamp(original.getPostedAt());
+    }
+    public int getId(){
+        return id;
+    }
+    public void setId(int newId){
+        id= newId;
     }
 }

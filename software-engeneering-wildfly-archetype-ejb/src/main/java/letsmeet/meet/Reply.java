@@ -3,7 +3,6 @@ package letsmeet.meet;
 import javax.persistence.*;
 
 import letsmeet.user.User;
-import letsmeet.user.UserPersist;
 
 import java.util.Date;
 
@@ -13,13 +12,7 @@ import java.util.Date;
  */
 @Entity
 public class Reply extends UserContent {
-    @Id
-    @GeneratedValue
-    protected int id;
-    @ManyToOne
-    protected UserPersist poster;
-    protected Date postedAt;
-    protected String content;
+
     @ManyToOne
     protected Conversation parent;
 
@@ -35,27 +28,12 @@ public class Reply extends UserContent {
      * @param text
      */
     public Reply(Conversation conversation, User user, String text){
+        super(user,text);
         parent = conversation;
-        poster = user.getUserPersist();
-        content = text;
-        postedAt = new Date();
+
     }
 
-    /**
-     * Gets the id
-     * @return
-     */
-    public int getId(){
-    return id;
-}
 
-    /**
-     * Sets the id
-     * @param newId
-     */
-    public void setId(int newId){
-        id = newId;
-    }
 
     /**
      * Sets the Conversation this belongs to
@@ -78,6 +56,6 @@ public class Reply extends UserContent {
      * "Deletes" the reply
      */
     public void delete() {
-        setText("This has been deleted");
+        setContent("This has been deleted");
     }
 }

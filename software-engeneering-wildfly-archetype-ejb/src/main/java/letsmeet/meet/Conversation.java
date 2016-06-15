@@ -15,9 +15,7 @@ import java.util.Set;
  */
 @Entity
 public class Conversation extends UserContent {
-    @Id
-    @GeneratedValue
-    protected int id;
+
     @OneToMany(mappedBy = "parent")
     protected Set<Reply> replies;
     @ManyToOne
@@ -37,25 +35,11 @@ public class Conversation extends UserContent {
      * @param meet
      */
     public Conversation(User user, String text, Meet meet) {
-        this.poster= user.getUserPersist();
-        this.content = text;
+        super(user,text);
         this.origin = meet;
-        this.setTimestamp(new Date());
+
     }
 
-    /**
-     * Returns the id
-     * @return
-     */
-    public int getId(){return id;}
-
-    /**
-     * Sets the id, in theory, in practice done by the db
-     * @param newID
-     */
-    public void setId(int newID) {
-        newID = id;
-    }
 
     /**
      * Sets the Meet this belongs to
