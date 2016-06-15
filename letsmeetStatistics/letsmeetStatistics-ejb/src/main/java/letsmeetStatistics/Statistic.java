@@ -7,8 +7,13 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
+<<<<<<< HEAD
 import meet.Meet;
 import web.OnlineIntegration;
+=======
+
+import letsmeet.meet.Meet;
+>>>>>>> cf21ae802a09d5ce6a1dd2be2961ea1056ec6ce6
 
 import java.util.logging.Logger;
 
