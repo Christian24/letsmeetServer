@@ -1,9 +1,8 @@
 package letsmeet;
 
 import javax.ejb.EJB;
+import javax.ejb.EJBTransactionRolledbackException;
 
-import meet.Category;
-import meet.Meet;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian; 
 import org.jboss.shrinkwrap.api.ShrinkWrap; 
@@ -11,8 +10,10 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test; 
 import org.junit.runner.RunWith;
 
-import dataAccess.DataAccessObject;
-import user.User;
+import letsmeet.dataAccess.DataAccessObject;
+import letsmeet.meet.Category;
+import letsmeet.meet.Meet;
+import letsmeet.user.User;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -49,7 +50,7 @@ public class letsmeetDAOTest {
         assertNotNull("Der User wurde nicht angelt", peterchen);
     }
 
-    @Test
+    @Test(expected = EJBTransactionRolledbackException.class)
     public void shouldNotCreateUserWithoutPassword() {
         User user = new User();
         user.setDescription("Ich bin ein Wemser.");
@@ -61,7 +62,7 @@ public class letsmeetDAOTest {
         assertNull(charlotte);
     }
 
-    @Test
+    @Test(expected = EJBTransactionRolledbackException.class)
     public void meetShouldNotBeCreatedWithoutAdmin() {
         Meet meet = new Meet();
         Category category = dataAccessObject.findCategoryById("Feiern");

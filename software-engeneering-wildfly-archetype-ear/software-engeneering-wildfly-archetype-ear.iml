@@ -21,5 +21,8 @@
     <orderEntry type="module" module-name="software-engeneering-wildfly-archetype-web" />
     <orderEntry type="module" module-name="software-engeneering-wildfly-archetype-ejb" />
     <orderEntry type="library" name="Maven: org.jboss.ws:jbossws-api:1.0.3.Final" level="project" />
+    <orderEntry type="library" name="Maven: javax:javaee-api:7.0" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.mail:javax.mail:1.5.1" level="project" />
+    <orderEntry type="library" name="Maven: javax.activation:activation:1.1.1" level="project" />
   </component>
 </module>
