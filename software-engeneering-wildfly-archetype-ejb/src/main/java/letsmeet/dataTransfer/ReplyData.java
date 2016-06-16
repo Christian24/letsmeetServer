@@ -7,9 +7,12 @@ import letsmeet.meet.Reply;
  * Created by Christian on 12.06.2016.
  */
 public class ReplyData extends UserContentData {
-    protected int parent;
 
- public int getParent() {
+	private static final long serialVersionUID = -4222386759011868637L;
+
+	protected int parent;
+
+	public int getParent() {
         return parent;
     }
     public void setParent(int newParent) {

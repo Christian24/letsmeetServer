@@ -10,7 +10,10 @@ import letsmeet.session.Session;
  *
  */
 public class MeetResponse extends SessionResponse {
-    protected MeetData meet;
+
+	private static final long serialVersionUID = -1929891227404874726L;
+	
+	protected MeetData meet;
 
     /**
      * The default success constructor takes the session and the Meet

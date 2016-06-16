@@ -11,7 +11,10 @@ import letsmeet.user.User;
  * Created by Christian on 18.05.2016.
  */
 public class SessionResponse extends ReturnCodeResponse {
-    protected SessionData session;
+
+	private static final long serialVersionUID = -6610605189488926392L;
+	
+	protected SessionData session;
 
     /**
      * Whetever there is no sessionData

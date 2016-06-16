@@ -8,7 +8,10 @@ import letsmeet.helpers.ReturnCodeHelper;
  *
  */
 public class ReturnCodeResponse extends DataTransferObject {
-    /**
+
+	private static final long serialVersionUID = -7206933922166304817L;
+	
+	/**
      * Dummy constructor returning No_Acess
      */
     public ReturnCodeResponse()

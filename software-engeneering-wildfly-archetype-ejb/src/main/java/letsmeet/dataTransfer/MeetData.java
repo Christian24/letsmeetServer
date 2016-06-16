@@ -17,8 +17,9 @@ import java.util.Set;
  */
 public class MeetData extends DataTransferObject {
 
-
-    protected int id;
+	private static final long serialVersionUID = 8836148056420838703L;
+	
+	protected int id;
     protected Date dateTime;
 
     protected String category;

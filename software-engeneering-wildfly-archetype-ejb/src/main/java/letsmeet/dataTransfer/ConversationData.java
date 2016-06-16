@@ -11,7 +11,9 @@ import letsmeet.meet.Reply;
  */
 public class ConversationData extends UserContentData {
 
-    protected int origin;
+	private static final long serialVersionUID = -5043102158715961327L;
+	
+	protected int origin;
     protected ArrayList<ReplyData> replies;
 
     public ConversationData() {

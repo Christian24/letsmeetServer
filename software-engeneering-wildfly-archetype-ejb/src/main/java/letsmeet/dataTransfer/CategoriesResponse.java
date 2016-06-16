@@ -9,7 +9,10 @@ import letsmeet.session.Session;
  * Created by Christian on 20.05.2016.
  */
 public class CategoriesResponse extends SessionResponse {
-    protected String[] categories;
+
+	private static final long serialVersionUID = -6697756429135031290L;
+	
+	protected String[] categories;
 
     /**
      * Dummy constructor if there is no session

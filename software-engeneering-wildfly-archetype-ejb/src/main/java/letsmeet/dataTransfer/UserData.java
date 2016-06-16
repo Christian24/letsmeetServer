@@ -13,13 +13,10 @@ import letsmeet.user.User;
  */
 public class UserData extends DataTransferObject {
 
+	private static final long serialVersionUID = 3875155026759008881L;
 
-    protected String userName;
-
+	protected String userName;
     protected String description;
-
-
-
 
     public String getUserName() {
         return userName;

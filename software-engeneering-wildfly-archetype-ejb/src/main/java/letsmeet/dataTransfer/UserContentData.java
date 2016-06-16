@@ -11,8 +11,11 @@ import java.util.Date;
  * Created by Christian on 12.06.2016.
  */
 public abstract class UserContentData extends DataTransferObject {
-protected int id;
-protected  String poster;
+
+	private static final long serialVersionUID = 8655337964823818122L;
+
+	protected int id;
+	protected String poster;
     protected String text;
     protected Date timestamp;
     public void setTimestamp(Date timestamp) {

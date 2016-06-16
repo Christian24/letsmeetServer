@@ -13,7 +13,9 @@ import java.util.Date;
 @Entity
 public class Reply extends UserContent {
 
-    @ManyToOne
+	private static final long serialVersionUID = -5778681781175253550L;
+
+	@ManyToOne
     protected Conversation parent;
 
     /**

@@ -16,7 +16,9 @@ import java.util.Set;
 @Entity
 public class Conversation extends UserContent {
 
-    @OneToMany(mappedBy = "parent")
+	private static final long serialVersionUID = 5306229874557709687L;
+	
+	@OneToMany(mappedBy = "parent")
     protected Set<Reply> replies;
     @ManyToOne
     protected Meet origin;
