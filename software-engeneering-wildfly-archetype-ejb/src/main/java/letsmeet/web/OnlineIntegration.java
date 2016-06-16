@@ -407,14 +407,15 @@ if(session != null) {
         }
         return new MeetResponse();
     }
-    public MeetResponse replyToConversation(String sessionId, int conversationId, String text){
+    public MeetResponse addToConversation(String sessionId, int conversationId, String text){
         Session session = dataAccessObject.findSessionById(sessionId);
         Conversation conversation = dataAccessObject.findConversationById(conversationId);
         if(session != null && conversation != null){
             Reply reply = new Reply(conversation,session.getUser(),text);
             dataAccessObject.persist(reply);
             dataAccessObject.flush();
-            return new MeetResponse(session,conversation.getOrigin());
+            Meet meet = dataAccessObject.getMeetById(conversation.getOrigin().getId());
+            return new MeetResponse(session,meet);
         }
         return new MeetResponse();
     }
