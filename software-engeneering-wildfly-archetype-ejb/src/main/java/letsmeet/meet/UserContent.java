@@ -11,7 +11,7 @@ import java.util.Date;
  * Created by Christian on 12.06.2016.
  */
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance
 public abstract class UserContent implements Serializable {
     private static final long serialVersionUID = 1L;
     protected String poster;

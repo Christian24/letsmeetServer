@@ -4,8 +4,6 @@ import javax.persistence.*;
 
 import letsmeet.user.User;
 
-import java.util.Date;
-
 /**
  * A reply to a conversation
  * Created by Christian on 12.06.2016.

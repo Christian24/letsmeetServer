@@ -29,7 +29,7 @@ public class Meet implements Serializable {
     @ManyToOne @NotNull
     protected Category category;
     protected String description;
-    @OneToMany
+    @OneToMany(mappedBy = "origin",cascade = CascadeType.ALL)
     protected Set<Conversation> conversations;
     @ManyToOne @NotNull
     protected User admin;
