@@ -93,7 +93,7 @@ public class OnlineIntegration  {
             return new SessionResponse(session);
         }
         //ELSE: Return not authenticated
-        log.info("User ist nicht vorhanden");
+        log.info("User ist nicht vorhanden oder Password falsch.");
         return new SessionResponse(ReturnCodeHelper.NO_ACCESS);
     }
 

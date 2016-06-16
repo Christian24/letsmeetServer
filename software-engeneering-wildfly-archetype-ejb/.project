@@ -3,6 +3,12 @@
 	<name>software-engeneering-wildfly-archetype-ejb</name>
 	<comment></comment>
 	<projects>
+		<project>09_DI_Xbank-OnlineBanking-Java-Client</project>
+		<project>09_DI_Xbank-OnlineService</project>
+		<project>09_DI_Xbank-OnlineSystem</project>
+		<project>09_DI_Xbank-OnlineSystem-ear</project>
+		<project>09_DI_Xbank-OnlineSystem-ejb</project>
+		<project>09_DI_Xbank-OnlineSystem-web</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
