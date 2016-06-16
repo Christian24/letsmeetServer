@@ -3,6 +3,7 @@
 	<name>letsmeetStatistics-ejb</name>
 	<comment></comment>
 	<projects>
+		<project>software-engeneering-wildfly-archetype-ejb</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
