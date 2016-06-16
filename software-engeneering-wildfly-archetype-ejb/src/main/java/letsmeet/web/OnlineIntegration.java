@@ -1,25 +1,20 @@
 package letsmeet.web;
 
 import letsmeet.dataAccess.DataAccessObject;
-import letsmeet.dataAccess.EntityManagerDAO;
 import letsmeet.dataTransfer.*;
 import letsmeet.helpers.ReturnCodeHelper;
-import letsmeet.helpers.ServerHelper;
 import letsmeet.meet.Category;
 import letsmeet.meet.Conversation;
 import letsmeet.meet.Meet;
 import letsmeet.meet.Reply;
 import letsmeet.session.Session;
 import letsmeet.user.User;
+import org.jboss.ws.api.annotation.WebContext;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
-
-import org.jboss.ws.api.annotation.WebContext;
-
 import java.util.ArrayList;
-
 import java.util.Date;
 import java.util.logging.Logger;
 
@@ -385,6 +380,7 @@ if(session != null) {
         Session session = dataAccessObject.findSessionById(sessionId);
         Category category = dataAccessObject.findCategoryById(categoryId);
         if(session != null && category != null) {
+
             Meet meet = new Meet();
             meet.setCategory(category);
             meet.setDescription(description);
