@@ -16,8 +16,9 @@ import java.util.UUID;
  */
 public class SessionData extends DataTransferObject {
 
-
-    protected UserData user;
+	private static final long serialVersionUID = -4997071719190646206L;
+	
+	protected UserData user;
     protected boolean hasEnded;
 
     protected String identifier;

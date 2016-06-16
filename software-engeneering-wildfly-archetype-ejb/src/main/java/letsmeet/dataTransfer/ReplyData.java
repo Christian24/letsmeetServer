@@ -7,9 +7,12 @@ import letsmeet.meet.Reply;
  * Created by Christian on 12.06.2016.
  */
 public class ReplyData extends UserContentData {
-    protected int parent;
-    protected int id;
- public int getParent() {
+
+	private static final long serialVersionUID = -4222386759011868637L;
+
+	protected int parent;
+
+	public int getParent() {
         return parent;
     }
     public void setParent(int newParent) {
@@ -21,14 +24,8 @@ public class ReplyData extends UserContentData {
     }
     public ReplyData(Reply original) {
         super(original);
-        setId(original.getId());
         setParent((original.getParent().getId()));
     }
-    public int getId(){
-        return id;
-    }
-    public void setId(int newId){
-        id= newId;
-    }
+
 
 }

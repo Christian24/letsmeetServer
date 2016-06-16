@@ -1,6 +1,7 @@
 package letsmeet.dataTransfer;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import letsmeet.meet.Conversation;
 import letsmeet.meet.Reply;
@@ -10,18 +11,24 @@ import letsmeet.meet.Reply;
  * Created by Christian on 12.06.2016.
  */
 public class ConversationData extends UserContentData {
-    protected int id;
-    protected int origin;
-    protected ArrayList<ReplyData> replies;
-    public int getId(){
-        return id;
+
+	private static final long serialVersionUID = -5043102158715961327L;
+	
+	protected int origin;
+
+    public Set<ReplyData> getReplies() {
+        return replies;
     }
-    public void setId(int newId){
-        id= newId;
+
+    public void setReplies(Set<ReplyData> replies) {
+        this.replies = replies;
     }
+
+    protected Set<ReplyData> replies;
+
     public ConversationData() {
         super();
-        replies = new ArrayList<ReplyData>();
+        replies = new HashSet<ReplyData>();
     }
     public void setOrigin(int newOrigin) {
         origin = newOrigin;
@@ -30,11 +37,12 @@ public class ConversationData extends UserContentData {
     public int getOrigin(){
         return origin;
     }
+
     public ConversationData(Conversation conversation){
         super(conversation);
-        setId(conversation.getId());
+
         setOrigin(conversation.getOrigin().getId());
-        replies = new ArrayList<ReplyData>();
+        replies = new HashSet<>();
         for(Reply reply : conversation.getReplies()){
         replies.add(new ReplyData(reply));
         }

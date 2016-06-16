@@ -20,6 +20,7 @@ import org.jboss.ws.api.annotation.WebContext;
 
 import java.util.ArrayList;
 
+import java.util.Date;
 import java.util.logging.Logger;
 
 /**
@@ -81,6 +82,7 @@ public class OnlineIntegration  {
      * @return
      */
     public SessionResponse login(String name, String password) {
+
         User preExisting = dataAccessObject.findUserByName(name);
         log.info("User logs in");
 
@@ -91,7 +93,7 @@ public class OnlineIntegration  {
             return new SessionResponse(session);
         }
         //ELSE: Return not authenticated
-        log.info("User ist nicht vorhanden");
+        log.info("User ist nicht vorhanden oder Password falsch.");
         return new SessionResponse(ReturnCodeHelper.NO_ACCESS);
     }
 
@@ -116,12 +118,12 @@ public class OnlineIntegration  {
      * @param end unix timestamp
      * @return
      */
-    public MeetsResponse getMeets(String sessionID, long start, long end) {
+    public MeetsResponse getMeets(String sessionID, Date start, Date end) {
 
         Session session = dataAccessObject.findSessionById(sessionID);
         if(session != null) {
-            Meet[] meets = dataAccessObject.findMeets(ServerHelper.getDateFromUnixTimestamp(start),
-                    ServerHelper.getDateFromUnixTimestamp(end));
+            Meet[] meets = dataAccessObject.findMeets(start,
+                    end);
             return new MeetsResponse(session,meets);
         }
         return new MeetsResponse();
@@ -163,7 +165,7 @@ public class OnlineIntegration  {
      * @return
      */
     public MeetResponse updateMeet(String sessionID, int meetID, String categoryId, String description, String title, String location,
-                                   long date, int maxUsers) {
+                                   Date date, int maxUsers) {
         Session session = dataAccessObject.findSessionById(sessionID);
         Meet meet = dataAccessObject.getMeetById(meetID);
         Category category = dataAccessObject.findCategoryById(categoryId);
@@ -176,7 +178,7 @@ public class OnlineIntegration  {
                 meet.setDescription(description);
                 meet.setTitle(title);
                 meet.setLocation(location);
-                meet.setDateTime(ServerHelper.getDateFromUnixTimestamp(date));
+                meet.setDateTime(date);
                 meet.setCategory(category);
 
             }
@@ -379,7 +381,7 @@ if(session != null) {
      * @return
      */
     public MeetResponse createMeet(String sessionId,String categoryId, String description, String title, String location,
-                                   long date, int maxUsers) {
+                                   Date date, int maxUsers) {
         Session session = dataAccessObject.findSessionById(sessionId);
         Category category = dataAccessObject.findCategoryById(categoryId);
         if(session != null && category != null) {
@@ -389,7 +391,7 @@ if(session != null) {
             meet.setAdmin(session.getUser());
             meet.setTitle(title);
             meet.setLocation(location);
-            meet.setDateTime(ServerHelper.getDateFromUnixTimestamp(date));
+            meet.setDateTime(date);
             meet.setMaxGuests(maxUsers);
             dataAccessObject.persist(meet);
             return new MeetResponse(session,meet);

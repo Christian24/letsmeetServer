@@ -10,7 +10,10 @@ import letsmeet.session.Session;
  *
  */
 public class MeetsResponse extends SessionResponse {
-    protected MeetData[] meets;
+
+	private static final long serialVersionUID = -6817876601299121015L;
+	
+	protected MeetData[] meets;
     public MeetsResponse(Session session, Meet[] meets) {
         super(session);
        this.meets = new MeetData[meets.length];
