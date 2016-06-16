@@ -9,7 +9,6 @@ import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
 import javax.jms.TextMessage;
 
-import letsmeet.meet.Meet;
 
 import java.util.logging.Logger;
 
