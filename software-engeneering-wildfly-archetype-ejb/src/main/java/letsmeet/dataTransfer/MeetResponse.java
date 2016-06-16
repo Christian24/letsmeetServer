@@ -12,8 +12,16 @@ import letsmeet.session.Session;
 public class MeetResponse extends SessionResponse {
 
 	private static final long serialVersionUID = -1929891227404874726L;
-	
-	protected MeetData meet;
+
+    public MeetData getMeet() {
+        return meet;
+    }
+
+    public void setMeet(MeetData meet) {
+        this.meet = meet;
+    }
+
+    protected MeetData meet;
 
     /**
      * The default success constructor takes the session and the Meet
@@ -55,9 +63,6 @@ public class MeetResponse extends SessionResponse {
         this.setReturnCode(ReturnCodeHelper.NOT_FOUND);
     }
 
-    public void setMeet(MeetData meet) {
-        this.meet =  meet;
-    }
-    public MeetData getMeet() {return meet;}
+
 
 }

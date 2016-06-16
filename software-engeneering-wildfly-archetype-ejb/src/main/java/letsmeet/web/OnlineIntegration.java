@@ -400,6 +400,7 @@ if(session != null) {
         if(session != null && meet != null) {
             Conversation conversation = new Conversation(session.getUser(),text,meet);
             dataAccessObject.persist(conversation);
+            dataAccessObject.flush();
             //Get again to the database
             meet = dataAccessObject.getMeetById(meetId);
             return new MeetResponse(session,meet);
@@ -412,6 +413,7 @@ if(session != null) {
         if(session != null && conversation != null){
             Reply reply = new Reply(conversation,session.getUser(),text);
             dataAccessObject.persist(reply);
+            dataAccessObject.flush();
             return new MeetResponse(session,conversation.getOrigin());
         }
         return new MeetResponse();

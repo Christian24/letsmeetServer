@@ -38,7 +38,7 @@ public class Conversation extends UserContent {
     public Conversation(User user, String text, Meet meet) {
         super(user,text);
         this.origin = meet;
-
+        replies = new HashSet<Reply>();
     }
 
 
