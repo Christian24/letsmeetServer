@@ -13,6 +13,7 @@ import javax.ejb.Stateless;
 /**
  * Created by Sergei Fladung
  * Session Bean implementation class letsmeetStatisticsBean
+ * @author Julian Handrup
  **/
 
 @Stateless
@@ -35,8 +36,8 @@ public class LetsmeetStatisticsBean {
 	public void newMeetStatistics(Meet meet) {
 
 		try (JMSContext context = connectionFactory.createContext(JMSContext.AUTO_ACKNOWLEDGE)){
-			ObjectMessage message = context.createObjectMessage();
-			message.setObject(meet);
+			TextMessage message = context.createTextMessage();
+			message.setText(meet.toString());
 			context.createProducer().send(outputQueue, message);
 		} catch (JMSException e) {
 			throw new EJBException(e);

@@ -7,12 +7,15 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
+import javax.jms.TextMessage;
+
 import letsmeet.meet.Meet;
 
 import java.util.logging.Logger;
 
 /**
  * Created by Sergei Fladung
+ * @author Julian Handrup
  */
 	@MessageDriven (
 			activationConfig = {
@@ -31,8 +34,8 @@ public class Statistic implements MessageListener{
 		@Override
 	public void onMessage(Message message) {
 		try{
-			ObjectMessage msg = (ObjectMessage) message;
-			Meet meet = (Meet) msg.getObject();	
+			TextMessage msg = (TextMessage) message;
+			String s = msg.getText();	
 			log.info("Meet successfully deliverered via JMS");
 		}catch(JMSException ex){
 			throw new EJBException(ex);
