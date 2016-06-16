@@ -55,8 +55,8 @@ public class MeetResponse extends SessionResponse {
         this.setReturnCode(ReturnCodeHelper.NOT_FOUND);
     }
 
-    public void setMeet(Meet meet) {
-        this.meet = new MeetData( meet);
+    public void setMeet(MeetData meet) {
+        this.meet =  meet;
     }
     public MeetData getMeet() {return meet;}
 
