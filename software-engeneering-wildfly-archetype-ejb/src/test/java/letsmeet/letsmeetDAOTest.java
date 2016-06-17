@@ -25,7 +25,7 @@ import static junit.framework.TestCase.assertNull;
  * Created by Sergei
  */
 @RunWith(Arquillian.class)
-public class letsmeetDAOTest {
+public class LetsmeetDAOTest {
 
     @EJB
     DataAccessObject dataAccessObject;
