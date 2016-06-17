@@ -400,19 +400,22 @@ if(session != null) {
         if(session != null && meet != null) {
             Conversation conversation = new Conversation(session.getUser(),text,meet);
             dataAccessObject.persist(conversation);
+            dataAccessObject.flush();
             //Get again to the database
             meet = dataAccessObject.getMeetById(meetId);
             return new MeetResponse(session,meet);
         }
         return new MeetResponse();
     }
-    public MeetResponse replyToConversation(String sessionId, int conversationId, String text){
+    public MeetResponse addToConversation(String sessionId, int conversationId, String text){
         Session session = dataAccessObject.findSessionById(sessionId);
         Conversation conversation = dataAccessObject.findConversationById(conversationId);
         if(session != null && conversation != null){
             Reply reply = new Reply(conversation,session.getUser(),text);
             dataAccessObject.persist(reply);
-            return new MeetResponse(session,conversation.getOrigin());
+            dataAccessObject.flush();
+            Meet meet = dataAccessObject.getMeetById(conversation.getOrigin().getId());
+            return new MeetResponse(session,meet);
         }
         return new MeetResponse();
     }
