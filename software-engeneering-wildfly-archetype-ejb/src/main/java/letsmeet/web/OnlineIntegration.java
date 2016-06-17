@@ -20,7 +20,8 @@ import java.util.logging.Logger;
 
 /**
  * The Webservice that will be consumed by the Android Client
- * Created by Christian on 10.05.2016.
+ * @author Christian
+ *
  */
 @WebService
 @Stateless

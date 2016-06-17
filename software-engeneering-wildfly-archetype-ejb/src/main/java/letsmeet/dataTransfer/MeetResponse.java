@@ -6,7 +6,8 @@ import letsmeet.session.Session;
 
 /**
  * Returns a single Meet
- * Created by Christian on 19.05.2016.
+ * @author Christian
+ *
  *
  */
 public class MeetResponse extends SessionResponse {

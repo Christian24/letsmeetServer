@@ -10,7 +10,8 @@ import java.util.Set;
 /**
  * A Conversation is a UserContent Instance that is the parent to many
  * Reply instances
- * Created by Christian on 12.06.2016.
+ * @author Christian
+ *
  */
 @Entity
 public class Conversation extends UserContent {

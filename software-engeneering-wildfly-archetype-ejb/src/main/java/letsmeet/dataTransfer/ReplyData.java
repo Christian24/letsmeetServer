@@ -4,7 +4,8 @@ import letsmeet.meet.Reply;
 
 /**
  * DTO for Reply class
- * Created by Christian on 12.06.2016.
+ * @author Christian
+ *
  */
 public class ReplyData extends UserContentData {
 

@@ -6,7 +6,7 @@ import letsmeet.user.User;
 
 /**
  * A reply to a conversation
- * Created by Christian on 12.06.2016.
+ * @author Christian
  */
 @Entity
 public class Reply extends UserContent {

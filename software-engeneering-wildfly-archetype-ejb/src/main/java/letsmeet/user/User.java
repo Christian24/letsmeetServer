@@ -13,7 +13,7 @@ import java.util.Set;
 
 /**
  * User object for our database
- * Created by Christian on 03.05.2016.
+ * @author Christian
  *
  */
 @Entity

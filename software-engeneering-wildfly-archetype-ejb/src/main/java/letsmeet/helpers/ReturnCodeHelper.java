@@ -1,7 +1,7 @@
 package letsmeet.helpers;
 
 /**
- * Created by Christian on 18.05.2016.
+ * @author Christian
  * This is used to get ReturnCode values
  */
 public class ReturnCodeHelper {

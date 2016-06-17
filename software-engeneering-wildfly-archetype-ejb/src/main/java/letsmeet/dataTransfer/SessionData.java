@@ -1,17 +1,13 @@
 package letsmeet.dataTransfer;
 
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+
 
 import letsmeet.session.Session;
-import letsmeet.user.User;
 
-import java.io.Serializable;
-import java.util.UUID;
 
 /**
  * DataTransferObject for Session
- * Created by Christian on 19.05.2016.
+ * @author Christian
  *
  */
 public class SessionData extends DataTransferObject {

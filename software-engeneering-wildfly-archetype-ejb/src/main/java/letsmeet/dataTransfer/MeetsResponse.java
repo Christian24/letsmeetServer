@@ -6,7 +6,8 @@ import letsmeet.session.Session;
 
 /**
  * A response stream serving an array of Meet
- * Created by Christian on 19.05.2016.
+ * @author Christian
+ * TODO: At some point this can be improved to only be an overview
  *
  */
 public class MeetsResponse extends SessionResponse {

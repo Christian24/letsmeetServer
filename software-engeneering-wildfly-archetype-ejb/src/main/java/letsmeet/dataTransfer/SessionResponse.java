@@ -1,14 +1,11 @@
 package letsmeet.dataTransfer;
 
-import javax.jws.soap.SOAPBinding;
-
 import letsmeet.helpers.ReturnCodeHelper;
 import letsmeet.session.Session;
-import letsmeet.user.User;
 
 /**
  * A response that gives back a session
- * Created by Christian on 18.05.2016.
+ * @author Christian
  */
 public class SessionResponse extends ReturnCodeResponse {
 

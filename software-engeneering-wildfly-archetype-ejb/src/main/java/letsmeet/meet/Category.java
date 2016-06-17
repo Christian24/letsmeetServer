@@ -9,7 +9,7 @@ import java.util.Set;
 
 /**
  * A category used to filter meets
- * Created by Christian on 03.05.2016.
+ * @author Christian
  *
  */
 @Entity

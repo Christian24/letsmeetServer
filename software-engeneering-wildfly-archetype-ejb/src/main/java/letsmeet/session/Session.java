@@ -9,7 +9,7 @@ import java.util.UUID;
 
 /**
  * A Session
- * Created by Christian on 18.05.2016.
+ * @author Christian
  */
 @Entity
 public class Session implements Serializable {

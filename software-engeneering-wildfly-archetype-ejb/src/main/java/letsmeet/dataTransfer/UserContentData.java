@@ -1,6 +1,5 @@
 package letsmeet.dataTransfer;
 
-import letsmeet.helpers.ServerHelper;
 import letsmeet.meet.UserContent;
 
 import java.util.Date;
@@ -8,7 +7,7 @@ import java.util.Date;
 
 /**
  * Abstract dto for comments/conversations
- * Created by Christian on 12.06.2016.
+ * @author Christian
  */
 public abstract class UserContentData extends DataTransferObject {
 

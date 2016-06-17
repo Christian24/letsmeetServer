@@ -13,7 +13,7 @@ import java.util.Set;
 
 /**
  * The DataTransferObject for Meet
- * Created by Christian on 19.05.2016.
+ * @author Christian
  */
 public class MeetData extends DataTransferObject {
 

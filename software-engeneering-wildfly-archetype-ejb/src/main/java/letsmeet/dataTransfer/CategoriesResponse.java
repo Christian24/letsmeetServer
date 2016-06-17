@@ -6,7 +6,7 @@ import letsmeet.session.Session;
 /**
  * A response that delivers an array of categories
  * (actually on the client they are just strings)
- * Created by Christian on 20.05.2016.
+ * @author Christian
  */
 public class CategoriesResponse extends SessionResponse {
 

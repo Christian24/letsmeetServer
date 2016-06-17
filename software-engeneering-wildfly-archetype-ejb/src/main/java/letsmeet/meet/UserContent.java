@@ -8,7 +8,7 @@ import java.util.Date;
 
 /**
  * The baseclass for Conversation and Reply
- * Created by Christian on 12.06.2016.
+ * @author Christian
  */
 @Entity
 @Inheritance

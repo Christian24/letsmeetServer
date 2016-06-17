@@ -1,14 +1,12 @@
 package letsmeet.dataTransfer;
 
 
-import java.io.Serializable;
-
 import letsmeet.user.User;
 
 
 /**
  * User object send to the client (without password)
- * Created by Christian on 19.05.2016.
+ * @author Christian
  *
  */
 public class UserData extends DataTransferObject {

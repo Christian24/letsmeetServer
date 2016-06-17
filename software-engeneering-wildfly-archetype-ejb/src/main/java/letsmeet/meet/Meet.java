@@ -13,7 +13,7 @@ import java.util.Set;
 
 /**
  * Stores a new meet
- * Created by Christian on 03.05.2016.
+ * @author Christian
  *
  */
 @Entity

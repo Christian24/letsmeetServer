@@ -4,7 +4,7 @@ import letsmeet.helpers.ReturnCodeHelper;
 
 /**
  * For a list of return codes always check helpers.ReturnCodeHelper
- * Created by Christian on 18.05.2016.
+ * @author Christian
  *
  */
 public class ReturnCodeResponse extends DataTransferObject {
