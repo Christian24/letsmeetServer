@@ -18,7 +18,8 @@ import letsmeet.web.OnlineIntegration;
 
 /**
  * Creates sample data that is useful on every server startup (e.g when database
- * was dropped Created by Christian on 30.05.2016.
+ * was dropped
+ * @author Christian
  *
  */
 @Singleton

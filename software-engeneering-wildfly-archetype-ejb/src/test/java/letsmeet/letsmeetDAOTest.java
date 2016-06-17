@@ -109,7 +109,15 @@ public class LetsmeetDAOTest {
             Meet foundMeet = dataAccessObject.getMeetById(id);
             assertNotNull(foundMeet);
         }
+        
        
 
+    }
+    @Test
+    public void shoulDeleteUser() {
+    	 User user = dataAccessObject.findUserByName("admin");
+    	 dataAccessObject.delete(user);
+    	 user = dataAccessObject.findUserByName("admin");
+    	 assertNull(user);
     }
 }

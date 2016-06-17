@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * Our implementation of the DataAccessObject
- * Created by Christian on 19.05.2016.
+ * @author Christian
  *
  */
 @Stateless
@@ -46,11 +46,12 @@ public class EntityManagerDAO implements DataAccessObject {
 
     /**
      * Deletes the given object from the database
+     * Adapted from http://stackoverflow.com/questions/17027398/java-lang-illegalargumentexception-removing-a-detached-instance-com-test-user5
      * @param obj
      */
     @Override
     public void delete(Object obj) {
-        entityManager.remove(obj);
+        entityManager.remove(entityManager.contains(obj) ? obj : entityManager.merge(obj));
     }
 
     /**

@@ -14,7 +14,9 @@ import java.util.Date;
 
 /**
  * Created by Christian on 19.05.2016.
- * DataAccessObject interface which tells us what an implementation needs to be able to do
+ * DataAccessObject interface which tells us what an implementation
+ * needs to be able to do
+ * @author Christian
  */
 @Local
 public interface DataAccessObject {
