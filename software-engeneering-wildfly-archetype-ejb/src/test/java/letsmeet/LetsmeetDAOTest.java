@@ -116,8 +116,12 @@ public class LetsmeetDAOTest {
     @Test
     public void shoulDeleteUser() {
     	 User user = dataAccessObject.findUserByName("admin");
+    	 if(user != null) {
+    		 
+    	 
     	 dataAccessObject.delete(user);
     	 user = dataAccessObject.findUserByName("admin");
     	 assertNull(user);
+    	 }
     }
 }

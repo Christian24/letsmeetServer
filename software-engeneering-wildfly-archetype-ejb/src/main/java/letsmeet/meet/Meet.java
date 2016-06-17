@@ -4,6 +4,7 @@ package letsmeet.meet;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import letsmeet.IDeletable;
 import letsmeet.user.User;
 
 import java.io.Serializable;
@@ -17,7 +18,7 @@ import java.util.Set;
  *
  */
 @Entity
-public class Meet implements Serializable {
+public class Meet implements Serializable, IDeletable {
     /**
 	 * 
 	 */
@@ -29,9 +30,9 @@ public class Meet implements Serializable {
     @ManyToOne @NotNull
     protected Category category;
     protected String description;
-    @OneToMany(mappedBy = "origin",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "origin",cascade = CascadeType.REMOVE, orphanRemoval = true)
     protected Set<Conversation> conversations;
-    @ManyToOne @NotNull
+    @ManyToOne(cascade = CascadeType.REMOVE) @NotNull
     protected User admin;
     @NotNull
     protected String location;
@@ -43,7 +44,7 @@ public class Meet implements Serializable {
         conversations = new HashSet<Conversation>();
         maxGuests = 10;
     }
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.REMOVE)
     protected Set<User> visitors;
 
     /**
@@ -230,5 +231,9 @@ public class Meet implements Serializable {
     }
 
 
-
+    @Override
+    public void delete() {
+        conversations.clear();
+        visitors.clear();
+    }
 }

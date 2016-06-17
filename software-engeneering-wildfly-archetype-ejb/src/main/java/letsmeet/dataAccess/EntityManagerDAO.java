@@ -4,6 +4,7 @@ package letsmeet.dataAccess;
 import javax.ejb.Stateless;
 import javax.persistence.*;
 
+import letsmeet.IDeletable;
 import letsmeet.meet.Category;
 import letsmeet.meet.Conversation;
 import letsmeet.meet.Meet;
@@ -51,6 +52,9 @@ public class EntityManagerDAO implements DataAccessObject {
      */
     @Override
     public void delete(Object obj) {
+        //Prepare delete
+        if(obj instanceof IDeletable)
+            ((IDeletable)obj).delete();
         entityManager.remove(entityManager.contains(obj) ? obj : entityManager.merge(obj));
     }
 

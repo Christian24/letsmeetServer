@@ -156,7 +156,7 @@ public class OnlineIntegration  {
      * @param description
      * @param title
      * @param location
-     * @param date a unix timestamp
+     * @param date
      * @param maxUsers
      * @return
      */
@@ -373,7 +373,7 @@ if(session != null) {
      * @param description
      * @param title
      * @param location
-     * @param date a unix timestamp
+     * @param date
      * @return
      */
     public MeetResponse createMeet(String sessionId,String categoryId, String description, String title, String location,
@@ -395,6 +395,14 @@ if(session != null) {
         }
         return new MeetResponse();
     }
+
+    /**
+     * Creates a new conversation for a given Meet
+     * @param sessionId
+     * @param meetId
+     * @param text
+     * @return
+     */
     public MeetResponse createNewConversation(String sessionId, int meetId, String text){
         Session session = dataAccessObject.findSessionById(sessionId);
         Meet meet = dataAccessObject.getMeetById(meetId);
@@ -408,6 +416,14 @@ if(session != null) {
         }
         return new MeetResponse();
     }
+
+    /**
+     * Adds a new Reply to a conversation
+     * @param sessionId
+     * @param conversationId
+     * @param text
+     * @return
+     */
     public MeetResponse addToConversation(String sessionId, int conversationId, String text){
         Session session = dataAccessObject.findSessionById(sessionId);
         Conversation conversation = dataAccessObject.findConversationById(conversationId);
@@ -420,6 +436,13 @@ if(session != null) {
         }
         return new MeetResponse();
     }
+
+    /**
+     * Deletes a reply
+     * @param sessionId
+     * @param replyId
+     * @return
+     */
     public MeetResponse deleteReply(String sessionId, int replyId) {
         Session session = dataAccessObject.findSessionById(sessionId);
         Reply reply = dataAccessObject.findReplyById(replyId);
@@ -429,6 +452,13 @@ if(session != null) {
         }
         return new MeetResponse();
     }
+
+    /**
+     * Deletes a conversation
+     * @param sessionId
+     * @param conversationId
+     * @return
+     */
     public  MeetResponse deleteConversation(String sessionId, int conversationId){
         Session session = dataAccessObject.findSessionById(sessionId);
         Conversation conversation = dataAccessObject.findConversationById(conversationId);

@@ -2,6 +2,7 @@ package letsmeet.meet;
 
 import javax.persistence.*;
 
+import letsmeet.IDeletable;
 import letsmeet.user.User;
 
 import java.util.HashSet;
@@ -14,13 +15,13 @@ import java.util.Set;
  *
  */
 @Entity
-public class Conversation extends UserContent {
+public class Conversation extends UserContent implements IDeletable {
 
 	private static final long serialVersionUID = 5306229874557709687L;
 	
-	@OneToMany(mappedBy = "parent")
+	@OneToMany(mappedBy = "parent",cascade = CascadeType.REMOVE, orphanRemoval = true)
     protected Set<Reply> replies;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     protected Meet origin;
 
     /**
@@ -75,4 +76,8 @@ public class Conversation extends UserContent {
         replies = newReplies;
     }
 
+    @Override
+    public void delete() {
+        replies.clear();
+    }
 }

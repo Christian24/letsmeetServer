@@ -3,6 +3,7 @@ package letsmeet.user;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import letsmeet.IDeletable;
 import letsmeet.meet.Meet;
 import letsmeet.session.Session;
 
@@ -17,7 +18,7 @@ import java.util.Set;
  *
  */
 @Entity
-public class User implements Serializable {
+public class User implements Serializable, IDeletable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -26,11 +27,11 @@ public class User implements Serializable {
     protected String password;
     @NotNull
     protected String description;
-    @ManyToMany(mappedBy = "visitors")
+    @ManyToMany(mappedBy = "visitors", cascade = CascadeType.REMOVE)
     protected Set<Meet> meetsToVisit;
-    @OneToMany(mappedBy = "admin",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "admin",cascade = CascadeType.REMOVE, orphanRemoval = true)
     protected Set<Meet> meetsCreated;
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, orphanRemoval = true)
     protected Set<Session> sessions;
 
 
@@ -123,5 +124,11 @@ public class User implements Serializable {
      */
     public void setPassword(String newPassword) {
         password = newPassword;
+    }
+
+    @Override
+    public void delete() {
+        meetsToVisit.clear();
+        meetsCreated.clear();
     }
 }

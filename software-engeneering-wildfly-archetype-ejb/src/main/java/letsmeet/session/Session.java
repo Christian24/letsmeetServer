@@ -14,7 +14,7 @@ import java.util.UUID;
 @Entity
 public class Session implements Serializable {
     private static final long serialVersionUID = 1L;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     protected User user;
     protected boolean hasEnded;
     @Id

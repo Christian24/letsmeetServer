@@ -13,7 +13,7 @@ public class Reply extends UserContent {
 
 	private static final long serialVersionUID = -5778681781175253550L;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REMOVE)
     protected Conversation parent;
 
     /**
