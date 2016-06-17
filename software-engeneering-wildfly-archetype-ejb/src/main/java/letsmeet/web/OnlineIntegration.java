@@ -447,7 +447,7 @@ if(session != null) {
         Session session = dataAccessObject.findSessionById(sessionId);
         Reply reply = dataAccessObject.findReplyById(replyId);
         if(session != null && reply != null){
-            reply.delete();
+            reply.deleteContent();
             return new MeetResponse(session,reply.getParent().getOrigin());
         }
         return new MeetResponse();

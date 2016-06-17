@@ -2,6 +2,7 @@ package letsmeet.meet;
 
 import javax.persistence.*;
 
+import letsmeet.Deletable;
 import letsmeet.user.User;
 
 /**
@@ -55,7 +56,12 @@ public class Reply extends UserContent {
     /**
      * "Deletes" the reply
      */
-    public void delete() {
+    public void deleteContent() {
         setContent("This has been deleted");
+    }
+
+    @Override
+    public void delete() {
+        parent = null;
     }
 }

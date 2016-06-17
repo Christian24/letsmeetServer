@@ -3,7 +3,7 @@ package letsmeet.user;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-import letsmeet.IDeletable;
+import letsmeet.Deletable;
 import letsmeet.meet.Meet;
 import letsmeet.session.Session;
 
@@ -18,7 +18,7 @@ import java.util.Set;
  *
  */
 @Entity
-public class User implements Serializable, IDeletable {
+public class User extends Deletable implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -31,7 +31,7 @@ public class User implements Serializable, IDeletable {
     protected Set<Meet> meetsToVisit;
     @OneToMany(mappedBy = "admin",cascade = CascadeType.REMOVE, orphanRemoval = true)
     protected Set<Meet> meetsCreated;
-    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE, orphanRemoval = true)
     protected Set<Session> sessions;
 
 
@@ -128,7 +128,11 @@ public class User implements Serializable, IDeletable {
 
     @Override
     public void delete() {
-        meetsToVisit.clear();
-        meetsCreated.clear();
+      meetsToVisit.clear();
+     for(Meet meet : meetsCreated) {
+         meet.delete();
+         dataAccessObject.delete(meet);
+     }
+
     }
 }

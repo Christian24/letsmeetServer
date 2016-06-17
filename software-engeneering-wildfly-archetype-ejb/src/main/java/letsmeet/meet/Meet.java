@@ -4,7 +4,7 @@ package letsmeet.meet;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-import letsmeet.IDeletable;
+import letsmeet.Deletable;
 import letsmeet.user.User;
 
 import java.io.Serializable;
@@ -18,7 +18,7 @@ import java.util.Set;
  *
  */
 @Entity
-public class Meet implements Serializable, IDeletable {
+public class Meet extends Deletable implements Serializable {
     /**
 	 * 
 	 */
@@ -233,6 +233,9 @@ public class Meet implements Serializable, IDeletable {
 
     @Override
     public void delete() {
+        for(Conversation conversation : conversations) {
+            conversation.delete();
+        }
         conversations.clear();
         visitors.clear();
     }

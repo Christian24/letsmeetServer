@@ -2,7 +2,7 @@ package letsmeet.meet;
 
 import javax.persistence.*;
 
-import letsmeet.IDeletable;
+import letsmeet.Deletable;
 import letsmeet.user.User;
 
 import java.util.HashSet;
@@ -15,7 +15,7 @@ import java.util.Set;
  *
  */
 @Entity
-public class Conversation extends UserContent implements IDeletable {
+public class Conversation extends UserContent {
 
 	private static final long serialVersionUID = 5306229874557709687L;
 	
@@ -78,6 +78,9 @@ public class Conversation extends UserContent implements IDeletable {
 
     @Override
     public void delete() {
+        for(Reply reply : replies) {
+            reply.delete();
+        }
         replies.clear();
     }
 }

@@ -1,5 +1,6 @@
 package letsmeet.meet;
 
+import letsmeet.Deletable;
 import letsmeet.user.User;
 
 import javax.persistence.*;
@@ -12,7 +13,7 @@ import java.util.Date;
  */
 @Entity
 @Inheritance
-public abstract class UserContent implements Serializable {
+public abstract class UserContent extends Deletable implements Serializable {
     private static final long serialVersionUID = 1L;
     protected String poster;
     protected Date postedAt;
