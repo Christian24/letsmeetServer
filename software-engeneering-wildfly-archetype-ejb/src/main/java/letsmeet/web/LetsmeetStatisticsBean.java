@@ -37,7 +37,7 @@ public class LetsmeetStatisticsBean {
 
 		try (JMSContext context = connectionFactory.createContext(JMSContext.AUTO_ACKNOWLEDGE)){
 			TextMessage message = context.createTextMessage();
-			message.setText(meet.toString());
+			message.setText(meet.getAdmin().getUserName());
 			context.createProducer().send(outputQueue, message);
 		} catch (JMSException e) {
 			throw new EJBException(e);
