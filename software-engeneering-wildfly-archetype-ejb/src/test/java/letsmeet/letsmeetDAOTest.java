@@ -22,7 +22,9 @@ import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertNull;
 
 /**
- * Created by Sergei
+ * dataAccessObject tests
+ * @author Christian, Sergei
+ *
  */
 @RunWith(Arquillian.class)
 public class LetsmeetDAOTest {
@@ -61,8 +63,7 @@ public class LetsmeetDAOTest {
         User charlotte = dataAccessObject.findUserByName("Charlotte");
         assertNull(charlotte);
     }
-
-    @Test(expected = EJBTransactionRolledbackException.class)
+    @Test(expected =EJBTransactionRolledbackException.class)
     public void meetShouldNotBeCreatedWithoutAdmin() {
         Meet meet = new Meet();
         Category category = dataAccessObject.findCategoryById("Feiern");
@@ -71,7 +72,7 @@ public class LetsmeetDAOTest {
             meet.setCategory(category);
             meet.setTitle("Einen trinken gehen 2");
             meet.setLocation("Haifischbar");
-
+            //meet.setAdmin(user);
             meet.setDescription("Nach der Arbeit kommt das Vergnügen.");
             //Adapated from http://stackoverflow.com/questions/3581258/adding-n-hours-to-a-date-in-java
             Calendar cal = Calendar.getInstance(); // creates calendar
@@ -84,6 +85,31 @@ public class LetsmeetDAOTest {
             Meet foundMeet = dataAccessObject.getMeetById(id);
             assertNull(foundMeet);
         }
+    }
+
+    @Test
+    public void meetShouldBeCreatedWithAdmin() {
+        Meet meet = new Meet();
+        Category category = dataAccessObject.findCategoryById("Feiern");
+        User user = dataAccessObject.findUserByName("admin");
+        if (category != null && user != null) {
+            meet.setCategory(category);
+            meet.setTitle("Einen trinken gehen 2");
+            meet.setLocation("Haifischbar");
+            meet.setAdmin(user);
+            meet.setDescription("Nach der Arbeit kommt das Vergnügen.");
+            //Adapated from http://stackoverflow.com/questions/3581258/adding-n-hours-to-a-date-in-java
+            Calendar cal = Calendar.getInstance(); // creates calendar
+            cal.setTime(new Date()); // sets calendar time/date
+            cal.add(Calendar.HOUR_OF_DAY, 1); // adds one hour
+
+            meet.setDateTime(cal.getTime());
+            dataAccessObject.persist(meet);
+            int id = meet.getId();
+            Meet foundMeet = dataAccessObject.getMeetById(id);
+            assertNotNull(foundMeet);
+        }
+       
 
     }
 }
