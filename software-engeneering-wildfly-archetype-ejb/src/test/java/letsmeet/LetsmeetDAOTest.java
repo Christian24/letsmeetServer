@@ -57,12 +57,13 @@ public class LetsmeetDAOTest {
         User user = new User();
         user.setDescription("Ich bin ein Wemser.");
 
-        user.setUserName("Charlotte");
+        user.setUserName("Terrence");
 
         dataAccessObject.persist(user);
-        User charlotte = dataAccessObject.findUserByName("Charlotte");
-        assertNull(charlotte);
+        User terrence = dataAccessObject.findUserByName("Terrence");
+        assertNull(terrence);
     }
+    
     @Test(expected =EJBTransactionRolledbackException.class)
     public void meetShouldNotBeCreatedWithoutAdmin() {
         Meet meet = new Meet();
@@ -109,10 +110,8 @@ public class LetsmeetDAOTest {
             Meet foundMeet = dataAccessObject.getMeetById(id);
             assertNotNull(foundMeet);
         }
-        
-       
-
     }
+    
     @Test
     public void shoulDeleteUser() {
     	 User user = dataAccessObject.findUserByName("admin");
@@ -123,5 +122,24 @@ public class LetsmeetDAOTest {
     	 user = dataAccessObject.findUserByName("admin");
     	 assertNull(user);
     	 }
+    }
+    
+    @Test
+    public void shouldNotCreateUserWithTakenUsername() {
+    	User duplicateUser = new User();
+    	duplicateUser.setUserName("Charlotte");
+    	duplicateUser.setPassword("1234");
+    	duplicateUser.setDescription("Schön aber dafür kann sie nichts");
+    	
+    	dataAccessObject.persist(duplicateUser);
+    	
+        User originalUser = dataAccessObject.findUserByName("Charlotte");
+        
+        String password = originalUser.getPassword();
+        String description = originalUser.getDescription();
+        
+        if(password != duplicateUser.getPassword() && description != duplicateUser.getDescription()) {
+        	assertNotNull(originalUser);
+        }
     }
 }

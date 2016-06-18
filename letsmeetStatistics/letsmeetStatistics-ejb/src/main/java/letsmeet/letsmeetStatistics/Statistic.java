@@ -13,8 +13,7 @@ import javax.jms.TextMessage;
 import java.util.logging.Logger;
 
 /**
- * Created by Sergei Fladung
- * @author Julian Handrup
+ * @author Sergei Fladung, Julian Handrup
  */
 	@MessageDriven (
 			activationConfig = {

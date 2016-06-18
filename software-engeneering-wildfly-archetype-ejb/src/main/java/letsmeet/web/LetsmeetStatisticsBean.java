@@ -11,9 +11,8 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 /**
- * Created by Sergei Fladung
  * Session Bean implementation class letsmeetStatisticsBean
- * @author Julian Handrup
+ * @author Sergei Fladung, Julian Handrup
  **/
 
 @Stateless
