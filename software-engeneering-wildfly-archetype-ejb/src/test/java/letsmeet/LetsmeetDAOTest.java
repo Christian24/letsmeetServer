@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import letsmeet.dataAccess.DataAccessObject;
+import letsmeet.dataTransfer.ConversationData;
 import letsmeet.dataTransfer.MeetData;
 import letsmeet.dataTransfer.MeetPreviewData;
 import letsmeet.dataTransfer.MeetResponse;
@@ -161,8 +162,6 @@ public class LetsmeetDAOTest {
 //========================================================================================================================//
     //TESTS FOR ONLINEINTEGRATION EJB
 //========================================================================================================================//
-   
-    
     
     @Test
 	public void shouldRegisterUser(){
@@ -178,7 +177,7 @@ public class LetsmeetDAOTest {
 
 	@Test
 	public void shouldLogoutUser() {
-		// login user "admin" from DataBuilder
+		// login user "admin" from DataBuildssertTrue(meetsByUser.length>0);er
 		SessionResponse session = onlineIntegration.login("admin", "WebWemser");
 		// logout user and compare ReturnResponseCode
 		SessionData sessionData = session.getSession();
@@ -271,6 +270,7 @@ public class LetsmeetDAOTest {
 		SessionResponse delete = onlineIntegration.deleteMeet(sessionID, meetID);
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, delete.getReturnCode());
 	}
+	
 	@Test
 	public void shouldRemoveUser(){
 		//delete user
@@ -283,5 +283,89 @@ public class LetsmeetDAOTest {
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.NO_ACCESS, session.getReturnCode());
 	}
 	
-	
+	/**
+	 * The purpose of this test is to perform a full scaled scenario where a user registers 
+	 * and creates a meet. Another user registers and joins that meet. A third user registers, joins 
+	 * and asks a question in the comments. The first user(admin) then answers this question.
+	 * The second user also answers and then leaves the meet.
+	 * Later the admin deletes the meet.
+	 */
+	@Test
+	public void superTest(){
+		//register first user
+		SessionResponse session1 = onlineIntegration.register("first", "first", "first user");
+		String sessionID1 = session1.getSession().getIdentifier();
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK,session1.getReturnCode());
+		
+		//create first users meet
+			//Adapated from http://stackoverflow.com/questions/3581258/adding-n-hours-to-a-date-in-java
+	        Calendar cal = Calendar.getInstance(); // creates calendar
+	        cal.setTime(new Date()); // sets calendar time/date
+	        cal.add(Calendar.HOUR_OF_DAY, 1); // adds one hour
+		MeetResponse response = onlineIntegration.createMeet(sessionID1, "Feiern", "Feierschweinerei", "China ist Europameister", "Mexico", cal.getTime(), 2);
+		MeetData data = response.getMeet();
+		int meetId = data.getId();
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK,response.getReturnCode());
+		
+		//register second user
+		SessionResponse session2 = onlineIntegration.register("second", "second", "second user");
+		String sessionID2 = session2.getSession().getIdentifier();
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, session2.getReturnCode());
+		
+		//let second user join first users meet
+		MeetResponse response2 = onlineIntegration.joinMeet(sessionID2, data.getId());
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, response2.getReturnCode());
+		
+		//register third user
+		SessionResponse session3 = onlineIntegration.register("third", "third", "third user");
+		String sessionID3 = session3.getSession().getIdentifier();
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, session3.getReturnCode());
+		
+		//let third user join meet
+		MeetResponse response3 = onlineIntegration.joinMeet(sessionID3, data.getId());
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, response3.getReturnCode());
+		
+		//third user makes a comment
+		MeetResponse conversation = onlineIntegration.createNewConversation(sessionID3, meetId, "Third users has a Question oO");
+		Set<ConversationData> conversations = conversation.getMeet().getConversations();
+		int conversationId = 0;
+		for(ConversationData cd : conversations){
+			if(cd.getOrigin() == meetId) conversationId = cd.getId();
+		}
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK,conversation.getReturnCode());
+		
+		
+		//first user answers
+		MeetResponse answer1 = onlineIntegration.addToConversation(sessionID1, conversationId, "Answer from user1");
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, answer1.getReturnCode());
+		
+		//second user answers
+		MeetResponse answer2 = onlineIntegration.addToConversation(sessionID2, conversationId, "Answer from user2");
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, answer2.getReturnCode());
+		
+		//second user leaves meet and logs out
+		//leaves
+		SessionResponse leave2 = onlineIntegration.leaveMeet(sessionID2, meetId);
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK,leave2.getReturnCode());
+		//logout
+		ReturnCodeResponse logout2 = onlineIntegration.logout(sessionID2);
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK,logout2.getReturnCode());
+		
+		//admin deletes
+		SessionResponse delete1 = onlineIntegration.deleteMeet(sessionID1, meetId);
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK,delete1.getReturnCode());
+		//admin logs out
+		ReturnCodeResponse logout1 = onlineIntegration.logout(sessionID1);
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK,logout1.getReturnCode());
+		
+		//third user logs out
+		ReturnCodeResponse logout3 = onlineIntegration.logout(sessionID3);
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK,logout3.getReturnCode());
+		
+	}
 }
+
+
+
+
+
