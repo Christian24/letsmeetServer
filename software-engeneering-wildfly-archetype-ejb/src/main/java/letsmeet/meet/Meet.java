@@ -231,7 +231,7 @@ public class Meet extends Deletable implements Serializable {
     }
 
 
-    @Override
+    @Override @Deprecated
     public void delete() {
         for(Conversation conversation : conversations) {
             conversation.delete();

@@ -126,7 +126,7 @@ public class User extends Deletable implements Serializable {
         password = newPassword;
     }
 
-    @Override
+    @Override @Deprecated
     public void delete() {
       meetsToVisit.clear();
      for(Meet meet : meetsCreated) {

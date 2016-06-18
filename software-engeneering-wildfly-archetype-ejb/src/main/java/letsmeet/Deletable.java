@@ -8,6 +8,7 @@ import javax.ejb.EJB;
  * Interface for objects that should be deleted (deletable).
  * @author Christian
  */
+@Deprecated
 public abstract class Deletable {
     @EJB
    protected DataAccessObject dataAccessObject;
