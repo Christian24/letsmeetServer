@@ -171,15 +171,14 @@ public class LetsmeetDAOTest {
 	
 	@Test
 	public void shouldLoginUser() {
-		SessionResponse session = onlineIntegration.login("admin", "WebWemser");
-		assertEquals(letsmeet.helpers.ReturnCodeHelper.NO_ACCESS, session.getReturnCode());
+		SessionResponse session = onlineIntegration.login("Charlotte", "WebWemser");
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, session.getReturnCode());
 	}
 
 	@Test
 	public void shouldLogoutUser() {
-		// login user "admin" from DataBuildssertTrue(meetsByUser.length>0);er
-		SessionResponse session = onlineIntegration.login("admin", "WebWemser");
-		// logout user and compare ReturnResponseCode
+		SessionResponse session = onlineIntegration.login("Charlotte", "WebWemser");
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, session.getReturnCode());
 		SessionData sessionData = session.getSession();
 		String sessionID = sessionData.getIdentifier();
 		ReturnCodeResponse response = onlineIntegration.logout(sessionID);
@@ -273,13 +272,15 @@ public class LetsmeetDAOTest {
 	
 	@Test
 	public void shouldRemoveUser(){
-		//delete user
-		SessionResponse session = onlineIntegration.login("admin", "WebWemser");
+		//register new user
+		SessionResponse session = onlineIntegration.register("Manfred Noppe", "Noppenschaum", "Ich bin der Landvogt");
+		assertEquals(session.getReturnCode(),letsmeet.helpers.ReturnCodeHelper.OK);
 		String sessionID = session.getSession().getIdentifier();
+		//delete user
 		ReturnCodeResponse response = onlineIntegration.deleteUser(sessionID);
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, response.getReturnCode());
 		//test if login fails:
-		session = onlineIntegration.login("admin", "WebWemser");
+		session = onlineIntegration.login("Manfred Noppe", "Noppenschaum");
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.NO_ACCESS, session.getReturnCode());
 	}
 	
@@ -349,18 +350,18 @@ public class LetsmeetDAOTest {
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK,leave2.getReturnCode());
 		//logout
 		ReturnCodeResponse logout2 = onlineIntegration.logout(sessionID2);
-		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK,logout2.getReturnCode());
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.NO_ACCESS,logout2.getReturnCode());
 		
 		//admin deletes
 		SessionResponse delete1 = onlineIntegration.deleteMeet(sessionID1, meetId);
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK,delete1.getReturnCode());
 		//admin logs out
 		ReturnCodeResponse logout1 = onlineIntegration.logout(sessionID1);
-		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK,logout1.getReturnCode());
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.NO_ACCESS,logout1.getReturnCode());
 		
 		//third user logs out
 		ReturnCodeResponse logout3 = onlineIntegration.logout(sessionID3);
-		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK,logout3.getReturnCode());
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.NO_ACCESS,logout3.getReturnCode());
 		
 	}
 }
