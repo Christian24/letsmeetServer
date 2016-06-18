@@ -14,6 +14,9 @@ public class MeetResponse extends SessionResponse {
 
 	private static final long serialVersionUID = -1929891227404874726L;
 
+    protected MeetData meet;
+    
+    
     public MeetData getMeet() {
         return meet;
     }
@@ -21,9 +24,6 @@ public class MeetResponse extends SessionResponse {
     public void setMeet(MeetData meet) {
         this.meet = meet;
     }
-
-    protected MeetData meet;
-
     /**
      * The default success constructor takes the session and the Meet
      * @param session
