@@ -173,6 +173,8 @@ public class LetsmeetDAOTest {
 	public void shouldLoginUser() {
 		SessionResponse session = onlineIntegration.login("Charlotte", "WebWemser");
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, session.getReturnCode());
+		ReturnCodeResponse response = onlineIntegration.logout(session.getSession().getIdentifier());
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, response.getReturnCode());
 	}
 
 	@Test
@@ -198,6 +200,8 @@ public class LetsmeetDAOTest {
 		int meetID = data.getId();
 		assertNotNull(onlineIntegration.getMeet(sessionID, meetID).getMeet());
 		assertEquals(onlineIntegration.getMeet(sessionID, meetID).getMeet().getAdmin().getUserName(), "admin");	
+		ReturnCodeResponse logout = onlineIntegration.logout(sessionID);
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, logout.getReturnCode());
 	}
 	
 	@Test
@@ -212,6 +216,8 @@ public class LetsmeetDAOTest {
 		        Date end = cal.getTime();
 			MeetsResponse response = onlineIntegration.getMeets(sessionID, start, end);
 			assertTrue(!response.isEmpty());
+		ReturnCodeResponse logout = onlineIntegration.logout(sessionID);
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, logout.getReturnCode());
 	}
 	
 	@Test 
@@ -238,6 +244,9 @@ public class LetsmeetDAOTest {
 		boolean alreadyIn = joinedMeetData.alreadyIn(charlotte);
 		
 		assertEquals(true,alreadyIn);
+		
+		ReturnCodeResponse response = onlineIntegration.logout(sessionID);
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, response.getReturnCode());
 	}
 
 	@Test
@@ -254,6 +263,8 @@ public class LetsmeetDAOTest {
 		onlineIntegration.leaveMeet(sessionID, meet.getId());
 		Set<UserData> users = toJoin.getMeet().getVisitors();
 		assertTrue(!users.contains(charlotte));
+		ReturnCodeResponse response = onlineIntegration.logout(sessionID);
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, response.getReturnCode());
 	}
 	
 	@Test
@@ -268,6 +279,8 @@ public class LetsmeetDAOTest {
 		//delete
 		SessionResponse delete = onlineIntegration.deleteMeet(sessionID, meetID);
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, delete.getReturnCode());
+		ReturnCodeResponse response = onlineIntegration.logout(sessionID);
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, response.getReturnCode());
 	}
 	
 	@Test
