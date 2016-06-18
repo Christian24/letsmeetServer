@@ -140,7 +140,7 @@ public class LetsmeetDAOTest {
     	 }
     }
     
-    @Test(expected = EJBTransactionRolledbackException.class)
+    @Test
     public void shouldNotCreateUserWithTakenUsername() {
     	User duplicateUser = new User();
     	duplicateUser.setUserName("Charlotte");
