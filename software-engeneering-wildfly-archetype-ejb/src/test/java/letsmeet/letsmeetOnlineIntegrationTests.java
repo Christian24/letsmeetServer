@@ -51,7 +51,13 @@ public class letsmeetOnlineIntegrationTests {
 				.addAsWebInfResource("META-INF/ejb-jar.xml", "ejb-jar.xml");
 	}
 	
-	@Test
+	//========================================================================================================================//
+    //TESTS FOR ONLINEINTEGRATION EJB
+//========================================================================================================================//
+   
+    
+    
+    @Test
 	public void shouldRegisterUser(){
 		SessionResponse register = onlineIntegration.register("Manfred", "Mullemaus", "Ich bin der Landvogt");
 		assertEquals(register.getReturnCode(),letsmeet.helpers.ReturnCodeHelper.OK);
@@ -85,8 +91,8 @@ public class letsmeetOnlineIntegrationTests {
 		MeetResponse response = onlineIntegration.createMeet(sessionID, "Feiern", "Jetzt wird gefeiert!", "China ist Europameister", "Mexico", cal.getTime(), 2);
 		MeetData data = response.getMeet();
 		int meetID = data.getId();
-		assertNull(onlineIntegration.getMeet(sessionID, meetID).getMeet());
-		assertEquals(onlineIntegration.getMeet(sessionID, meetID).getMeet().getAdmin(), "admin");	
+		assertNotNull(onlineIntegration.getMeet(sessionID, meetID).getMeet());
+		assertEquals(onlineIntegration.getMeet(sessionID, meetID).getMeet().getAdmin().getUserName(), "admin");	
 	}
 	
 	@Test
@@ -109,12 +115,24 @@ public class letsmeetOnlineIntegrationTests {
 		SessionResponse session = onlineIntegration.login("Charlotte", "WebWemser");
 		String sessionID = session.getSession().getIdentifier();
 		UserData charlotte = session.getSession().getUser();
+		
+		//meet (id) she wants to join:
 		MeetsResponse meets = onlineIntegration.getMeetsByCategory(sessionID, "Feiern");
-		MeetPreviewData meet = meets.getMeets()[0];
-		MeetResponse toJoin = onlineIntegration.getMeet(sessionID, meet.getId());
-		onlineIntegration.joinMeet(sessionID, meet.getId());
-		Set<UserData> users = toJoin.getMeet().getVisitors();
-		assertTrue(users.contains(charlotte));
+		MeetPreviewData[] meetArray = meets.getMeets();
+		assertNotNull(meetArray[0]);
+		MeetPreviewData meet = meetArray[0];
+		int meetIDSheWantsToJoin = meet.getId();
+		
+		//join meet:
+		MeetResponse joined = onlineIntegration.joinMeet(sessionID, meetIDSheWantsToJoin);
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK,joined.getReturnCode());
+		
+		//check if she is registered to the meet:
+		MeetResponse joinedMeet = onlineIntegration.getMeet(sessionID, meetIDSheWantsToJoin);
+		MeetData joinedMeetData = joinedMeet.getMeet();
+		boolean alreadyIn = joinedMeetData.alreadyIn(charlotte);
+		
+		assertEquals(true,alreadyIn);
 	}
 
 	@Test
@@ -131,5 +149,30 @@ public class letsmeetOnlineIntegrationTests {
 		onlineIntegration.leaveMeet(sessionID, meet.getId());
 		Set<UserData> users = toJoin.getMeet().getVisitors();
 		assertTrue(!users.contains(charlotte));
+	}
+	
+	@Test
+	public void shouldDeleteMeet(){
+		SessionResponse sessionResponse = onlineIntegration.login("admin", "WebWemser");
+		String sessionID = sessionResponse.getSession().getIdentifier();
+		//meet to delete:
+		MeetsResponse meetsResponse = onlineIntegration.getMeetsByUser(sessionID);
+		MeetPreviewData[] meetsByUser = meetsResponse.getMeets();
+		assertTrue(meetsByUser.length>0);
+		int meetID = meetsByUser[0].getId();
+		//delete
+		SessionResponse delete = onlineIntegration.deleteMeet(sessionID, meetID);
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, delete.getReturnCode());
+	}
+	@Test
+	public void shouldRemoveUser(){
+		//delete user
+		SessionResponse session = onlineIntegration.login("admin", "WebWemser");
+		String sessionID = session.getSession().getIdentifier();
+		ReturnCodeResponse response = onlineIntegration.deleteUser(sessionID);
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, response.getReturnCode());
+		//test if login fails:
+		session = onlineIntegration.login("admin", "WebWemser");
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.NO_ACCESS, session.getReturnCode());
 	}
 }

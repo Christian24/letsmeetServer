@@ -271,6 +271,17 @@ public class LetsmeetDAOTest {
 		SessionResponse delete = onlineIntegration.deleteMeet(sessionID, meetID);
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, delete.getReturnCode());
 	}
+	@Test
+	public void shouldRemoveUser(){
+		//delete user
+		SessionResponse session = onlineIntegration.login("admin", "WebWemser");
+		String sessionID = session.getSession().getIdentifier();
+		ReturnCodeResponse response = onlineIntegration.deleteUser(sessionID);
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, response.getReturnCode());
+		//test if login fails:
+		session = onlineIntegration.login("admin", "WebWemser");
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.NO_ACCESS, session.getReturnCode());
+	}
 	
 	
 }
