@@ -11,19 +11,23 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import letsmeet.dataAccess.DataAccessObject;
+import letsmeet.dataTransfer.ReturnCodeResponse;
+import letsmeet.dataTransfer.SessionResponse;
 import letsmeet.meet.Category;
 import letsmeet.meet.Meet;
 import letsmeet.user.User;
+import letsmeet.web.OnlineIntegration;
 
 import java.util.Calendar;
 import java.util.Date;
 
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertNull;
+import static junit.framework.TestCase.assertEquals;
 
 /**
  * dataAccessObject tests
- * @author Christian, Sergei
+ * @author Christian, Sergei, Julian
  *
  */
 @RunWith(Arquillian.class)
@@ -31,7 +35,10 @@ public class LetsmeetDAOTest {
 
     @EJB
     DataAccessObject dataAccessObject;
-
+    
+    @EJB
+	OnlineIntegration onlineIntegration;
+    
     @Deployment
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class, "test.war")
@@ -140,6 +147,26 @@ public class LetsmeetDAOTest {
         
         if(password != duplicateUser.getPassword() && description != duplicateUser.getDescription()) {
         	assertNotNull(originalUser);
-        }
+        }   
+    }   
+    
+    @Test
+    public void shouldLoginUser(){
+    	SessionResponse session = onlineIntegration.login("admin", "WebWemser");
+    	assertEquals(letsmeet.helpers.ReturnCodeHelper.NO_ACCESS, session.getReturnCode());   	
     }
+    
+    @Test
+    public void shouldLogutUser(){
+    	//login user "admin" from DataBuilder
+    	SessionResponse session = onlineIntegration.login("admin", "WebWemser");
+    	//logout user and compare ReturnResponseCode
+    	ReturnCodeResponse response = onlineIntegration.logout(session.getSession().getIdentifier());
+    	assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, response.getReturnCode());
+    }
+    
+    
+    
+    
+    
 }
