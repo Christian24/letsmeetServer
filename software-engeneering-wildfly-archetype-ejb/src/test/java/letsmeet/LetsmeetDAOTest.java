@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 
 import letsmeet.dataAccess.DataAccessObject;
 import letsmeet.dataTransfer.ReturnCodeResponse;
+import letsmeet.dataTransfer.SessionData;
 import letsmeet.dataTransfer.SessionResponse;
 import letsmeet.meet.Category;
 import letsmeet.meet.Meet;
@@ -157,11 +158,13 @@ public class LetsmeetDAOTest {
     }
     
     @Test
-    public void shouldLogutUser(){
+    public void shouldLogoutUser(){
     	//login user "admin" from DataBuilder
     	SessionResponse session = onlineIntegration.login("admin", "WebWemser");
     	//logout user and compare ReturnResponseCode
-    	ReturnCodeResponse response = onlineIntegration.logout(session.getSession().getIdentifier());
+    	SessionData sessionData = session.getSession();
+    	String sessionID = sessionData.getIdentifier();
+    	ReturnCodeResponse response = onlineIntegration.logout(sessionID);
     	assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, response.getReturnCode());
     }
     
