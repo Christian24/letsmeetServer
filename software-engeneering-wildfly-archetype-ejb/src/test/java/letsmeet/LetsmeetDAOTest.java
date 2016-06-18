@@ -222,16 +222,24 @@ public class LetsmeetDAOTest {
 		SessionResponse session = onlineIntegration.login("Charlotte", "WebWemser");
 		String sessionID = session.getSession().getIdentifier();
 		UserData charlotte = session.getSession().getUser();
+		
+		//meet (id) she wants to join:
 		MeetsResponse meets = onlineIntegration.getMeetsByCategory(sessionID, "Feiern");
 		MeetPreviewData[] meetArray = meets.getMeets();
 		assertNotNull(meetArray[0]);
 		MeetPreviewData meet = meetArray[0];
-		MeetResponse toJoin = onlineIntegration.getMeet(sessionID, meet.getId());
-		onlineIntegration.joinMeet(sessionID, meet.getId());
-		Set<UserData> users = toJoin.getMeet().getVisitors();
-		boolean contains = users.contains(charlotte);
-		assertEquals(true,contains);
-		//assertTrue(users.contains(charlotte));
+		int meetIDSheWantsToJoin = meet.getId();
+		
+		//join meet:
+		MeetResponse joined = onlineIntegration.joinMeet(sessionID, meetIDSheWantsToJoin);
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK,joined.getReturnCode());
+		
+		//check if she is registered to the meet:
+		MeetResponse joinedMeet = onlineIntegration.getMeet(sessionID, meetIDSheWantsToJoin);
+		MeetData joinedMeetData = joinedMeet.getMeet();
+		boolean alreadyIn = joinedMeetData.alreadyIn(charlotte);
+		
+		assertEquals(true,alreadyIn);
 	}
 
 	@Test
