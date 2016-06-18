@@ -173,6 +173,7 @@ public class LetsmeetDAOTest {
 	public void shouldLoginUser() {
 		SessionResponse session = onlineIntegration.login("Charlotte", "WebWemser");
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, session.getReturnCode());
+		
 		ReturnCodeResponse response = onlineIntegration.logout(session.getSession().getIdentifier());
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, response.getReturnCode());
 	}
@@ -272,15 +273,20 @@ public class LetsmeetDAOTest {
 		SessionResponse sessionResponse = onlineIntegration.login("admin", "WebWemser");
 		String sessionID = sessionResponse.getSession().getIdentifier();
 		//meet to delete:
-		MeetsResponse meetsResponse = onlineIntegration.getMeetsByUser(sessionID);
-		MeetPreviewData[] meetsByUser = meetsResponse.getMeets();
-		assertTrue(meetsByUser.length>0);
-		int meetID = meetsByUser[0].getId();
+		
+	        //Adapated from http://stackoverflow.com/questions/3581258/adding-n-hours-to-a-date-in-java
+	        Calendar cal = Calendar.getInstance(); // creates calendar
+	        cal.setTime(new Date()); // sets calendar time/date
+	        cal.add(Calendar.HOUR_OF_DAY, 1); // adds one hour
+		MeetResponse response = onlineIntegration.createMeet(sessionID, "Feiern", "Jetzt wird gefeiert!", "China ist Europameister", "Mexico", cal.getTime(), 2);
+		MeetData data = response.getMeet();
+		int meetID = data.getId();
+		
 		//delete
 		SessionResponse delete = onlineIntegration.deleteMeet(sessionID, meetID);
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, delete.getReturnCode());
-		ReturnCodeResponse response = onlineIntegration.logout(sessionID);
-		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, response.getReturnCode());
+		ReturnCodeResponse logout = onlineIntegration.logout(sessionID);
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, logout.getReturnCode());
 	}
 	
 	@Test
