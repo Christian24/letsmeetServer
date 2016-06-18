@@ -158,6 +158,7 @@ public class LetsmeetDAOTest {
         }   
     }   
 //========================================================================================================================//
+    //TESTS FOR ONLINEINTEGRATION EJB
 //========================================================================================================================//
    
     
@@ -196,7 +197,7 @@ public class LetsmeetDAOTest {
 		MeetResponse response = onlineIntegration.createMeet(sessionID, "Feiern", "Jetzt wird gefeiert!", "China ist Europameister", "Mexico", cal.getTime(), 2);
 		MeetData data = response.getMeet();
 		int meetID = data.getId();
-		assertNull(onlineIntegration.getMeet(sessionID, meetID).getMeet());
+		assertNotNull(onlineIntegration.getMeet(sessionID, meetID).getMeet());
 		assertEquals(onlineIntegration.getMeet(sessionID, meetID).getMeet().getAdmin(), "admin");	
 	}
 	

@@ -31,7 +31,7 @@ public class UserData extends DataTransferObject {
     @Override
     public boolean equals(Object o){
     	if(null==o)return false;
-    	if((o instanceof UserData)) return false;
+    	if(!(o instanceof UserData)) return false;
     	if(o == this) return true;
     	UserData that = (UserData) o;
     	
