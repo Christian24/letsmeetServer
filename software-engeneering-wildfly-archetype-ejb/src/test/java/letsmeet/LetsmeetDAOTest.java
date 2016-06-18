@@ -6,11 +6,14 @@ import javax.ejb.EJBTransactionRolledbackException;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian; 
 import org.jboss.shrinkwrap.api.ShrinkWrap; 
-import org.jboss.shrinkwrap.api.spec.WebArchive; 
+import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test; 
 import org.junit.runner.RunWith;
 
 import letsmeet.dataAccess.DataAccessObject;
+import letsmeet.dataAccess.DataBuilder;
 import letsmeet.dataTransfer.ConversationData;
 import letsmeet.dataTransfer.MeetData;
 import letsmeet.dataTransfer.MeetPreviewData;
@@ -55,6 +58,11 @@ public class LetsmeetDAOTest {
                 .addPackages(true, "letsmeet")
                 .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
                 .addAsWebInfResource("META-INF/ejb-jar.xml", "ejb-jar.xml");
+    }
+    
+    @After
+    public void setup(){
+    	DataBuilder db = new DataBuilder();
     }
 
     @Test
@@ -167,6 +175,7 @@ public class LetsmeetDAOTest {
 	public void shouldRegisterUser(){
 		SessionResponse register = onlineIntegration.register("Manfred", "Mullemaus", "Ich bin der Landvogt");
 		assertEquals(register.getReturnCode(),letsmeet.helpers.ReturnCodeHelper.OK);
+		onlineIntegration.deleteUser(register.getSession().getIdentifier());
 	}
 	
 	@Test
@@ -189,7 +198,7 @@ public class LetsmeetDAOTest {
 	}
 	
 	@Test
-	public void shoulCreateMeet(){
+	public void shouldCreateMeet(){
 		SessionResponse session = onlineIntegration.login("admin", "WebWemser");
 		String sessionID = session.getSession().getIdentifier();
 	        //Adapated from http://stackoverflow.com/questions/3581258/adding-n-hours-to-a-date-in-java
@@ -290,7 +299,7 @@ public class LetsmeetDAOTest {
 	}
 	
 	@Test
-	public void shouldRemoveUser(){
+	public void shouldDeleteUser(){
 		//register new user
 		SessionResponse session = onlineIntegration.register("Manfred Noppe", "Noppenschaum", "Ich bin der Landvogt");
 		assertEquals(session.getReturnCode(),letsmeet.helpers.ReturnCodeHelper.OK);
@@ -368,18 +377,19 @@ public class LetsmeetDAOTest {
 		SessionResponse leave2 = onlineIntegration.leaveMeet(sessionID2, meetId);
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK,leave2.getReturnCode());
 		//logout
-		ReturnCodeResponse logout2 = onlineIntegration.logout(sessionID2);
+		ReturnCodeResponse logout2 = onlineIntegration.logout(session2.getSession().getIdentifier());
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK,logout2.getReturnCode());
 		
 		//admin deletes
 		SessionResponse delete1 = onlineIntegration.deleteMeet(sessionID1, meetId);
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK,delete1.getReturnCode());
+		
 		//admin logs out
-		ReturnCodeResponse logout1 = onlineIntegration.logout(sessionID1);
+		ReturnCodeResponse logout1 = onlineIntegration.logout(session1.getSession().getIdentifier());
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK,logout1.getReturnCode());
 		
 		//third user logs out
-		ReturnCodeResponse logout3 = onlineIntegration.logout(sessionID3);
+		ReturnCodeResponse logout3 = onlineIntegration.logout(session3.getSession().getIdentifier());
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK,logout3.getReturnCode());
 		
 	}
