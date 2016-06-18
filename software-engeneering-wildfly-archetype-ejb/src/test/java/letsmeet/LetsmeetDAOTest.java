@@ -227,7 +227,9 @@ public class LetsmeetDAOTest {
 		MeetResponse toJoin = onlineIntegration.getMeet(sessionID, meet.getId());
 		onlineIntegration.joinMeet(sessionID, meet.getId());
 		Set<UserData> users = toJoin.getMeet().getVisitors();
-		assertTrue(users.contains(charlotte));
+		boolean contains = users.contains(charlotte);
+		assertEquals(true,contains);
+		//assertTrue(users.contains(charlotte));
 	}
 
 	@Test
