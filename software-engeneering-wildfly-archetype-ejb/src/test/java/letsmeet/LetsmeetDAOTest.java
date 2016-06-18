@@ -132,7 +132,7 @@ public class LetsmeetDAOTest {
     	 }
     }
     
-    @Test
+    @Test(expected = EJBTransactionRolledbackException.class)
     public void shouldNotCreateUserWithTakenUsername() {
     	User duplicateUser = new User();
     	duplicateUser.setUserName("Charlotte");
@@ -150,26 +150,5 @@ public class LetsmeetDAOTest {
         	assertNotNull(originalUser);
         }   
     }   
-    
-    @Test
-    public void shouldLoginUser(){
-    	SessionResponse session = onlineIntegration.login("admin", "WebWemser");
-    	assertEquals(letsmeet.helpers.ReturnCodeHelper.NO_ACCESS, session.getReturnCode());   	
-    }
-    
-    @Test
-    public void shouldLogoutUser(){
-    	//login user "admin" from DataBuilder
-    	SessionResponse session = onlineIntegration.login("admin", "WebWemser");
-    	//logout user and compare ReturnResponseCode
-    	SessionData sessionData = session.getSession();
-    	String sessionID = sessionData.getIdentifier();
-    	ReturnCodeResponse response = onlineIntegration.logout(sessionID);
-    	assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, response.getReturnCode());
-    }
-    
-    
-    
-    
-    
+
 }
