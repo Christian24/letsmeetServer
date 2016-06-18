@@ -369,18 +369,18 @@ public class LetsmeetDAOTest {
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK,leave2.getReturnCode());
 		//logout
 		ReturnCodeResponse logout2 = onlineIntegration.logout(sessionID2);
-		assertEquals(letsmeet.helpers.ReturnCodeHelper.NO_ACCESS,logout2.getReturnCode());
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK,logout2.getReturnCode());
 		
 		//admin deletes
 		SessionResponse delete1 = onlineIntegration.deleteMeet(sessionID1, meetId);
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK,delete1.getReturnCode());
 		//admin logs out
 		ReturnCodeResponse logout1 = onlineIntegration.logout(sessionID1);
-		assertEquals(letsmeet.helpers.ReturnCodeHelper.NO_ACCESS,logout1.getReturnCode());
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK,logout1.getReturnCode());
 		
 		//third user logs out
 		ReturnCodeResponse logout3 = onlineIntegration.logout(sessionID3);
-		assertEquals(letsmeet.helpers.ReturnCodeHelper.NO_ACCESS,logout3.getReturnCode());
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK,logout3.getReturnCode());
 		
 	}
 }
