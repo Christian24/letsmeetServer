@@ -60,7 +60,7 @@ public class Reply extends UserContent {
         setContent("This has been deleted");
     }
 
-    @Override
+    @Override @Deprecated
     public void delete() {
         parent = null;
     }

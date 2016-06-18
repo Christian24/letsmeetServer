@@ -483,7 +483,7 @@ if(session != null) {
     
     /**
      * Delivers the meet to the statistics component so it can be stored for further use.
-     * @param user
+     * @param meet
      */
     private void newMeetStatistics(Meet meet) {
     	letsmeetStatisticsBean.newMeetStatistics(meet);

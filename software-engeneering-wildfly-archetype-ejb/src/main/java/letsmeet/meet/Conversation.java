@@ -76,7 +76,7 @@ public class Conversation extends UserContent {
         replies = newReplies;
     }
 
-    @Override
+    @Override @Deprecated
     public void delete() {
         for(Reply reply : replies) {
             reply.delete();
