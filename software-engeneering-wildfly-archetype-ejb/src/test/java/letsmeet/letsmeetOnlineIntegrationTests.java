@@ -45,7 +45,8 @@ public class letsmeetOnlineIntegrationTests {
 
 	@Deployment
 	public static WebArchive createDeployment() {
-		return ShrinkWrap.create(WebArchive.class, "test.war").addPackages(true, "letsmeet")
+		return ShrinkWrap.create(WebArchive.class, "test.war")
+				.addPackages(true, "letsmeet")
 				.addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
 				.addAsWebInfResource("META-INF/ejb-jar.xml", "ejb-jar.xml");
 	}
