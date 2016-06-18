@@ -59,11 +59,6 @@ public class LetsmeetDAOTest {
                 .addAsResource("META-INF/test-persistence.xml", "META-INF/persistence.xml")
                 .addAsWebInfResource("META-INF/ejb-jar.xml", "ejb-jar.xml");
     }
-    
-    @After
-    public void setup(){
-    	DataBuilder db = new DataBuilder();
-    }
 
     @Test
     public void shouldCreateUserWithNamePasswordAndDescription() {
@@ -173,14 +168,16 @@ public class LetsmeetDAOTest {
     
     @Test
 	public void shouldRegisterUser(){
-		SessionResponse register = onlineIntegration.register("Manfred", "Mullemaus", "Ich bin der Landvogt");
+		SessionResponse register = onlineIntegration.register("RegisterUser", "Register", "RegisterUser");
 		assertEquals(register.getReturnCode(),letsmeet.helpers.ReturnCodeHelper.OK);
 		onlineIntegration.deleteUser(register.getSession().getIdentifier());
 	}
 	
 	@Test
 	public void shouldLoginUser() {
-		SessionResponse session = onlineIntegration.login("Charlotte", "WebWemser");
+		SessionResponse register = onlineIntegration.register("LoginUser", "Login", "LoginUser");
+		onlineIntegration.logout(register.getSession().getIdentifier());
+		SessionResponse session = onlineIntegration.login("LoginUser", "Login");
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, session.getReturnCode());
 		
 		ReturnCodeResponse response = onlineIntegration.logout(session.getSession().getIdentifier());
@@ -189,17 +186,17 @@ public class LetsmeetDAOTest {
 
 	@Test
 	public void shouldLogoutUser() {
-		SessionResponse session = onlineIntegration.login("Charlotte", "WebWemser");
-		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, session.getReturnCode());
-		SessionData sessionData = session.getSession();
-		String sessionID = sessionData.getIdentifier();
-		ReturnCodeResponse response = onlineIntegration.logout(sessionID);
+		SessionResponse session = onlineIntegration.register("LogoutUser", "WebWemser","LogoutUser");
+		ReturnCodeResponse response = onlineIntegration.logout(session.getSession().getIdentifier());
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, response.getReturnCode());
 	}
 	
 	@Test
 	public void shouldCreateMeet(){
-		SessionResponse session = onlineIntegration.login("admin", "WebWemser");
+		SessionResponse register = onlineIntegration.register("CreateUser", "Create", "CreateUser");
+		onlineIntegration.logout(register.getSession().getIdentifier());
+		
+		SessionResponse session = onlineIntegration.login("CreateUser", "Create");
 		String sessionID = session.getSession().getIdentifier();
 	        //Adapated from http://stackoverflow.com/questions/3581258/adding-n-hours-to-a-date-in-java
 	        Calendar cal = Calendar.getInstance(); // creates calendar
@@ -209,14 +206,16 @@ public class LetsmeetDAOTest {
 		MeetData data = response.getMeet();
 		int meetID = data.getId();
 		assertNotNull(onlineIntegration.getMeet(sessionID, meetID).getMeet());
-		assertEquals(onlineIntegration.getMeet(sessionID, meetID).getMeet().getAdmin().getUserName(), "admin");	
+		assertEquals(onlineIntegration.getMeet(sessionID, meetID).getMeet().getAdmin().getUserName(), "CreateUser");	
 		ReturnCodeResponse logout = onlineIntegration.logout(sessionID);
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, logout.getReturnCode());
 	}
 	
 	@Test
 	public void shouldReturnMeets(){
-			SessionResponse session = onlineIntegration.login("admin","WebWemser");
+		SessionResponse register = onlineIntegration.register("ReturnUser", "ReturnUser", "ReturnUser");
+		onlineIntegration.logout(register.getSession().getIdentifier());
+			SessionResponse session = onlineIntegration.login("ReturnUser","ReturnUser");
 			String sessionID = session.getSession().getIdentifier();
 		        //Adapated from http://stackoverflow.com/questions/3581258/adding-n-hours-to-a-date-in-java
 		        Calendar cal = Calendar.getInstance(); // creates calendar
@@ -230,18 +229,35 @@ public class LetsmeetDAOTest {
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, logout.getReturnCode());
 	}
 	
+	
+	public void createTestMeet1(){
+		SessionResponse session = onlineIntegration.register("TestUser", "TestUser", "TestUser");
+		String sessionID = session.getSession().getIdentifier();
+			//Adapated from http://stackoverflow.com/questions/3581258/adding-n-hours-to-a-date-in-java
+	        Calendar cal = Calendar.getInstance(); // creates calendar
+	        cal.setTime(new Date()); // sets calendar time/date
+	        cal.add(Calendar.HOUR_OF_DAY, 1); // adds one hour
+		onlineIntegration.createMeet(sessionID, "Feiern", "TestFeier", "China ist Europameister", "Mexico", cal.getTime(), 2);
+		onlineIntegration.logout(sessionID);
+	}
+	
 	@Test 
 	public void shouldJoinAMeet(){
-		//uses example meet from databuilder
-		SessionResponse session = onlineIntegration.login("Charlotte", "WebWemser");
+		SessionResponse register = onlineIntegration.register("JoinUser", "JoinUser", "JoinUser");
+		onlineIntegration.logout(register.getSession().getIdentifier());
+
+		createTestMeet1();
+		SessionResponse session = onlineIntegration.login("JoinUser", "JoinUser");
 		String sessionID = session.getSession().getIdentifier();
-		UserData charlotte = session.getSession().getUser();
+		UserData join = session.getSession().getUser();
 		
 		//meet (id) she wants to join:
 		MeetsResponse meets = onlineIntegration.getMeetsByCategory(sessionID, "Feiern");
 		MeetPreviewData[] meetArray = meets.getMeets();
-		assertNotNull(meetArray[0]);
 		MeetPreviewData meet = meetArray[0];
+		for(MeetPreviewData p : meetArray){
+			if(p.getAdmin().equals("TestUser")) meet = p; 
+		}
 		int meetIDSheWantsToJoin = meet.getId();
 		
 		//join meet:
@@ -251,35 +267,58 @@ public class LetsmeetDAOTest {
 		//check if she is registered to the meet:
 		MeetResponse joinedMeet = onlineIntegration.getMeet(sessionID, meetIDSheWantsToJoin);
 		MeetData joinedMeetData = joinedMeet.getMeet();
-		boolean alreadyIn = joinedMeetData.alreadyIn(charlotte);
+		boolean alreadyIn = joinedMeetData.alreadyIn(join);
 		
 		assertEquals(true,alreadyIn);
 		
 		ReturnCodeResponse response = onlineIntegration.logout(sessionID);
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, response.getReturnCode());
 	}
-
+	public void createTestMeet2(){
+		SessionResponse session = onlineIntegration.register("Test1User", "Test1User", "Test1User");
+		String sessionID = session.getSession().getIdentifier();
+			//Adapated from http://stackoverflow.com/questions/3581258/adding-n-hours-to-a-date-in-java
+	        Calendar cal = Calendar.getInstance(); // creates calendar
+	        cal.setTime(new Date()); // sets calendar time/date
+	        cal.add(Calendar.HOUR_OF_DAY, 1); // adds one hour
+		onlineIntegration.createMeet(sessionID, "Feiern", "TestFeier1", "China ist Europameister", "Mexico", cal.getTime(), 2);
+		onlineIntegration.logout(sessionID);
+	}
 	@Test
 	public void shouldLeaveAMeet(){
+		SessionResponse register = onlineIntegration.register("LeaveUser", "LeaveUser", "LeaveUser");
+		onlineIntegration.logout(register.getSession().getIdentifier());
 //		As used in shoulJoinAMeet()
-		SessionResponse session = onlineIntegration.login("Charlotte", "WebWemser");
+		createTestMeet2();
+		SessionResponse session = onlineIntegration.login("LeaveUser", "LeaveUser");
 		String sessionID = session.getSession().getIdentifier();
-		UserData charlotte = session.getSession().getUser();
-		MeetsResponse meets = onlineIntegration.getMeetsByCategory(sessionID, "Feiern");
-		MeetPreviewData meet = meets.getMeets()[0];
-		MeetResponse toJoin = onlineIntegration.getMeet(sessionID, meet.getId());
-		onlineIntegration.joinMeet(sessionID, meet.getId());
+		UserData leaver = session.getSession().getUser();
 		
-		onlineIntegration.leaveMeet(sessionID, meet.getId());
-		Set<UserData> users = toJoin.getMeet().getVisitors();
-		assertTrue(!users.contains(charlotte));
+		//meet (id) she wants to join:
+		MeetsResponse meets = onlineIntegration.getMeetsByCategory(sessionID, "Feiern");
+		MeetPreviewData[] meetArray = meets.getMeets();
+		MeetPreviewData meet = meetArray[0];
+		for(MeetPreviewData p : meetArray){
+			if(p.getAdmin().equals("TestUser1")) meet = p; 
+		}
+		int meetIDSheWantsToJoin = meet.getId();
+		MeetResponse joined = onlineIntegration.joinMeet(sessionID, meetIDSheWantsToJoin);
+		
+		onlineIntegration.leaveMeet(sessionID, joined.getMeet().getId());
+		Set<UserData> users = joined.getMeet().getVisitors();
+		assertTrue(!users.contains(leaver));
 		ReturnCodeResponse response = onlineIntegration.logout(sessionID);
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, response.getReturnCode());
 	}
 	
+	
+
 	@Test
 	public void shouldDeleteMeet(){
-		SessionResponse sessionResponse = onlineIntegration.login("admin", "WebWemser");
+		SessionResponse register = onlineIntegration.register("Deleter", "Deleter", "Deleter");
+		onlineIntegration.logout(register.getSession().getIdentifier());
+		
+		SessionResponse sessionResponse = onlineIntegration.login("Deleter", "Deleter");
 		String sessionID = sessionResponse.getSession().getIdentifier();
 		//meet to delete:
 		
@@ -287,7 +326,7 @@ public class LetsmeetDAOTest {
 	        Calendar cal = Calendar.getInstance(); // creates calendar
 	        cal.setTime(new Date()); // sets calendar time/date
 	        cal.add(Calendar.HOUR_OF_DAY, 1); // adds one hour
-		MeetResponse response = onlineIntegration.createMeet(sessionID, "Feiern", "Jetzt wird gefeiert!", "China ist Europameister", "Mexico", cal.getTime(), 2);
+		MeetResponse response = onlineIntegration.createMeet(sessionID, "Feiern", "Jetzt wird gefeiert! DELETER", "China ist Europameister", "Mexico", cal.getTime(), 2);
 		MeetData data = response.getMeet();
 		int meetID = data.getId();
 		
