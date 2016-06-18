@@ -41,6 +41,15 @@ public class UserData extends DataTransferObject {
     	return true;
     }
     
+    @Override
+    public int hashCode(){
+    	int result = 8;
+    	
+    	result = 37 * result + userName.hashCode();
+    	result = 37 * result + description.hashCode();
+    	return result;
+    }
+    
     public String getUserName() {
         return userName;
     }

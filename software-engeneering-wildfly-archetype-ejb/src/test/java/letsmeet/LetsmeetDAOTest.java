@@ -31,6 +31,7 @@ import java.util.Set;
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertNull;
 import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.assertTrue;
 import static junit.framework.TestCase.assertEquals;
 
 /**
