@@ -257,4 +257,20 @@ public class LetsmeetDAOTest {
 		Set<UserData> users = toJoin.getMeet().getVisitors();
 		assertTrue(!users.contains(charlotte));
 	}
+	
+	@Test
+	public void shouldDeleteMeet(){
+		SessionResponse sessionResponse = onlineIntegration.login("admin", "WebWemser");
+		String sessionID = sessionResponse.getSession().getIdentifier();
+		//meet to delete:
+		MeetsResponse meetsResponse = onlineIntegration.getMeetsByUser(sessionID);
+		MeetPreviewData[] meetsByUser = meetsResponse.getMeets();
+		assertTrue(meetsByUser.length>0);
+		int meetID = meetsByUser[0].getId();
+		//delete
+		SessionResponse delete = onlineIntegration.deleteMeet(sessionID, meetID);
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, delete.getReturnCode());
+	}
+	
+	
 }
