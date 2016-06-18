@@ -138,7 +138,7 @@ public class OnlineIntegration  {
         if(session != null && meet != null ) {
             boolean result =meet.join(session.getUser());
             int returnCode = ReturnCodeHelper.OK;
-            if(result) {
+            if(!result) {
                 //We were not able to join the meet, tell our client
                 returnCode = ReturnCodeHelper.NO_ACCESS;
             }
