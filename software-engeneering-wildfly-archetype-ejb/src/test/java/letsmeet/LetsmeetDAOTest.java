@@ -154,7 +154,7 @@ public class LetsmeetDAOTest {
         String password = originalUser.getPassword();
         String description = originalUser.getDescription();
         
-        if(password != duplicateUser.getPassword() && description != duplicateUser.getDescription()) {
+        if(!password.equals(duplicateUser.getPassword()) && !description.equals(duplicateUser.getDescription())) {
         	assertNotNull(originalUser);
         }   
     }   
@@ -199,7 +199,7 @@ public class LetsmeetDAOTest {
 		MeetData data = response.getMeet();
 		int meetID = data.getId();
 		assertNotNull(onlineIntegration.getMeet(sessionID, meetID).getMeet());
-		assertEquals(onlineIntegration.getMeet(sessionID, meetID).getMeet().getAdmin(), "admin");	
+		assertEquals(onlineIntegration.getMeet(sessionID, meetID).getMeet().getAdmin().getUserName(), "admin");	
 	}
 	
 	@Test
@@ -223,7 +223,9 @@ public class LetsmeetDAOTest {
 		String sessionID = session.getSession().getIdentifier();
 		UserData charlotte = session.getSession().getUser();
 		MeetsResponse meets = onlineIntegration.getMeetsByCategory(sessionID, "Feiern");
-		MeetPreviewData meet = meets.getMeets()[0];
+		MeetPreviewData[] meetArray = meets.getMeets();
+		assertNotNull(meetArray[0]);
+		MeetPreviewData meet = meetArray[0];
 		MeetResponse toJoin = onlineIntegration.getMeet(sessionID, meet.getId());
 		onlineIntegration.joinMeet(sessionID, meet.getId());
 		Set<UserData> users = toJoin.getMeet().getVisitors();
