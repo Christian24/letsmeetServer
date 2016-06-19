@@ -1,6 +1,5 @@
 package letsmeet.dataAccess;
 
-
 import javax.ejb.Stateless;
 import javax.persistence.*;
 
@@ -24,15 +23,14 @@ public class EntityManagerDAO implements DataAccessObject {
     @PersistenceContext
     protected EntityManager entityManager;
 
-
     /**
      * Finds a user by name
      * @param name
-     * @return
+     * @return User
      */
     @Override
     public User findUserByName(String name) {
-    return entityManager.find(User.class,name);
+    	return entityManager.find(User.class,name);
     }
 
     /**
@@ -41,7 +39,7 @@ public class EntityManagerDAO implements DataAccessObject {
      */
     @Override
     public void persist(Object obj) {
-    entityManager.persist(obj);
+    	entityManager.persist(obj);
     }
 
     /**
@@ -51,19 +49,16 @@ public class EntityManagerDAO implements DataAccessObject {
      */
     @Override
     public void delete(Object obj) {
-
-       
         //Prepare deleteContent
         //if(obj instanceof Deletable)
           //  ((Deletable)obj).delete();
         entityManager.remove(entityManager.contains(obj) ? obj : entityManager.merge(obj));
-
     }
 
     /**
      * Finds a session by id
      * @param id
-     * @return
+     * @return Meet
      */
     @Override
     public Meet getMeetById(int id) {
@@ -73,7 +68,7 @@ public class EntityManagerDAO implements DataAccessObject {
     /**
      * Finds a session by id, but does not care if it is active
      * @param id
-     * @return
+     * @return Session
      */
     @Override
     public Session findSessionByIdSimple(String id) {
@@ -84,7 +79,7 @@ public class EntityManagerDAO implements DataAccessObject {
      * Returns a session given an id.
      * Also checks if the session is currently active.
      * @param id
-     * @return
+     * @return Session
      */
     @Override
     public Session findSessionById(String id) {
@@ -98,7 +93,7 @@ public class EntityManagerDAO implements DataAccessObject {
     /**
      * Creates a new session for a given user
      * @param user
-     * @return
+     * @return Session
      */
     @Override
     public Session createSession(User user) {
@@ -112,7 +107,7 @@ public class EntityManagerDAO implements DataAccessObject {
      * Finds all Meets in the given timeframe
      * @param start
      * @param end
-     * @return
+     * @return Meet[]
      */
     @Override
     public Meet[] findMeets(Date start, Date end) {
@@ -121,14 +116,12 @@ public class EntityManagerDAO implements DataAccessObject {
         Meet[] output = new Meet[results.size()];
         results.toArray(output);
         return output;
-
-
     }
 
     /**
      * Finds a conversation by the given id
      * @param id
-     * @return
+     * @return Conversation
      */
     @Override
     public Conversation findConversationById(int id){
@@ -138,15 +131,16 @@ public class EntityManagerDAO implements DataAccessObject {
     /**
      * Finds a Reply by the given id
      * @param id
-     * @return
+     * @return Reply
      */
     @Override
     public Reply findReplyById(int id){
         return entityManager.find(Reply.class,id);
     }
+    
     /**
      * Returns a list of all categories
-     * @return
+     * @return Category[]
      */
     @Override
     public Category[] getCategories() {
@@ -170,7 +164,7 @@ public class EntityManagerDAO implements DataAccessObject {
     /**
      * Returns a category based on a categoryId
      * @param categoryId
-     * @return
+     * @return Category
      */
     @Override
     public Category findCategoryById(String categoryId) {

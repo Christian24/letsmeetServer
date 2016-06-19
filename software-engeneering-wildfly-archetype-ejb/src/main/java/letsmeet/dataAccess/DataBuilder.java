@@ -20,7 +20,6 @@ import letsmeet.web.OnlineIntegration;
  * Creates sample data that is useful on every server startup (e.g when database
  * was dropped
  * @author Christian
- *
  */
 @Singleton
 @Startup
@@ -49,6 +48,7 @@ public class DataBuilder {
 		dataAccessObject.persist(user);
 		log.info("Test User created");
 	}
+	
     /**
      * Creates a test admin
      */
@@ -90,7 +90,6 @@ public class DataBuilder {
 
             log.info("Test Meet created");
 		}
-
 	}
 
 	/**
@@ -104,7 +103,6 @@ public class DataBuilder {
 
 	/**
 	 * Creates a single category under the given name
-	 * 
 	 * @param name
 	 */
 	private void createCategory(String name) {
@@ -116,5 +114,4 @@ public class DataBuilder {
 			log.info("Category: " + name);
 		}
 	}
-
 }

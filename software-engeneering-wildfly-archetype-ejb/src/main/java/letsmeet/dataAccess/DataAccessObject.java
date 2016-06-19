@@ -33,5 +33,4 @@ public interface DataAccessObject {
     public Meet[] findMeets(Date start, Date end);
     public void delete(Object obj);
     public void flush();
-
 }
