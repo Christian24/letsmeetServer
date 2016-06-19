@@ -4,7 +4,8 @@ import javax.ejb.EJB;
 import javax.ejb.EJBTransactionRolledbackException;
 
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian; 
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit.InSequence;
 import org.jboss.shrinkwrap.api.ShrinkWrap; 
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
@@ -62,6 +63,7 @@ public class LetsmeetDAOTest {
     }
 
     @Test
+    @InSequence(1)
     public void shouldCreateUserWithNamePasswordAndDescription() {
         User user = new User();
         user.setDescription("Ich bin ein Wemser.");
@@ -74,6 +76,7 @@ public class LetsmeetDAOTest {
     }
 
     @Test(expected = EJBTransactionRolledbackException.class)
+    @InSequence(2)
     public void shouldNotCreateUserWithoutPassword() {
         User user = new User();
         user.setDescription("Ich bin ein Wemser.");
@@ -86,6 +89,7 @@ public class LetsmeetDAOTest {
     }
     
     @Test(expected =EJBTransactionRolledbackException.class)
+    @InSequence(3)
     public void meetShouldNotBeCreatedWithoutAdmin() {
         Meet meet = new Meet();
         Category category = dataAccessObject.findCategoryById("Feiern");
@@ -110,6 +114,7 @@ public class LetsmeetDAOTest {
     }
 
     @Test
+    @InSequence(4)
     public void meetShouldBeCreatedWithAdmin() {
         Meet meet = new Meet();
         Category category = dataAccessObject.findCategoryById("Feiern");
@@ -134,6 +139,7 @@ public class LetsmeetDAOTest {
     }
     
     @Test
+    @InSequence(5)
     public void shoulDeleteUser() {
     	 User user = dataAccessObject.findUserByName("admin");
     	 if(user != null) {
@@ -146,6 +152,7 @@ public class LetsmeetDAOTest {
     }
     
     @Test(expected =EJBTransactionRolledbackException.class)
+    @InSequence(6)
     public void shouldNotCreateUserWithTakenUsername() throws EJBTransactionRolledbackException {
     	User duplicateUser = new User();
     	duplicateUser.setUserName("Charlotte");
@@ -168,6 +175,7 @@ public class LetsmeetDAOTest {
 //========================================================================================================================//
     
     @Test
+    @InSequence(7)
 	public void shouldRegisterUser(){
 		SessionResponse register = onlineIntegration.register("RegisterUser", "Register", "RegisterUser");
 		assertEquals(register.getReturnCode(),letsmeet.helpers.ReturnCodeHelper.OK);
@@ -175,6 +183,7 @@ public class LetsmeetDAOTest {
 	}
 	
 	@Test
+	@InSequence(8)
 	public void shouldLoginUser() {
 		SessionResponse register = onlineIntegration.register("LoginUser", "Login", "LoginUser");
 		onlineIntegration.logout(register.getSession().getIdentifier());
@@ -186,6 +195,7 @@ public class LetsmeetDAOTest {
 	}
 
 	@Test
+	@InSequence(9)
 	public void shouldLogoutUser() {
 		SessionResponse session = onlineIntegration.register("LogoutUser", "WebWemser","LogoutUser");
 		ReturnCodeResponse response = onlineIntegration.logout(session.getSession().getIdentifier());
@@ -193,6 +203,7 @@ public class LetsmeetDAOTest {
 	}
 	
 	@Test
+	@InSequence(10)
 	public void shouldCreateMeet(){
 		SessionResponse register = onlineIntegration.register("CreateUser", "Create", "CreateUser");
 		onlineIntegration.logout(register.getSession().getIdentifier());
@@ -213,6 +224,7 @@ public class LetsmeetDAOTest {
 	}
 	
 	@Test
+	@InSequence(11)
 	public void shouldReturnMeets(){
 		SessionResponse register = onlineIntegration.register("ReturnUser", "ReturnUser", "ReturnUser");
 		onlineIntegration.logout(register.getSession().getIdentifier());
@@ -243,6 +255,7 @@ public class LetsmeetDAOTest {
 	}
 	
 	@Test 
+	@InSequence(12)
 	public void shouldJoinAMeet(){
 		SessionResponse register = onlineIntegration.register("JoinUser", "JoinUser", "JoinUser");
 		onlineIntegration.logout(register.getSession().getIdentifier());
@@ -275,6 +288,7 @@ public class LetsmeetDAOTest {
 		ReturnCodeResponse response = onlineIntegration.logout(sessionID);
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, response.getReturnCode());
 	}
+	
 	public void createTestMeet2(){
 		SessionResponse session = onlineIntegration.register("Test1User", "Test1User", "Test1User");
 		String sessionID = session.getSession().getIdentifier();
@@ -286,6 +300,7 @@ public class LetsmeetDAOTest {
 		onlineIntegration.logout(sessionID);
 	}
 	@Test
+	@InSequence(13)
 	public void shouldLeaveAMeet(){
 		SessionResponse register = onlineIntegration.register("LeaveUser", "LeaveUser", "LeaveUser");
 		onlineIntegration.logout(register.getSession().getIdentifier());
@@ -315,6 +330,7 @@ public class LetsmeetDAOTest {
 	
 
 	@Test
+	@InSequence(14)
 	public void shouldDeleteMeet(){
 		SessionResponse register = onlineIntegration.register("Deleter", "Deleter", "Deleter");
 		onlineIntegration.logout(register.getSession().getIdentifier());
@@ -339,6 +355,7 @@ public class LetsmeetDAOTest {
 	}
 	
 	@Test
+	@InSequence(15)
 	public void shouldDeleteUser(){
 		//register new user
 		SessionResponse session = onlineIntegration.register("Manfred Noppe", "Noppenschaum", "Ich bin der Landvogt");
@@ -360,6 +377,7 @@ public class LetsmeetDAOTest {
 	 * Later the admin deletes the meet.
 	 */
 	@Test
+	@InSequence(16)
 	public void superTest(){
 		//register first user
 		SessionResponse session1 = onlineIntegration.register("first", "first", "first user");
