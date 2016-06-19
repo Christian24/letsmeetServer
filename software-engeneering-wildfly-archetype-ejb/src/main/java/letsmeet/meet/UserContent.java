@@ -18,7 +18,7 @@ public abstract class UserContent extends Deletable implements Serializable {
     protected String poster;
     protected Date postedAt;
     protected String content;
-   @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Id @GeneratedValue(strategy = GenerationType.SEQUENCE)
     protected int id;
 
     public UserContent() {
@@ -32,7 +32,7 @@ public abstract class UserContent extends Deletable implements Serializable {
 
     /**
      * Who posted this
-     * @return
+     * @return String
      */
     public String getPoster() {
         return poster;
@@ -48,7 +48,7 @@ public abstract class UserContent extends Deletable implements Serializable {
 
     /**
      * Get when this was posted
-     * @return
+     * @return Date
      */
     public Date getPostedAt() {
         return postedAt;
@@ -64,7 +64,7 @@ public abstract class UserContent extends Deletable implements Serializable {
 
     /**
      * Get the actual text content
-     * @return
+     * @return String
      */
     public String getContent() {
         return content;
@@ -77,6 +77,7 @@ public abstract class UserContent extends Deletable implements Serializable {
     public void setContent(String text) {
         content = text;
     }
+    
     /**
      * Gets the id
      * @return

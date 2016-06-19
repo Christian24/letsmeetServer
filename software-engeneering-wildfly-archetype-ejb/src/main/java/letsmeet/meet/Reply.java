@@ -20,7 +20,9 @@ public class Reply extends UserContent {
     /**
      * Dummy constructor
      */
-    public Reply(){}
+    public Reply(){
+    	
+    }
 
     /**
      * Constructs a new Reply
@@ -35,7 +37,6 @@ public class Reply extends UserContent {
     }
 
 
-
     /**
      * Sets the Conversation this belongs to
      * @param newParent
@@ -46,12 +47,11 @@ public class Reply extends UserContent {
 
     /**
      * Gets the conversation this belongs to
-     * @return
+     * @return Conversation
      */
     public Conversation getParent(){
         return parent;
     }
-
 
     /**
      * "Deletes" the reply

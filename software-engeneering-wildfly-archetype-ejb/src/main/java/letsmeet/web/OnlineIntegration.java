@@ -21,18 +21,16 @@ import java.util.logging.Logger;
 /**
  * The Webservice that will be consumed by the Android Client
  * @author Christian
- *
  */
 @WebService
 @Stateless
 @WebContext(contextRoot="/letsmeet")
 public class OnlineIntegration  {
 
-    private static final Logger log = Logger.getLogger( OnlineIntegration.class.getName() );
+    private static final Logger log = Logger.getLogger( OnlineIntegration.class.getName());
     
     @EJB
     protected DataAccessObject dataAccessObject;
-
 	@EJB
 	private LetsmeetStatisticsBean letsmeetStatisticsBean;
     
@@ -75,10 +73,9 @@ public class OnlineIntegration  {
      * Logs a user in
      * @param name
      * @param password
-     * @return
+     * @return SessionResponse
      */
     public SessionResponse login(String name, String password) {
-
         User preExisting = dataAccessObject.findUserByName(name);
         log.info("User logs in");
 
@@ -96,7 +93,7 @@ public class OnlineIntegration  {
     /**
      * Logs a user out
      * @param sessionID
-     * @return
+     * @return ReturnCodeResponse
      */
     public ReturnCodeResponse logout(String sessionID) {
         Session session = dataAccessObject.findSessionById(sessionID);
@@ -113,7 +110,7 @@ public class OnlineIntegration  {
      * @param sessionID
      * @param start unix timestamp
      * @param end unix timestamp
-     * @return
+     * @return MeetsResponse
      */
     public MeetsResponse getMeets(String sessionID, Date start, Date end) {
 
@@ -130,7 +127,7 @@ public class OnlineIntegration  {
      * Makes a user associated with the given session join the given Meet
      * @param sessionID
      * @param meetID
-     * @return
+     * @return MeetResponse
      */
     public MeetResponse joinMeet(String sessionID, int meetID) {
         Session session = dataAccessObject.findSessionById(sessionID);
@@ -159,7 +156,7 @@ public class OnlineIntegration  {
      * @param location
      * @param date
      * @param maxUsers
-     * @return
+     * @return MeetResponse
      */
     public MeetResponse updateMeet(String sessionID, int meetID, String categoryId, String description, String title, String location,
                                    Date date, int maxUsers) {
@@ -188,7 +185,7 @@ public class OnlineIntegration  {
      * Makes the user associated with the session leave the specified Meet
      * @param sessionID
      * @param meetID
-     * @return
+     * @return MeetResponse
      */
     public MeetResponse leaveMeet(String sessionID, int meetID) {
         log.info("Session ID: " + sessionID );
@@ -199,7 +196,6 @@ public class OnlineIntegration  {
             meet.leave(session.getUser());
             return new MeetResponse(session,meet);
         }
-
         return new MeetResponse();
     }
 
@@ -207,7 +203,7 @@ public class OnlineIntegration  {
      * Deletes a Meet
      * @param sessionID
      * @param meetID
-     * @return
+     * @return SessionResponse
      */
     public SessionResponse deleteMeet(String sessionID, int meetID){
         Session session = dataAccessObject.findSessionById(sessionID);
@@ -223,12 +219,11 @@ public class OnlineIntegration  {
     /**
      * Deletes a user
      * @param sessionID
-     * @return
+     * @return ReturnCodeResponse
      */
     public ReturnCodeResponse deleteUser(String sessionID) {
         Session session = dataAccessObject.findSessionById(sessionID);
         if(session != null) {
-
             session.setHasEnded(true);
             dataAccessObject.delete(session.getUser());
 
@@ -241,8 +236,7 @@ public class OnlineIntegration  {
      * Updates a user's password
      * @param sessionID
      * @param password the new password
-     *
-     * @return
+     * @return SessionResponse
      */
     public SessionResponse updateUserPassword(String sessionID,String password) {
         Session session = dataAccessObject.findSessionById(sessionID);
@@ -255,16 +249,15 @@ public class OnlineIntegration  {
                 return new SessionResponse(session);
             }
             return new SessionResponse(ReturnCodeHelper.NOT_FOUND);
-
         }
         return new SessionResponse();
     }
+    
     /**
      * Updates a user's description
      * @param sessionID
      * @param description the new description
-     *
-     * @return
+     * @return SessionResponse
      */
     public SessionResponse updateUserDescription(String sessionID,String description) {
         Session session = dataAccessObject.findSessionById(sessionID);
@@ -272,12 +265,9 @@ public class OnlineIntegration  {
             User user = session.getUser();
             if(user != null) {
                 user.setDescription(description);
-
-
                 return new SessionResponse(session);
             }
             return new SessionResponse(ReturnCodeHelper.NOT_FOUND);
-
         }
         return new SessionResponse();
     }
@@ -286,7 +276,7 @@ public class OnlineIntegration  {
      * Gets a specific meet
      * @param sessionID
      * @param meetID
-     * @return
+     * @return MeetResponse
      */
     public MeetResponse getMeet(String sessionID, int meetID) {
         Meet meet = dataAccessObject.getMeetById(meetID);
@@ -307,19 +297,18 @@ public class OnlineIntegration  {
      */
     public MeetsResponse getMeetsByUser(String sessionID) {
         Session session = dataAccessObject.findSessionById(sessionID);
-if(session != null) {
-    Meet[] meets = new Meet[session.getUser().getMeetsCreated().size()];
-    session.getUser().getMeetsCreated().toArray(meets);
-  return new MeetsResponse(session, meets );
-
-}
+        if(session != null) {
+        	Meet[] meets = new Meet[session.getUser().getMeetsCreated().size()];
+        	session.getUser().getMeetsCreated().toArray(meets);
+        	return new MeetsResponse(session, meets );
+        }
         return new MeetsResponse();
     }
 
     /**
      * Returns all the categories available on the server
      * @param sessionId
-     * @return
+     * @return CategoriesResponse
      */
     public CategoriesResponse getCategories(String sessionId) {
         Session session = dataAccessObject.findSessionById(sessionId);
@@ -333,7 +322,7 @@ if(session != null) {
     /**
      * Returns only categories which have at least one Meet in them
      * @param sessionId
-     * @return
+     * @return CategoriesResponse
      */
     public CategoriesResponse getCategoriesWithMeets(String sessionId) {
     	Session session = dataAccessObject.findSessionById(sessionId);
@@ -357,7 +346,7 @@ if(session != null) {
      * Gets all meets for a given category
      * @param sessionId
      * @param categoryId
-     * @return
+     * @return MeetsResponse
      */
     public  MeetsResponse getMeetsByCategory(String sessionId, String categoryId) {
         Session session = dataAccessObject.findSessionById(sessionId);
@@ -376,7 +365,7 @@ if(session != null) {
      * @param title
      * @param location
      * @param date
-     * @return
+     * @return MeetResponse
      */
     public MeetResponse createMeet(String sessionId,String categoryId, String description, String title, String location,
                                    Date date, int maxUsers) {
@@ -403,7 +392,7 @@ if(session != null) {
      * @param sessionId
      * @param meetId
      * @param text
-     * @return
+     * @return MeetResponse
      */
     public MeetResponse createNewConversation(String sessionId, int meetId, String text){
         Session session = dataAccessObject.findSessionById(sessionId);
@@ -424,7 +413,7 @@ if(session != null) {
      * @param sessionId
      * @param conversationId
      * @param text
-     * @return
+     * @return MeetResponse
      */
     public MeetResponse addToConversation(String sessionId, int conversationId, String text){
         Session session = dataAccessObject.findSessionById(sessionId);
@@ -443,7 +432,7 @@ if(session != null) {
      * Deletes a reply
      * @param sessionId
      * @param replyId
-     * @return
+     * @return MeetResponse
      */
     public MeetResponse deleteReply(String sessionId, int replyId) {
         Session session = dataAccessObject.findSessionById(sessionId);
@@ -459,7 +448,7 @@ if(session != null) {
      * Deletes a conversation
      * @param sessionId
      * @param conversationId
-     * @return
+     * @return MeetResponse
      */
     public  MeetResponse deleteConversation(String sessionId, int conversationId){
         Session session = dataAccessObject.findSessionById(sessionId);
@@ -470,14 +459,13 @@ if(session != null) {
             return new MeetResponse(session,meet);
         }
         return new MeetResponse();
-
-        }
-    
+    }
+     
 
     /**
      * Instructs the DataAccessObject to create a new session
      * @param user
-     * @return
+     * @return Session
      */
     private Session createSession(User user) {
        return dataAccessObject.createSession(user);

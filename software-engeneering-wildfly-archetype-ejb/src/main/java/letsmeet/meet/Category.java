@@ -10,7 +10,6 @@ import java.util.Set;
 /**
  * A category used to filter meets
  * @author Christian
- *
  */
 @Entity
 public class Category implements Serializable {
@@ -37,6 +36,7 @@ public class Category implements Serializable {
         meets = new HashSet<>();
         setTitle(name);
     }
+    
     /**
      * Gets the title of the category
      * @return
@@ -62,5 +62,4 @@ public class Category implements Serializable {
         meets.toArray(meetsOutput);
         return  meetsOutput;
     }
-
 }

@@ -19,9 +19,6 @@ import java.util.Set;
  */
 @Entity
 public class Meet extends Deletable implements Serializable {
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	@GeneratedValue @Id
     protected int id;
@@ -39,14 +36,15 @@ public class Meet extends Deletable implements Serializable {
     protected int maxGuests;
     @NotNull
     protected String title;
+    @ManyToMany(cascade = CascadeType.REMOVE)
+    protected Set<User> visitors;
+    
     public Meet() {
         visitors = new HashSet<User>();
         conversations = new HashSet<Conversation>();
         maxGuests = 10;
     }
-    @ManyToMany(cascade = CascadeType.REMOVE)
-    protected Set<User> visitors;
-
+   
     /**
      * Sets the datetime
      * @param newDateTime
@@ -57,7 +55,7 @@ public class Meet extends Deletable implements Serializable {
 
     /**
      * Gets the datetime
-     * @return
+     * @return Date
      */
     public Date getDateTime() {
         return this.dateTime;
@@ -65,7 +63,7 @@ public class Meet extends Deletable implements Serializable {
 
     /**
      * Gets the description
-     * @return
+     * @return String
      */
     public String getDescription() {
         return description;
@@ -81,7 +79,7 @@ public class Meet extends Deletable implements Serializable {
 
     /**
      * Gets the number of allowed guests
-     * @return
+     * @return int
      */
     public int getMaxGuests() {
         return maxGuests;
