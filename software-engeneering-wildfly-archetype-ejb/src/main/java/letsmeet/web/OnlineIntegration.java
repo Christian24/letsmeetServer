@@ -104,6 +104,7 @@ public class OnlineIntegration  {
             session.setHasEnded(true);
             return new ReturnCodeResponse(ReturnCodeHelper.OK);
         }
+        log.info("Session is null.");
         return new ReturnCodeResponse(ReturnCodeHelper.NOT_FOUND);
     }
 
