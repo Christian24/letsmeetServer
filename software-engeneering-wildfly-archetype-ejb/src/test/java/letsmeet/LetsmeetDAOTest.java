@@ -358,10 +358,10 @@ public class LetsmeetDAOTest {
         Calendar cal = Calendar.getInstance(); // creates calendar
         cal.setTime(new Date()); // sets calendar time/date
         cal.add(Calendar.HOUR_OF_DAY, 1); // adds one hour
-		MeetResponse editable = onlineIntegration.createMeet(editor.getSession().getIdentifier(), "Feiern", "EditorMeet", "Editer", "editi", cal.getTime(), 3);
+		MeetResponse editable = onlineIntegration.createMeet(onlineIntegration.login("Editor", "Edit").getSession().getIdentifier(), "Feiern", "EditorMeet", "Editer", "editi", cal.getTime(), 3);
 		String descOrig = editable.getMeet().getDescription();
-		MeetResponse edited = onlineIntegration.updateMeet(editor.getSession().getIdentifier(), editable.getMeet().getId(), "Feiern", "DasistNeu", "Editer", "editi", cal.getTime(), 3);
-		String descNew = edited.getMeet().getDescription();
+		MeetResponse edited = onlineIntegration.updateMeet(onlineIntegration.login("Editor", "Edit").getSession().getIdentifier(), editable.getMeet().getId(), "Feiern", "DasistNeu", "Editer", "editi", cal.getTime(), 3);
+		String descNew = onlineIntegration.getMeetsByUser(onlineIntegration.login("Editor", "Edit").getSession().getIdentifier()).getMeets()[0].getDescription();
 		assertNotEquals(descOrig,descNew);
 	}
 	
@@ -431,7 +431,6 @@ public class LetsmeetDAOTest {
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK,leave2.getReturnCode());
 		//logout
 		ReturnCodeResponse logout2 = onlineIntegration.logout(session2.getSession().getIdentifier());
-		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK,logout2.getReturnCode());
 		
 		//admin deletes
 		SessionResponse delete1 = onlineIntegration.deleteMeet(sessionID1, meetId);
