@@ -15,12 +15,14 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.jws.WebService;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.logging.Logger;
 
 /**
  * The Webservice that will be consumed by the Android Client
- * @author Christian
+ * @author Christian, Julian
  */
 @WebService
 @Stateless
@@ -66,6 +68,7 @@ public class OnlineIntegration  {
         user.setPassword(password);
         dataAccessObject.persist(user);
         Session session = createSession(user);
+        newUserStatistics(session.getUser());
         return new SessionResponse(session);
     }
 
@@ -140,6 +143,7 @@ public class OnlineIntegration  {
                 //We were not able to join the meet, tell our client
                 returnCode = ReturnCodeHelper.NO_ACCESS;
             }
+            userJoinedMeet(session.getUser(), meet);
             return new MeetResponse(session,meet,returnCode);
         }
 
@@ -382,6 +386,7 @@ public class OnlineIntegration  {
             meet.setDateTime(date);
             meet.setMaxGuests(maxUsers);
             dataAccessObject.persist(meet);
+            newMeetStatistics(meet);
             return new MeetResponse(session,meet);
         }
         return new MeetResponse();
@@ -455,7 +460,7 @@ public class OnlineIntegration  {
         Conversation conversation = dataAccessObject.findConversationById(conversationId);
         if(session != null && conversation != null) {
             Meet meet = conversation.getOrigin();
-        dataAccessObject.delete(conversation);
+            dataAccessObject.delete(conversation);
             return new MeetResponse(session,meet);
         }
         return new MeetResponse();
@@ -478,4 +483,24 @@ public class OnlineIntegration  {
     private void newMeetStatistics(Meet meet) {
     	letsmeetStatisticsBean.newMeetStatistics(meet);
     }
+    /**
+     * Called when a new User registers to create him in letsmeetStatistics
+     * @param user User that just registered
+     */
+    private void newUserStatistics(User user){
+    	letsmeetStatisticsBean.newUserStatistics(user);
+    }
+    /**
+     * Called when user joins meet
+     * @param user User that joined the meet
+     * @param meet Containing the Meet that has been joined
+     */
+    private void userJoinedMeet(User user, Meet meet){
+    	letsmeetStatisticsBean.userJoinedMeet(user, meet);
+    }
+    
+    
+    
+    
+    
 }
