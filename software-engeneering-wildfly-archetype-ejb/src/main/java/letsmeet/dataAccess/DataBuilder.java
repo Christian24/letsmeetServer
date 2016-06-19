@@ -78,7 +78,7 @@ public class DataBuilder {
 			// http://stackoverflow.com/questions/3581258/adding-n-hours-to-a-date-in-java
 			Calendar cal = Calendar.getInstance(); // creates calendar
 			cal.setTime(new Date()); // sets calendar time/date
-			cal.add(Calendar.HOUR_OF_DAY, 1); // adds one hour
+			cal.add(Calendar.DAY_OF_WEEK, 3); // adds one hour
 
 			meet.setDateTime(cal.getTime());
 			dataAccessObject.persist(meet);
