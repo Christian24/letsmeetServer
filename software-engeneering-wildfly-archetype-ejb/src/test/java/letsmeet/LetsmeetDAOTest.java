@@ -35,6 +35,7 @@ import java.util.Set;
 import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertNull;
 import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.*;
 import static junit.framework.TestCase.assertTrue;
 import static junit.framework.TestCase.assertEquals;
 
@@ -281,7 +282,7 @@ public class LetsmeetDAOTest {
 	        Calendar cal = Calendar.getInstance(); // creates calendar
 	        cal.setTime(new Date()); // sets calendar time/date
 	        cal.add(Calendar.HOUR_OF_DAY, 1); // adds one hour
-		onlineIntegration.createMeet(sessionID, "Feiern", "TestFeier1", "China ist Europameister", "Mexico", cal.getTime(), 2);
+		onlineIntegration.createMeet(sessionID, "Feiern", "TestFeier1", "China ist Europameister", "Mexico", cal.getTime(), 5);
 		onlineIntegration.logout(sessionID);
 	}
 	@Test
@@ -306,7 +307,7 @@ public class LetsmeetDAOTest {
 		
 		onlineIntegration.leaveMeet(sessionID, joined.getMeet().getId());
 		Set<UserData> users = joined.getMeet().getVisitors();
-		assertTrue(!users.contains(leaver));
+		assertFalse(users.contains(session.getSession().getUser()));
 		ReturnCodeResponse response = onlineIntegration.logout(sessionID);
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, response.getReturnCode());
 	}
