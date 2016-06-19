@@ -177,7 +177,8 @@ public class OnlineIntegration  {
                 meet.setLocation(location);
                 meet.setDateTime(date);
                 meet.setCategory(category);
-
+                
+                return new MeetResponse(session,meet);
             }
         }
         return new MeetResponse();
