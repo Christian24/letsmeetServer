@@ -29,10 +29,10 @@ public class MeetsResponse extends SessionResponse {
         super();
     }
 
-
     public void setMeets(MeetPreviewData[] newMeets) {
         meets = newMeets;
     }
+    
     public MeetPreviewData[] getMeets() {
         return meets;
     }

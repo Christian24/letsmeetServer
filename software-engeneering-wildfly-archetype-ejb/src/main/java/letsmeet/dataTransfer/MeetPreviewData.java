@@ -96,7 +96,7 @@ public class MeetPreviewData extends DataTransferObject {
 
     public MeetPreviewData() {
 
-}
+    }
 
     /**
      * Creates a new preview from the given Meet

@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 /**
  * The base class for DataTransferObjects
- * O
  * @author Christian
  */
 public abstract class DataTransferObject implements Serializable {

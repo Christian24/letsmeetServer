@@ -10,7 +10,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-
 /**
  * The DataTransferObject for Meet
  * @author Christian
@@ -31,63 +30,92 @@ public class MeetData extends DataTransferObject {
     protected String location;
     protected int maxGuests;
     protected String title;
+    protected Set<UserData> visitors;
+    
     public MeetData() {
         visitors = new HashSet<UserData>();
         conversations = new HashSet<ConversationData>();
     }
 
-    protected Set<UserData> visitors;
-
     public void setDateTime(Date newDateTime) {
         this.dateTime = newDateTime;
     }
+    
     public Date getDateTime() {
         return this.dateTime;
     }
+    
     public String getDescription() {
         return description;
     }
+    
     public void setDescription(String newDescription) {
         description = newDescription;
     }
+    
     public int getMaxGuests() {
         return maxGuests;
     }
+    
     public void setMaxGuests(int newMaxGuests) {
         maxGuests = newMaxGuests;
     }
+    
     public String getLocation() {
         return location;
     }
+    
     public void setLocation(String newLocation) {
         location = newLocation;
     }
+    
     public String getTitle() {
         return title;
     }
+    
     public void setTitle(String newTitle) {
         title = newTitle;
     }
+    
     public String getCategory() {
         return category;
     }
-    public Set<ConversationData> getConversations() {return conversations;}
+    
+    public Set<ConversationData> getConversations() {
+    	return conversations;
+    }
+    
     public void setConversations(Set<ConversationData> newConversations) {
         conversations = newConversations;
     }
-    public int getId(){return id;}
-    public void setId(int newId){id = newId;}
+    
+    public int getId(){
+    	return id;
+    }
+    
+    public void setId(int newId){
+    	id = newId;
+    }
+    
     public void setCategory(String newCategory) {
         category = newCategory;
     }
+    
     public void setVisitors(Set<UserData> users) {
         visitors = users;
     }
-    public Set<UserData> getVisitors() {return visitors;}
+    
+    public Set<UserData> getVisitors() {
+    	return visitors;
+    }
+    
     public void setAdmin(UserData admin) {
         this.admin = admin;
     }
-    public UserData getAdmin() {return admin;}
+    
+    public UserData getAdmin() {
+    	return admin;
+    }
 
     /**
      * Creates a instance based on an actual Meet
@@ -111,17 +139,16 @@ public class MeetData extends DataTransferObject {
             conversations.add(new ConversationData(conversation));
         }
         this.admin = new UserData(meet.getAdmin());
-
     }
+    
     /**
      * Checks if a user is already visitor or admin for a meet
      * @param check
-     * @return
+     * @return boolean
      */
     public boolean alreadyIn(UserData check) {
         if(getAdmin().equals(check) || visitors.contains(check))
             return true;
-
         return false;
     }
 }

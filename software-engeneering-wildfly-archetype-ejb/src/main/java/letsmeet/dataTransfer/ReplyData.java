@@ -16,17 +16,17 @@ public class ReplyData extends UserContentData {
 	public int getParent() {
         return parent;
     }
+	
     public void setParent(int newParent) {
         parent = newParent;
     }
 
     public ReplyData() {
-    super();
+    	super();
     }
+    
     public ReplyData(Reply original) {
         super(original);
         setParent((original.getParent().getId()));
     }
-
-
 }
