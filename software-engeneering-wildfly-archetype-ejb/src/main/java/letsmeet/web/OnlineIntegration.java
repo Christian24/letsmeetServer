@@ -174,7 +174,8 @@ public class OnlineIntegration  {
                 meet.setLocation(location);
                 meet.setDateTime(date);
                 meet.setCategory(category);
-                
+                //Potential fix for Jannik
+                dataAccessObject.flush();
                 return new MeetResponse(session,meet);
             }
         }
