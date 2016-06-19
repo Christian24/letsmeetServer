@@ -15,7 +15,8 @@ public class ConversationData extends UserContentData {
 	private static final long serialVersionUID = -5043102158715961327L;
 	
 	protected int origin;
-
+    protected Set<ReplyData> replies;
+	
     public Set<ReplyData> getReplies() {
         return replies;
     }
@@ -23,8 +24,6 @@ public class ConversationData extends UserContentData {
     public void setReplies(Set<ReplyData> replies) {
         this.replies = replies;
     }
-
-    protected Set<ReplyData> replies;
 
     public ConversationData() {
         super();
@@ -46,7 +45,5 @@ public class ConversationData extends UserContentData {
         for(Reply reply : conversation.getReplies()){
         replies.add(new ReplyData(reply));
         }
-
     }
-
 }

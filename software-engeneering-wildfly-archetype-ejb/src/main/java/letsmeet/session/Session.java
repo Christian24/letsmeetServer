@@ -33,7 +33,9 @@ public class Session implements Serializable {
      * Gets the identifier
      * @return
      */
-    public String getIdentifier() {return identifier;}
+    public String getIdentifier() {
+    	return identifier;
+    }
 
     /**
      * Sets the identifier
@@ -42,16 +44,22 @@ public class Session implements Serializable {
     public void setIdentifier(String newUID) {
         identifier = newUID;
     }
+    
     public void setHasEnded(boolean value) {
         hasEnded = value;
     }
-    public boolean getHasEnded() {return hasEnded;}
+    
+    public boolean getHasEnded() {
+    	return hasEnded;
+    }
 
     /**
      * Gets the User associated with this session instance
      * @return
      */
-    public User getUser() {return user;}
+    public User getUser() {
+    	return user;
+    }
 
     /**
      * Sets the User associated with this session

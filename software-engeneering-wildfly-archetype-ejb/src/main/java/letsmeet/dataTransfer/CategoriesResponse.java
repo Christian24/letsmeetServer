@@ -18,7 +18,7 @@ public class CategoriesResponse extends SessionResponse {
      * Dummy constructor if there is no session
      */
     public CategoriesResponse(){
-    super();
+    	super();
     }
 
     /**
@@ -35,6 +35,11 @@ public class CategoriesResponse extends SessionResponse {
             index++;
         }
     }
-    public String[] getCategories() {return categories;}
-    public void setCategories(String[] newCategories) {categories = newCategories;}
+    public String[] getCategories() {
+    	return categories;
+    }
+    
+    public void setCategories(String[] newCategories) {
+    	categories = newCategories;
+    }
 }

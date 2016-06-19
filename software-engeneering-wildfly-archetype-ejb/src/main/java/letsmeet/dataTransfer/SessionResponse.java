@@ -17,11 +17,18 @@ public class SessionResponse extends ReturnCodeResponse {
      * Whetever there is no sessionData
      * @return
      */
-    public boolean isEmpty() {return session == null;}
-    public SessionData getSession() {return session;}
+    public boolean isEmpty() {
+    	return session == null;
+    }
+    
+    public SessionData getSession() {
+    	return session;
+    }
+    
     public void setSession(SessionData newSession) {
         session = newSession;
     }
+    
     public SessionResponse(int returnCode) {
         super(returnCode);
     }
@@ -41,6 +48,5 @@ public class SessionResponse extends ReturnCodeResponse {
     public SessionResponse(Session session) {
         super(ReturnCodeHelper.OK);
         this.setSession(new SessionData(session));
-
     }
 }

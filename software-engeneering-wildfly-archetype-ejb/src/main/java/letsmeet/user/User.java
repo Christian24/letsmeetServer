@@ -34,9 +34,6 @@ public class User extends Deletable implements Serializable {
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE, orphanRemoval = true)
     protected Set<Session> sessions;
 
-
-
-
     /**
      * Dummy constructor
      */
@@ -45,15 +42,13 @@ public class User extends Deletable implements Serializable {
         meetsCreated = new HashSet<Meet>();
         meetsToVisit = new HashSet<Meet>();
         sessions = new HashSet<Session>();
-
     }
 
     /**
      * Get all the Meet instances this User needs to visit
      * @return
      */
-    public Collection<Meet> getMeetsToVisit()
-    {
+    public Collection<Meet> getMeetsToVisit() {
         return meetsToVisit;
     }
 
@@ -77,7 +72,9 @@ public class User extends Deletable implements Serializable {
      * Set the value
      * @param newMeetsCreated
      */
-    public void setMeetsCreated(Set<Meet> newMeetsCreated) {meetsCreated = newMeetsCreated;}
+    public void setMeetsCreated(Set<Meet> newMeetsCreated) {
+    	meetsCreated = newMeetsCreated;
+    }
 
     /**
      * Get the username
@@ -93,14 +90,15 @@ public class User extends Deletable implements Serializable {
      */
     public void setUserName(String newUserName) {
         userName = newUserName;
-
     }
 
     /**
      * Get the description
      * @return
      */
-    public String getDescription() {return description;}
+    public String getDescription() {
+    	return description;
+    }
 
     /**
      * Set the description
@@ -133,6 +131,5 @@ public class User extends Deletable implements Serializable {
          meet.delete();
          dataAccessObject.delete(meet);
      }
-
     }
 }

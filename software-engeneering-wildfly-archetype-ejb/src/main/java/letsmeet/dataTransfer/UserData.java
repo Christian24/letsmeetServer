@@ -16,8 +16,6 @@ public class UserData extends DataTransferObject {
 	protected String userName;
     protected String description;
 
-    
-
     public UserData() {
 
     }
@@ -53,9 +51,11 @@ public class UserData extends DataTransferObject {
     public String getUserName() {
         return userName;
     }
+    
     public void setUserName(String newUserName) {
         userName = newUserName;
     }
+    
     public String getDescription() {return description;}
     public void setDescription(String newDescription) {
         description = newDescription;

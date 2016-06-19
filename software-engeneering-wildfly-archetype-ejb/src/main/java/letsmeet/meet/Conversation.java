@@ -43,7 +43,6 @@ public class Conversation extends UserContent {
         replies = new HashSet<Reply>();
     }
 
-
     /**
      * Sets the Meet this belongs to
      * @param meet

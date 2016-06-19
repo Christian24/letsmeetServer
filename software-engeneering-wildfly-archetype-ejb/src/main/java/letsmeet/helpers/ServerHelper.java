@@ -3,8 +3,8 @@ package letsmeet.helpers;
 import java.util.Date;
 
 /**
- * @author Christian
  * A helper class to store helpers used on the server
+ * @author Christian
  */
 public class ServerHelper {
     /**
@@ -20,7 +20,7 @@ public class ServerHelper {
     /**
      * Gets a date from a unix timestamp
      * @param timestamp
-     * @return
+     * @return Date
      * @deprecated No longer in use
      */
     public static Date getDateFromUnixTimestamp(long timestamp) {

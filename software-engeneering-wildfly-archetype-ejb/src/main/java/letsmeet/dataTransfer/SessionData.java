@@ -8,7 +8,6 @@ import letsmeet.session.Session;
 /**
  * DataTransferObject for Session
  * @author Christian
- *
  */
 public class SessionData extends DataTransferObject {
 
@@ -39,17 +38,28 @@ public class SessionData extends DataTransferObject {
     public SessionData() {
 
     }
-    public String getIdentifier() {return identifier;}
+    
+    public String getIdentifier() {
+    	return identifier;
+    }
+    
     public void setIdentifier(String newUID) {
         identifier = newUID;
     }
+    
     public void setHasEnded(boolean value) {
         hasEnded = value;
     }
-    public boolean getHasEnded() {return hasEnded;}
-    public UserData getUser() {return user;}
+    
+    public boolean getHasEnded() {
+    	return hasEnded;
+    }
+    
+    public UserData getUser() {
+    	return user;
+    }
+    
     public void setUser(UserData newUser) {
         user = newUser;
     }
-
 }
