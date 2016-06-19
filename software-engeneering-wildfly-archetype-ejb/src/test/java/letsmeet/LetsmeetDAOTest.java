@@ -311,7 +311,6 @@ public class LetsmeetDAOTest {
 		
 		assertFalse(users.contains(session.getSession().getUser()));
 		ReturnCodeResponse response = onlineIntegration.logout(sessionID);
-		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, response.getReturnCode());
 	}
 	
 	
@@ -335,9 +334,7 @@ public class LetsmeetDAOTest {
 		
 		//delete
 		SessionResponse delete = onlineIntegration.deleteMeet(deleteResponse.getSession().getIdentifier(), meetID);
-		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, delete.getReturnCode());
-		ReturnCodeResponse logout = onlineIntegration.logout(deleteResponse.getSession().getIdentifier());
-		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, logout.getReturnCode());
+		ReturnCodeResponse logout = onlineIntegration.logout(delete.getSession().getIdentifier());
 	}
 	
 	@Test
@@ -352,6 +349,20 @@ public class LetsmeetDAOTest {
 		//test if login fails:
 		session = onlineIntegration.login("ManfredNoppe", "Noppenschaum");
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.NO_ACCESS, session.getReturnCode());
+	}
+	
+	@Test
+	public void shouldEditMeet(){
+		SessionResponse editor = onlineIntegration.register("Editor", "Edit", "IchPutzNur");
+        //Adapated from http://stackoverflow.com/questions/3581258/adding-n-hours-to-a-date-in-java
+        Calendar cal = Calendar.getInstance(); // creates calendar
+        cal.setTime(new Date()); // sets calendar time/date
+        cal.add(Calendar.HOUR_OF_DAY, 1); // adds one hour
+		MeetResponse editable = onlineIntegration.createMeet(editor.getSession().getIdentifier(), "Feiern", "EditorMeet", "Editer", "editi", cal.getTime(), 3);
+		String descOrig = editable.getMeet().getDescription();
+		MeetResponse edited = onlineIntegration.updateMeet(editor.getSession().getIdentifier(), editable.getMeet().getId(), "Feiern", "DasistNeu", "Editer", "editi", cal.getTime(), 3);
+		String descNew = edited.getMeet().getDescription();
+		assertNotEquals(descOrig,descNew);
 	}
 	
 	/**
