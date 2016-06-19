@@ -336,22 +336,22 @@ public class LetsmeetDAOTest {
 		SessionResponse register = onlineIntegration.register("Deleter", "Deleter", "Deleter");
 		onlineIntegration.logout(register.getSession().getIdentifier());
 		
-		SessionResponse sessionResponse = onlineIntegration.login("Deleter", "Deleter");
-		String sessionID = sessionResponse.getSession().getIdentifier();
+		SessionResponse deleteResponse = onlineIntegration.login("Deleter", "Deleter");
+		String sessionID = deleteResponse.getSession().getIdentifier();
 		//meet to delete:
 		
 	        //Adapated from http://stackoverflow.com/questions/3581258/adding-n-hours-to-a-date-in-java
 	        Calendar cal = Calendar.getInstance(); // creates calendar
 	        cal.setTime(new Date()); // sets calendar time/date
 	        cal.add(Calendar.HOUR_OF_DAY, 1); // adds one hour
-		MeetResponse response = onlineIntegration.createMeet(sessionID, "Feiern", "Jetzt wird gefeiert! DELETER", "China ist Europameister", "Mexico", cal.getTime(), 2);
+		MeetResponse response = onlineIntegration.createMeet(deleteResponse.getSession().getIdentifier(), "Feiern", "Jetzt wird gefeiert! DELETER", "China ist Europameister", "Mexico", cal.getTime(), 2);
 		MeetData data = response.getMeet();
 		int meetID = data.getId();
 		
 		//delete
-		SessionResponse delete = onlineIntegration.deleteMeet(sessionID, meetID);
+		SessionResponse delete = onlineIntegration.deleteMeet(deleteResponse.getSession().getIdentifier(), meetID);
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, delete.getReturnCode());
-		ReturnCodeResponse logout = onlineIntegration.logout(sessionResponse.getSession().getIdentifier());
+		ReturnCodeResponse logout = onlineIntegration.logout(deleteResponse.getSession().getIdentifier());
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, logout.getReturnCode());
 	}
 	
@@ -359,14 +359,14 @@ public class LetsmeetDAOTest {
 	@InSequence(15)
 	public void shouldDeleteUser(){
 		//register new user
-		SessionResponse session = onlineIntegration.register("Manfred Noppe", "Noppenschaum", "Ich bin der Landvogt");
+		SessionResponse session = onlineIntegration.register("ManfredNoppe", "Noppenschaum", "Ich bin der Landvogt");
 		assertEquals(session.getReturnCode(),letsmeet.helpers.ReturnCodeHelper.OK);
 		String sessionID = session.getSession().getIdentifier();
 		//delete user
 		ReturnCodeResponse response = onlineIntegration.deleteUser(sessionID);
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, response.getReturnCode());
 		//test if login fails:
-		session = onlineIntegration.login("Manfred Noppe", "Noppenschaum");
+		session = onlineIntegration.login("ManfredNoppe", "Noppenschaum");
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.NO_ACCESS, session.getReturnCode());
 	}
 	

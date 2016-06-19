@@ -11,6 +11,7 @@ public class ReturnCodeResponse extends DataTransferObject {
 
 	private static final long serialVersionUID = -7206933922166304817L;
 	
+	protected int returnCode;
 	/**
      * Dummy constructor returning No_Acess
      */
@@ -23,7 +24,7 @@ public class ReturnCodeResponse extends DataTransferObject {
         super();
         this.returnCode = returnCode;
     }
-    protected int returnCode;
+    
     public int getReturnCode() {return returnCode;}
     public void setReturnCode(int newReturnCode) {
         returnCode = newReturnCode;
