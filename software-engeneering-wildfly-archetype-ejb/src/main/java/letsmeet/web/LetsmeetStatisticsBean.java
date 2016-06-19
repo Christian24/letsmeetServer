@@ -45,6 +45,7 @@ public class LetsmeetStatisticsBean {
 	 */
 	public void newMeetStatistics(Meet meet) {
 		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("function", "newMeetStatistics");
     	map.put("user", meet.getAdmin().getUserName());
     	map.put("category", meet.getCategory().getTitle());
     	map.put("maxGuests",Integer.toString(meet.getMaxGuests()));
@@ -62,6 +63,7 @@ public class LetsmeetStatisticsBean {
 	 */
 	public void newUserStatistics(User user){
 		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("function", "newUserStatistics");
 		map.put("name", user.getUserName());
 		map.put("dateCreated", Calendar.getInstance().getTime().toString());
     	try {
@@ -77,6 +79,7 @@ public class LetsmeetStatisticsBean {
 	 */
 	public void userJoinedMeet(User user, Meet meet){
 		HashMap<String,String> map = new HashMap<String,String>();
+		map.put("function", "userJoinedMeet");
 		map.put("user",user.getUserName());
 		map.put("meetID", Integer.toString(meet.getId()));
     	try {
