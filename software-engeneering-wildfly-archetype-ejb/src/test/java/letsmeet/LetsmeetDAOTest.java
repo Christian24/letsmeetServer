@@ -185,42 +185,42 @@ public class LetsmeetDAOTest {
 	@Test
 	@InSequence(8)
 	public void shouldLoginUser() {
-		SessionResponse register = onlineIntegration.register("LoginUser", "Login", "LoginUser");
-		onlineIntegration.logout(register.getSession().getIdentifier());
-		SessionResponse session = onlineIntegration.login("LoginUser", "Login");
-		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, session.getReturnCode());
+		SessionResponse login = onlineIntegration.register("LoginUser", "Login", "LoginUser");
+		onlineIntegration.logout(login.getSession().getIdentifier());
+		SessionResponse loginR = onlineIntegration.login("LoginUser", "Login");
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, loginR.getReturnCode());
 		
-		ReturnCodeResponse response = onlineIntegration.logout(session.getSession().getIdentifier());
+		ReturnCodeResponse response = onlineIntegration.logout(loginR.getSession().getIdentifier());
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, response.getReturnCode());
 	}
 
 	@Test
 	@InSequence(9)
 	public void shouldLogoutUser() {
-		SessionResponse session = onlineIntegration.register("LogoutUser", "WebWemser","LogoutUser");
-		ReturnCodeResponse response = onlineIntegration.logout(session.getSession().getIdentifier());
-		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, response.getReturnCode());
+		SessionResponse logout = onlineIntegration.register("LogoutUser", "WebWemser","LogoutUser");
+		ReturnCodeResponse logoutR = onlineIntegration.logout(logout.getSession().getIdentifier());
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, logoutR.getReturnCode());
 	}
 	
 	@Test
 	@InSequence(10)
 	public void shouldCreateMeet(){
-		SessionResponse register = onlineIntegration.register("CreateUser", "Create", "CreateUser");
-		onlineIntegration.logout(register.getSession().getIdentifier());
+		SessionResponse create = onlineIntegration.register("CreateUser", "Create", "CreateUser");
+		onlineIntegration.logout(create.getSession().getIdentifier());
 		
-		SessionResponse session = onlineIntegration.login("CreateUser", "Create");
-		String sessionID = session.getSession().getIdentifier();
+		SessionResponse createR = onlineIntegration.login("CreateUser", "Create");
+		String sessionID = createR.getSession().getIdentifier();
 	        //Adapated from http://stackoverflow.com/questions/3581258/adding-n-hours-to-a-date-in-java
 	        Calendar cal = Calendar.getInstance(); // creates calendar
 	        cal.setTime(new Date()); // sets calendar time/date
 	        cal.add(Calendar.HOUR_OF_DAY, 1); // adds one hour
-		MeetResponse response = onlineIntegration.createMeet(session.getSession().getIdentifier(), "Feiern", "Jetzt wird gefeiert!", "China ist Europameister", "Mexico", cal.getTime(), 2);
-		MeetData data = response.getMeet();
+		MeetResponse createRes = onlineIntegration.createMeet(createR.getSession().getIdentifier(), "Feiern", "Jetzt wird gefeiert!", "China ist Europameister", "Mexico", cal.getTime(), 2);
+		MeetData data = createRes.getMeet();
 		int meetID = data.getId();
 		assertNotNull(onlineIntegration.getMeet(sessionID, meetID).getMeet());
 		assertEquals(onlineIntegration.getMeet(sessionID, meetID).getMeet().getAdmin().getUserName(), "CreateUser");	
-		ReturnCodeResponse logout = onlineIntegration.logout(sessionID);
-		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, logout.getReturnCode());
+		ReturnCodeResponse createL = onlineIntegration.logout(sessionID);
+		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, createL.getReturnCode());
 	}
 	
 	@Test
@@ -320,8 +320,9 @@ public class LetsmeetDAOTest {
 		int meetIDSheWantsToJoin = meet.getId();
 		MeetResponse joined = onlineIntegration.joinMeet(sessionID, meetIDSheWantsToJoin);
 		
-		onlineIntegration.leaveMeet(sessionID, joined.getMeet().getId());
-		Set<UserData> users = joined.getMeet().getVisitors();
+		MeetResponse res = onlineIntegration.leaveMeet(sessionID, joined.getMeet().getId());
+		Set<UserData> users = res.getMeet().getVisitors();
+		
 		assertFalse(users.contains(session.getSession().getUser()));
 		ReturnCodeResponse response = onlineIntegration.logout(sessionID);
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, response.getReturnCode());
