@@ -144,8 +144,8 @@ public class LetsmeetDAOTest {
     	 }
     }
     
-    @Test
-    public void shouldNotCreateUserWithTakenUsername() {
+    @Test(expected =EJBTransactionRolledbackException.class)
+    public void shouldNotCreateUserWithTakenUsername() throws EJBTransactionRolledbackException {
     	User duplicateUser = new User();
     	duplicateUser.setUserName("Charlotte");
     	duplicateUser.setPassword("1234");
@@ -202,7 +202,7 @@ public class LetsmeetDAOTest {
 	        Calendar cal = Calendar.getInstance(); // creates calendar
 	        cal.setTime(new Date()); // sets calendar time/date
 	        cal.add(Calendar.HOUR_OF_DAY, 1); // adds one hour
-		MeetResponse response = onlineIntegration.createMeet(sessionID, "Feiern", "Jetzt wird gefeiert!", "China ist Europameister", "Mexico", cal.getTime(), 2);
+		MeetResponse response = onlineIntegration.createMeet(session.getSession().getIdentifier(), "Feiern", "Jetzt wird gefeiert!", "China ist Europameister", "Mexico", cal.getTime(), 2);
 		MeetData data = response.getMeet();
 		int meetID = data.getId();
 		assertNotNull(onlineIntegration.getMeet(sessionID, meetID).getMeet());
@@ -237,7 +237,7 @@ public class LetsmeetDAOTest {
 	        Calendar cal = Calendar.getInstance(); // creates calendar
 	        cal.setTime(new Date()); // sets calendar time/date
 	        cal.add(Calendar.HOUR_OF_DAY, 1); // adds one hour
-		onlineIntegration.createMeet(sessionID, "Feiern", "TestFeier", "China ist Europameister", "Mexico", cal.getTime(), 2);
+		onlineIntegration.createMeet(session.getSession().getIdentifier(), "Feiern", "TestFeier", "China ist Europameister", "Mexico", cal.getTime(), 2);
 		onlineIntegration.logout(sessionID);
 	}
 	
@@ -299,7 +299,7 @@ public class LetsmeetDAOTest {
 		MeetPreviewData[] meetArray = meets.getMeets();
 		MeetPreviewData meet = meetArray[0];
 		for(MeetPreviewData p : meetArray){
-			if(p.getAdmin().equals("TestUser1")) meet = p; 
+			if(p.getAdmin().equals("Test1User")) meet = p; 
 		}
 		int meetIDSheWantsToJoin = meet.getId();
 		MeetResponse joined = onlineIntegration.joinMeet(sessionID, meetIDSheWantsToJoin);
@@ -333,7 +333,7 @@ public class LetsmeetDAOTest {
 		//delete
 		SessionResponse delete = onlineIntegration.deleteMeet(sessionID, meetID);
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, delete.getReturnCode());
-		ReturnCodeResponse logout = onlineIntegration.logout(sessionID);
+		ReturnCodeResponse logout = onlineIntegration.logout(sessionResponse.getSession().getIdentifier());
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, logout.getReturnCode());
 	}
 	
