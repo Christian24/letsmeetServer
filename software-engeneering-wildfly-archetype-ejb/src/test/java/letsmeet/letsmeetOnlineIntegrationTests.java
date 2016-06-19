@@ -119,8 +119,7 @@ public class letsmeetOnlineIntegrationTests {
 				assertTrue(!response.isEmpty());
 			ReturnCodeResponse logout = onlineIntegration.logout(sessionID);
 			assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, logout.getReturnCode());
-		}
-		
+		}		
 		
 		public void createTestMeet1(){
 			SessionResponse session = onlineIntegration.register("TestUser", "TestUser", "TestUser");
@@ -177,6 +176,7 @@ public class letsmeetOnlineIntegrationTests {
 			onlineIntegration.createMeet(sessionID, "Feiern", "TestFeier1", "China ist Europameister", "Mexico", cal.getTime(), 5);
 			onlineIntegration.logout(sessionID);
 		}
+		
 		@Test
 		public void shouldLeaveAMeet(){
 			SessionResponse register = onlineIntegration.register("LeaveUser", "LeaveUser", "LeaveUser");
@@ -203,7 +203,6 @@ public class letsmeetOnlineIntegrationTests {
 			assertFalse(users.contains(session.getSession().getUser()));
 			ReturnCodeResponse response = onlineIntegration.logout(sessionID);
 		}
-		
 		
 
 		@Test

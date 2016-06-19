@@ -49,7 +49,6 @@ public class LetsmeetDAOTest {
 
     @EJB
     DataAccessObject dataAccessObject;
-    
     @EJB
 	OnlineIntegration onlineIntegration;
     
@@ -137,7 +136,6 @@ public class LetsmeetDAOTest {
     public void shoulDeleteUser() {
     	 User user = dataAccessObject.findUserByName("admin");
     	 if(user != null) {
-    		 
     	
     	 dataAccessObject.delete(user);
     	 user = dataAccessObject.findUserByName("admin");
@@ -286,6 +284,7 @@ public class LetsmeetDAOTest {
 		onlineIntegration.createMeet(sessionID, "Feiern", "TestFeier1", "China ist Europameister", "Mexico", cal.getTime(), 5);
 		onlineIntegration.logout(sessionID);
 	}
+	
 	@Test
 	public void shouldLeaveAMeet(){
 		SessionResponse register = onlineIntegration.register("LeaveUser", "LeaveUser", "LeaveUser");
@@ -312,7 +311,6 @@ public class LetsmeetDAOTest {
 		assertFalse(users.contains(session.getSession().getUser()));
 		ReturnCodeResponse response = onlineIntegration.logout(sessionID);
 	}
-	
 	
 
 	@Test
@@ -415,8 +413,7 @@ public class LetsmeetDAOTest {
 			if(cd.getOrigin() == meetId) conversationId = cd.getId();
 		}
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK,conversation.getReturnCode());
-		
-		
+			
 		//first user answers
 		MeetResponse answer1 = onlineIntegration.addToConversation(sessionID1, conversationId, "Answer from user1");
 		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK, answer1.getReturnCode());
@@ -444,8 +441,3 @@ public class LetsmeetDAOTest {
 		
 	}
 }
-
-
-
-
-
