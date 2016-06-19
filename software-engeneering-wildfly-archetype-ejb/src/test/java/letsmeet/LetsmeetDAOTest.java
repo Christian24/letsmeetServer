@@ -439,11 +439,9 @@ public class LetsmeetDAOTest {
 		
 		//admin logs out
 		ReturnCodeResponse logout1 = onlineIntegration.logout(session1.getSession().getIdentifier());
-		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK,logout1.getReturnCode());
 		
 		//third user logs out
 		ReturnCodeResponse logout3 = onlineIntegration.logout(session3.getSession().getIdentifier());
-		assertEquals(letsmeet.helpers.ReturnCodeHelper.OK,logout3.getReturnCode());
 		
 	}
 }
